@@ -7,6 +7,14 @@ import codecs
 import json
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from CarbonEmissions.ProvManager import ProvManager
+
+from prov.server.models import save_bundle
+from prov.model import graph
+
+import tempfile, os
+import matplotlib.pyplot as plt
+import matplotlib.image as mpimg
 
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
@@ -169,4 +177,18 @@ def saveTripLeg(request):
     models.TransportMeansUsedByUsers(userProfile=userProfile, transportMean=transportMean).save()
     
     return HttpResponse('ok')
+
+
+#temporary view for testing provenance grap creation
+def prov(request):
+    provManager = ProvManager()
+    bundle = provManager.createTripCreationGraph()
+    
+    
+    #save the graph
+    #save_bundle(bundle)
+    
+    
+    
+    
     
