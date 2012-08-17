@@ -9,12 +9,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from CarbonEmissions.ProvManager import ProvManager
 
-from prov.server.models import save_bundle
-from prov.model import graph
-
-import tempfile, os
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+from django.utils import simplejson
 
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
@@ -100,8 +95,9 @@ def getTransportMeanId(request):
         transmission = request.GET['transmission']
         
         car = models.Car.objects.get(model=model, description=description, engineCapacity=engineCapacity, fuelType=fuelType, transmission=transmission)
+        json = simplejson.dumps( {'transportMeanId': car.id})
         
-        return HttpResponse(car.id)
+        return HttpResponse(json,  mimetype='application/json')
 
 #saves the trip and returns the id of the saved trip
 @csrf_exempt
@@ -114,7 +110,10 @@ def saveTrip(request):
     
     trip = models.Trip.objects.create(userProfile=userProfile, type=postedType, name=postedName, date=postedDate)
     
-    return HttpResponse(trip.id)
+    #return the id of the trip along with information about the user.
+    json = simplejson.dumps( {'tripId': trip.id, 'userName': request.user.username, 'email': request.user.email} )
+    
+    return HttpResponse(json,  mimetype='application/json')
 
 #saves the trip leg 
 @csrf_exempt
@@ -168,21 +167,27 @@ def saveTripLeg(request):
                                            directGHGEmissions = 1.23)
         
     #save the trip leg
-    models.TripLeg(trip=trip, startAddress=startAddress, endAddress=endAddress, transportMean=transportMean, step=tripLegStep, \
-                                  time=tripLegTime).save()
+    tripLeg = models.TripLeg.objects.create(trip=trip, startAddress=startAddress, endAddress=endAddress, transportMean=transportMean, \
+                                            step=tripLegStep, time=tripLegTime)
     
     
     #finally store this transport mean in the transportMeanUsedByusers model, for future use
     userProfile = User.get_profile(request.user)
     models.TransportMeansUsedByUsers(userProfile=userProfile, transportMean=transportMean).save()
     
-    return HttpResponse('ok')
+    json = simplejson.dumps( {'tripLegId': tripLeg.id} )
+    
+    return HttpResponse(json, mimetype='application/json')
 
 
-#temporary view for testing provenance grap creation
+#a view that will call all the methods for creating and persisting provenance graphs for each action
+@csrf_exempt
 def prov(request):
     provManager = ProvManager()
-    bundle = provManager.createTripCreationGraph()
+    post = request.POST
+    if post['actionPerformed'] == 'tripCreation':
+        bundle = provManager.createTripCreationGraph(post['userName'], post['userEmail'], post['tripId'],\
+                                                      simplejson.loads(post['tripLegIds']), post['startTime'], post['endTime'])
     
     
     #save the graph

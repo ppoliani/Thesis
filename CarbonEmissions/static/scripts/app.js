@@ -480,6 +480,14 @@ App.tripManagerController = Em.Object.create({
 	type : '',
 	date : '',
 	
+	//information that will be send to the ProvManager for creating the graphs
+	tripLegIds: [],
+	tripId: '',
+	userName: '',
+	userEmail: '',
+	startTime: '',
+	endTime: '',
+	
 	/*a function that will collect the input data*/
 	collateUserInput: function(){
 		var tripView = App.addTripView;
@@ -548,20 +556,30 @@ App.tripManagerController = Em.Object.create({
 			date: '2012-10-01',//this.date
 		};
 		var self= this;
+		
+		//the starting time of the tripCreation activity
+		this.startTime = this.xsdDateTime( new Date() );
+		
 		//save the trip
 		$.ajax({
 			type: 'POST',
 			url: url,
 			data: data,
+			async: false,
 			success: function(data){
-				self.saveTripLegs(data);
+				self.tripId = data.tripId;
+				self.userName = data.userName;
+				self.userEmail = data.email;
+				
+				self.saveTripLegs(self.tripId);
 			}
 		});
 	},
 	
 	/*saves all the trip legs of the trip*/
 	saveTripLegs: function(tripId){
-			
+		var self = this;
+		
 		//iterate over the content (array of trip leg models) of the controller
 		for( var i = 0; i < this.content.length; i++ ){
 			var tripLegModel = this.content[i],
@@ -579,14 +597,13 @@ App.tripManagerController = Em.Object.create({
 												   + '&engineCapacity=' + carModel.get('engineCapacity') 
 												   + '&fuelType=' + carModel.get('fuelType') 
 												   + '&transmission=' + carModel.get('transmission');	
-						var self = this;
 						//find the car id
 						$.ajax({
 							type: 'GET',
 							url: url,
+							async: false,
 							success: function(data){
-								self.saveTripLeg(tripLegModel, data, '', 0, '', tripId);
-								//self.transportMeanId = data;	
+								self.saveTripLeg(tripLegModel, data.transportMeanId, '', 0, '', tripId);
 							}
 				
 						});
@@ -601,11 +618,23 @@ App.tripManagerController = Em.Object.create({
 												   
 			}
 		}
+		
+						
+		//the end time of the tripCreation activity
+		self.endTime = this.xsdDateTime( new Date() );
+		
+		//invoke method on the server-side to create provenance graphs. 
+		self.createProvenanceGraph('tripCreation');
+
+		
+		
 	},
 	
 	/*a function that save individual trip leg into the database*/
 	saveTripLeg: function(tripLegModel, transportMeanId, newCarName, newCarEngineCapacity, newCarFuelType, tripId){
 		var url = '/save-trip-leg/';
+		var self = this;
+		
 		var data = {
 			//the id of the trip that these trip legs belong to 
 			tripId: tripId,
@@ -637,7 +666,7 @@ App.tripManagerController = Em.Object.create({
 			endAddrLongitude: tripLegModel.get('endAddress').get('longitude'),
 			endAddrLatitude: tripLegModel.get('endAddress').get('latitude'),
 				
-			//the id of the transport mean that is already stored in the datbase
+			//the id of the transport mean that is already stored in the database
 			transportMeanId: transportMeanId,
 			//will have value only if users adds a new car. ONLY THEN, otherwise the values will be null
 			carName: newCarName,
@@ -650,10 +679,51 @@ App.tripManagerController = Em.Object.create({
 			type: 'POST',
 			url: url,
 			data: data,
+			async: false,
 			success: function(data){
-				alert('trip leg added');
+				//keep the trip legs id
+				self.tripLegIds.push(data.tripLegId);
 			}
 		});	
+	},
+	
+	/*invoked the provenance-related actions on the back-end*/
+	createProvenanceGraph: function(actionPerformed){
+		var data = {
+			actionPerformed: actionPerformed,
+			userName: this.userName,
+			userEmail: this.userEmail,
+			tripId: this.tripId,
+			tripLegIds: JSON.stringify(this.tripLegIds),
+			startTime: JSON.stringify(this.startTime),
+			endTime: JSON.stringify(this.endTime)
+		};
+		
+		$.post('/prov/', 
+				data,
+				function(data){
+					//to do stuff
+				}
+			  );
+	},
+	
+	/*Util function for converting javascript date into xsd:datetime*/
+	xsdDateTime: function (date){
+  		function pad(n) {
+     		var s = n.toString();
+     		return s.length < 2 ? '0'+s : s;
+  		};
+
+  		var yyyy = date.getFullYear(),
+		    mm1  = pad(date.getMonth()+1)
+  		    dd   = pad(date.getDate()),
+  			hh   = pad(date.getHours()),
+  			mm2  = pad(date.getMinutes()),
+  			ss   = pad(date.getSeconds()),
+  			ms =  pad(date.getMilliseconds());
+
+     
+     	return yyyy +'-' +mm1 +'-' +dd +'T' +hh +':' +mm2 +':' +ss + '.' + ms;
 	}
 	
 });

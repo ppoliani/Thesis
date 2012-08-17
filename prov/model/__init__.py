@@ -173,18 +173,19 @@ _r_typed_literal_qname = re.compile(r'^"(?P<value>[^"\\]*(?:\\.[^"\\]*)*)"\^\^(?
 # Datatypes
 def _parse_xsd_dateTime(s):
     """Returns datetime or None."""
-    m = _r_xsd_dateTime.match(s)
+    m = _r_xsd_dateTime.search(s)
+    
     if m is not None:
         values = m.groupdict()
-    if values["microsecond"] is None:
-        values["microsecond"] = 0
-    else:
-        values["microsecond"] = values["microsecond"][1:]
-        values["microsecond"] += "0" * (6 - len(values["microsecond"]))
-    values = dict((k, int(v)) for k, v in values.iteritems()
+        if values["microsecond"] is None:
+            values["microsecond"] = 0
+        else:
+            values["microsecond"] = values["microsecond"][1:]
+            values["microsecond"] += "0" * (6 - len(values["microsecond"]))
+        values = dict((k, int(v)) for k, v in values.iteritems()
                   if not k.startswith("tz"))
     
-    return datetime.datetime(**values)
+        return datetime.datetime(**values)
 
 def _ensure_datetime(time):
     if isinstance(time, basestring):
