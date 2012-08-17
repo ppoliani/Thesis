@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>{% block title %}Base Template{% endblock %}</title>
+        
+        {% load staticfiles %}
+
+        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap/css/bootstrap.min.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+        
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+        <script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.6.min.js"></script>
+        <script src="{% static "scripts/app.js" %}"></script>
+        
+        {% block additionalScripts %}{% endblock %}
+    </head>
+    <body>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <nav class="container">
+                	<a class="brand pull-right" href="#"> Carbon Emissions </a>
+                    <ul class="nav">
+                        <li class="active">
+                            <a href="#">Home</a>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <a href="#">Add Trip</a>
+                        </li>
+                        <li>
+                            <a href="#">Edit Trip</a>
+                        </li>
+                        <li>
+                            <a href="#">Carbon Footprints Report</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <ul class="breadcrumb">
+            <li class="active">
+                <a href="#">Home</a><span class="divider">/</span>
+            </li>
+        </ul>
+        <div class="container-fluid">
+            <!-- Main Content -->
+            <div class="row-fluid">
+                <div class="span2">
+                    <!--Sidebar content-->
+                </div>
+                <div class="span10">
+                    {% block content %}}{% endblock %}
+                </div>
+                <!-- Footer -->
+                <section id="footer">
+                    {% block footer %}{% endblock %}
+                </section>
+            </div>
+        </div>
+
+    </body>
+</html>

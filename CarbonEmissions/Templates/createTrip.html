@@ -1,0 +1,197 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}Add new trip{% endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script src="{% static "scripts/bingMaps.js" %}"></script>
+    <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
+{% endblock %}
+
+
+{% block content %}
+
+{% if form.errors %}
+<p class="error">
+    Please correct the error{{ form.errors|pluralize }} below
+</p>
+{% endif %}
+
+<div id="trip-creation-container">
+    <h1>Add a new trip</h1>
+    <script type="text/x-handlebars">
+        {{view App.AddTripView 
+        }}
+        <button {{action "collateUserInput" target="App.tripManagerController" 
+    }} class="btn btn-inverse">Store trip</button>
+    </script>
+</div>
+
+<!--The template of the main add trip view (App.AddTripView)-->
+<script type="text/x-handlebars" data-template-name="add-trip-view">
+    <div>
+        <span class="form-field-label">What is the name of the trip: </span>
+        <!--render the child view template which is declared below-->
+        {{view Em.TextField valueBinding="App.tripManagerController.name"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">What is the type of the trip: </span>
+        <!--render the child view template which is declared below-->
+        {{view Em.Select contentBinding="App.tripTypeOptions"
+                    selectionBinding="App.tripManagerController.type"
+                    prompt="Please Select"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">How many trip legs does the trip has: </span>
+        <!--render the child view template which is declared below-->
+        {{view Em.Select contentBinding="App.numOfTripLegOptions"
+                    selectionBinding="App.addTripView.selectedValue"
+                    prompt="Please Select"
+        }}
+        
+        <hr />
+    </div>
+    
+    <div id="trip-legs"></div>
+</script>
+
+<!--Template containing the form elements of each trip leg. Child of App.AddTripView--->
+<script type="text/x-handlebars" data-template-name="trip-leg-view">
+    <h1>Trip {{App.tripManagerController.name
+    	}} Trip Leg {{step
+    	}}</h1>
+    <!--Container for the maps that dynamically appear-->
+    <div {{bindAttr id="popupContactId"
+    }} class="popupContact">
+        <h1>Locate your address on the map</h1>
+        <p id="contactArea">{% include 'shared/includes/bingMaps.html' %}</p>
+    </div>
+    <div id="backgroundPopup"></div>
+    
+    <h2>Addresses</h2>
+    <div>
+    	<span class="form-field-label">Source: </span>
+        {{view App.AddressTextField  class="startAddress" valueBinding="startAddress.street"
+    	}}
+    </div>
+    <div>
+        <span class="form-field-label">Visibility: </span>
+        {{view Em.Select contentBinding="App.addressVisibilityOptions"
+                    selectionBinding="startAddrVisibility"
+                    prompt="Please Select"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">Destination: </span>
+        {{view App.AddressTextField class="endAddress" valueBinding="endAddress.street"
+        }}
+    </div>
+    <!--<div>
+        <span class="form-field-label">Address name: </span>
+        {{view Em.TextField valueBinding="addressName"
+        }}
+    </div>-->
+    <div>
+        <span class="form-field-label">Visibility: </span>
+        {{view Em.Select contentBinding="App.addressVisibilityOptions"
+                    selectionBinding="endAddrVisibility"
+                    prompt="Please Select"
+        }}
+    </div>
+    
+    <h2>Transport Mean</h2>
+    <div>
+        <span class="form-field-label">Type: </span>
+        <!--Bind selection value to the type property of this App.addTripView instance. That's why we use temp and not App.AddTripView.temo
+        	because bindings to class property does not work!-->
+        {{view Em.Select contentBinding="App.transportMeanOptions"
+                    selectionBinding="transportMeanType"
+                    prompt="Please Select"
+        }}
+    </div>
+    
+    <div {{bindAttr id="transportMeanContainerId" 
+    }}></div>
+
+</script>
+
+<!--Template containing the form elements populated by car data from data base. Child of App.TripLegView -->
+<script type="text/x-handlebars" data-template-name="car-view">
+    <div>
+        <span class="form-field-label">manufacturer: </span>
+        {{view Em.Select contentBinding="manufacturers"
+                    selectionBinding="manufacturer"
+                    prompt="Please Select"
+        }}
+    </div>
+     <div>
+        <span class="form-field-label">Model: </span>
+        {{view Em.Select contentBinding="models"
+                    selectionBinding="model"
+                    prompt="Please Select"
+        }}
+    </div>
+     <div>
+        <span class="form-field-label">Description: </span>
+        {{view Em.Select contentBinding="descriptions"
+                    selectionBinding="description"
+                    prompt="Please Select"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">Engine Capacity: </span>
+        {{view Em.Select contentBinding="engineCapacities"
+                    selectionBinding="engineCapacity"
+                    prompt="Please Select"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">Transmission: </span>
+        {{view Em.Select contentBinding="transmissions"
+                    selectionBinding="transmission"
+                    prompt="Please Select"
+        }}
+    </div>
+    <div>
+        <span class="form-field-label">Fuel Type: </span>
+        {{view Em.Select contentBinding="fuelTypes"
+                    selectionBinding="fuelType"
+                    prompt="Please Select"
+        }}
+        
+    </div>
+    <div>
+        <span class="clarification-msg">If you can't find a car from the list above, add a new one</span>
+        <button class="inline-to-block btn" {{action "showAddNewCarForm"
+        }}>Add new car</button>
+    </div>
+</script>
+
+<!--Template containing the form elements for adding a new car. Child of App.TripLegView -->
+<script type="text/x-handlebars" data-template-name="new-car-view">
+	 <div>
+        <span class="form-field-label">Name: </span>
+        {{view Em.TextField valueBinding="name"
+        }}
+   </div>
+    <div>
+        <span class="form-field-label">Engine Capacity: </span>
+        {{view Em.TextField valueBinding="engineCapacity"
+        }}
+    </div>
+     <div>
+        <span class="form-field-label">Fuel Type: </span>
+        {{view Em.TextField valueBinding="fuelType"
+        }}
+    </div>
+    <div>
+        <span class="clarification-msg">Select a car from the list:</span>
+        <button class="inline-to-block btn" {{action "showCarListForm"
+        }}>Select from list</button>
+    </div>
+</script>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+
+<!--the script for JSONP call will be added here-->
+<div id="bing-script"></div>
+<div class="map"></div>
+<div>
+    {{view App.LocationQueryTextField valueBinding="locationQuery" placeholder="address"
+    }}
+    <div>
+        <button class="btn" {{action "findLocation"
+        }}>Locate</button>
+    
+        <button class="btn" {{action "addAddress"
+        }}>Add Address</button>
+        
+         <button class="btn" {{action "hideMap"
+        }}>Cancel</button>
+    </div>
+</div>
+
+<div id="output"></div>
