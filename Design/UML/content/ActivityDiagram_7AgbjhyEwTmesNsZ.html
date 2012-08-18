@@ -1,0 +1,910 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - Create a Trip v1</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="UseCaseDiagram_JN92shyEwTmc2h1_.html">
+Create a Trip : Use Case</a>
+	</p>
+	<p class="PageTitle">
+		Activity Diagram - Create a Trip v1	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|212.0|62.0|250.0|40.0|ActivityAction_nAgbjhyEwTmesNsm.html|ActivityAction_nAgbjhyEwTmesNsm.html|nAgbjhyEwTmesNsv" id="optionnAgbjhyEwTmesNsv">1. The user asks the system to create a new trip : Action</option>
+<option value="shape|282.0|142.0|100.0|40.0|ActivityAction_3AgbjhyEwTmesNt8.html|ActivityAction_3AgbjhyEwTmesNt8.html|3AgbjhyEwTmesNuF" id="option3AgbjhyEwTmesNuF">2. Check Identity : Action</option>
+<option value="shape|252.0|222.0|160.0|40.0|ActivityAction_vAgbjhyEwTmesNvS.html|ActivityAction_vAgbjhyEwTmesNvS.html|vAgbjhyEwTmesNvb" id="optionvAgbjhyEwTmesNvb">3. The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user. : Action</option>
+<option value="shape|182.0|302.0|300.0|40.0|ActivityAction_fAgbjhyEwTmesNwo.html|ActivityAction_fAgbjhyEwTmesNwo.html|_AgbjhyEwTmesNwx" id="option_AgbjhyEwTmesNwx">4. The user provides all the required information and submits the form. : Action</option>
+<option value="shape|2.0|462.0|320.0|40.0|ActivityAction_AggbjhyEwTmesNx_.html|ActivityAction_AggbjhyEwTmesNx_.html|AggbjhyEwTmesNyH" id="optionAggbjhyEwTmesNyH">5. A new trip is created and inserted into the persistent storage. : Action</option>
+<option value="shape|632.0|462.0|330.0|40.0|ActivityAction_DRX5bhyEwTmeqmfE.html|ActivityAction_DRX5bhyEwTmeqmfE.html|jRX5bhyEwTmeqmfN" id="optionjRX5bhyEwTmeqmfN">4.1. The user adds the source and destination address of the trip : Action</option>
+<option value="shape|1352.0|542.0|360.0|40.0|ActivityAction_kxX5bhyEwTmeqmhd.html|ActivityAction_kxX5bhyEwTmeqmhd.html|kxX5bhyEwTmeqmhm" id="optionkxX5bhyEwTmeqmhm">4.1.1.1.1. The user selects an address from the list of private addresses : Action</option>
+<option value="shape|1402.0|642.0|260.0|40.0|ActivityAction_MxX5bhyEwTmeqmkP.html|ActivityAction_MxX5bhyEwTmeqmkP.html|MxX5bhyEwTmeqmkY" id="optionMxX5bhyEwTmeqmkY">4.1.1.1.2. The system shows the address on a map : Action</option>
+<option value="shape|1382.0|722.0|300.0|40.0|ActivityAction_8xX5bhyEwTmeqmnB.html|ActivityAction_8xX5bhyEwTmeqmnB.html|CxX5bhyEwTmeqmnK" id="optionCxX5bhyEwTmeqmnK">4.1.1.1.3. The user confirms the address or picks a different : Action</option>
+<option value="shape|952.0|642.0|360.0|40.0|ActivityAction_yxX5bhyEwTmeqmpz.html|ActivityAction_yxX5bhyEwTmeqmpz.html|yxX5bhyEwTmeqmp8" id="optionyxX5bhyEwTmeqmp8">4.1.1.2.1. The user selects an address from the list of public addresses : Action</option>
+<option value="shape|1002.0|722.0|260.0|40.0|ActivityAction_axX5bhyEwTmeqmsl.html|ActivityAction_axX5bhyEwTmeqmsl.html|6xX5bhyEwTmeqmsu" id="option6xX5bhyEwTmeqmsu">4.1.1.2.2. The system shows the address on a map : Action</option>
+<option value="shape|982.0|802.0|300.0|40.0|ActivityAction_WxX5bhyEwTmeqmvX.html|ActivityAction_WxX5bhyEwTmeqmvX.html|WxX5bhyEwTmeqmvg" id="optionWxX5bhyEwTmeqmvg">4.1.1.2.3. The user confirms the address or picks a different : Action</option>
+<option value="shape|672.0|642.0|260.0|40.0|ActivityAction_RxX5bhyEwTmeqmyq.html|ActivityAction_RxX5bhyEwTmeqmyq.html|RxX5bhyEwTmeqmyz" id="optionRxX5bhyEwTmeqmyz">4.1.2.1. The users chooses to add a new address : Action</option>
+<option value="shape|662.0|722.0|270.0|40.0|ActivityAction_pxX5bhyEwTmeqm1F.html|ActivityAction_pxX5bhyEwTmeqm1F.html|pxX5bhyEwTmeqm1O" id="optionpxX5bhyEwTmeqm1O">4.1.2.2. The system shows the address creation form : Action</option>
+<option value="shape|702.0|802.0|190.0|40.0|ActivityAction_FxX5bhyEwTmeqm3g.html|ActivityAction_FxX5bhyEwTmeqm3g.html|lxX5bhyEwTmeqm3p" id="optionlxX5bhyEwTmeqm3p">4.1.2.3. The user enters the address : Action</option>
+<option value="shape|612.0|962.0|380.0|40.0|ActivityAction_NxX5bhyEwTmeqm57.html|ActivityAction_NxX5bhyEwTmeqm57.html|txX5bhyEwTmeqm6E" id="optiontxX5bhyEwTmeqm6E">4.1.2.4. The user specifies the visibility of the address (i.e. private or public) : Action</option>
+<option value="shape|682.0|1042.0|240.0|40.0|ActivityAction_DxX5bhyEwTmeqm8W.html|ActivityAction_DxX5bhyEwTmeqm8W.html|DxX5bhyEwTmeqm8f" id="optionDxX5bhyEwTmeqm8f">4.1.2.5. The user click the add address button : Action</option>
+<option value="shape|632.0|1122.0|330.0|40.0|ActivityAction_zxX5bhyEwTmeqm_x.html|ActivityAction_zxX5bhyEwTmeqm_x.html|LxX5bhyEwTmeqm.6" id="optionLxX5bhyEwTmeqm.6">4.1.2.6. The system stores the address into the persistent storage : Action</option>
+<option value="shape|1062.0|1352.0|200.0|40.0|ActivityAction_3xX5bhyEwTmeqnBt.html|ActivityAction_3xX5bhyEwTmeqnBt.html|3xX5bhyEwTmeqnB2" id="option3xX5bhyEwTmeqnB2">4.2. The user adds the transport mean  : Action</option>
+<option value="shape|962.0|1432.0|390.0|40.0|ActivityAction_fxX5bhyEwTmeqnDa.html|ActivityAction_fxX5bhyEwTmeqnDa.html|fxX5bhyEwTmeqnDj" id="optionfxX5bhyEwTmeqnDj">4.2.1. The user selects the type of the transport mean (e.g. car, bus, taxi etc.) : Action</option>
+<option value="shape|282.0|1512.0|370.0|40.0|ActivityAction_YJX5bhyEwTmeqnGK.html|ActivityAction_YJX5bhyEwTmeqnGK.html|4JX5bhyEwTmeqnGT" id="option4JX5bhyEwTmeqnGT">4.2.2.1.1. the system show all the cars that the user stored in the system : Action</option>
+<option value="shape|382.0|1612.0|170.0|40.0|ActivityAction_UJX5bhyEwTmeqnI8.html|ActivityAction_UJX5bhyEwTmeqnI8.html|0JX5bhyEwTmeqnJF" id="option0JX5bhyEwTmeqnJF">4.2.2.1.2. the user selects a car : Action</option>
+<option value="shape|742.0|1612.0|240.0|40.0|ActivityAction_cJX5bhyEwTmeqnLu.html|ActivityAction_cJX5bhyEwTmeqnLu.html|cJX5bhyEwTmeqnL3" id="optioncJX5bhyEwTmeqnL3">4.2.2.2.1. The system show a car creation form : Action</option>
+<option value="shape|632.0|1692.0|470.0|40.0|ActivityAction_iJX5bhyEwTmeqnOg.html|ActivityAction_iJX5bhyEwTmeqnOg.html|SJX5bhyEwTmeqnOp" id="optionSJX5bhyEwTmeqnOp">4.2.2.2.2. The user adds some the information about the car (e.g. engine capacity,name etc. ) : Action</option>
+<option value="shape|652.0|1772.0|420.0|40.0|ActivityAction_KJX5bhyEwTmeqnRS.html|ActivityAction_KJX5bhyEwTmeqnRS.html|qJX5bhyEwTmeqnRb" id="optionqJX5bhyEwTmeqnRb">4.2.2.2.3. The system add the car to the list of cars that have been used by the user : Action</option>
+<option value="shape|1002.0|1612.0|310.0|40.0|ActivityAction_OJX5bhyEwTmeqnUl.html|ActivityAction_OJX5bhyEwTmeqnUl.html|uJX5bhyEwTmeqnUu" id="optionuJX5bhyEwTmeqnUu">4.2.3.1. The user selects the specific type of transport mean  : Action</option>
+<option value="shape|702.0|2152.0|230.0|40.0|ActivityAction_JJX5bhyEwTmeqnXh.html|ActivityAction_JJX5bhyEwTmeqnXh.html|JJX5bhyEwTmeqnXq" id="optionJJX5bhyEwTmeqnXq">5. The user add the date and time of the trip : Action</option>
+<option value="shape|652.0|2232.0|320.0|40.0|ActivityAction_ZJX5bhyEwTmeqnY3.html|ActivityAction_ZJX5bhyEwTmeqnY3.html|5JX5bhyEwTmeqnZA" id="option5JX5bhyEwTmeqnZA">6. A new trip is created and inserted into the persistent storage. : Action</option>
+<option value="shape|802.0|2402.0|20.0|20.0|ActivityFinalNode_QggbjhyEwTmesNzU.html|ActivityFinalNode_QggbjhyEwTmesNzU.html|QggbjhyEwTmesNzd" id="optionQggbjhyEwTmesNzd">ActivityFinalNode : Activity Final Node</option>
+<option value="shape|792.0|542.0|20.0|40.0|DecisionNode_zRX5bhyEwTmeqmgx.html|DecisionNode_zRX5bhyEwTmeqmgx.html|IxX5bhyEwTmeqmg6" id="optionIxX5bhyEwTmeqmg6">4.1.1. The address exist in the system? : Decision Node</option>
+<option value="shape|1122.0|542.0|20.0|40.0|DecisionNode_oxX5bhyEwTmeqmhH.html|DecisionNode_oxX5bhyEwTmeqmhH.html|4xX5bhyEwTmeqmhQ" id="option4xX5bhyEwTmeqmhQ">4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)? : Decision Node</option>
+<option value="shape|1152.0|1512.0|20.0|40.0|DecisionNode_gJX5bhyEwTmeqnFe.html|DecisionNode_gJX5bhyEwTmeqnFe.html|QJX5bhyEwTmeqnFn" id="optionQJX5bhyEwTmeqnFn">4.2.2. the user selected the car option? : Decision Node</option>
+<option value="shape|852.0|1512.0|20.0|40.0|DecisionNode_IJX5bhyEwTmeqnF0.html|DecisionNode_IJX5bhyEwTmeqnF0.html|oJX5bhyEwTmeqnF9" id="optionoJX5bhyEwTmeqnF9">4.2.2.1. the user wants to select one of the cars he stored into the system? : Decision Node</option>
+<option value="shape|312.0|2.0|40.0|20.0|InitialNode_HAgbjhyEwTmesNsb.html|InitialNode_HAgbjhyEwTmesNsb.html|nAgbjhyEwTmesNsk" id="optionnAgbjhyEwTmesNsk">InitialNode : Initial Node</option>
+<option value="shape|1322.0|962.0|21.0|40.0|MergeNode_uxX5bhyEwTmeqmyJ.html|MergeNode_uxX5bhyEwTmeqmyJ.html|exX5bhyEwTmeqmyS" id="optionexX5bhyEwTmeqmyS">MergeNode3 : Merge Node</option>
+<option value="shape|1152.0|1272.0|21.0|40.0|MergeNode_7xX5bhyEwTmeqnBM.html|MergeNode_7xX5bhyEwTmeqnBM.html|HxX5bhyEwTmeqnBV" id="optionHxX5bhyEwTmeqnBV">MergeNode4 : Merge Node</option>
+<option value="shape|652.0|1922.0|21.0|40.0|MergeNode_GJX5bhyEwTmeqnUE.html|MergeNode_GJX5bhyEwTmeqnUE.html|mJX5bhyEwTmeqnUN" id="optionmJX5bhyEwTmeqnUN">MergeNode5 : Merge Node</option>
+<option value="shape|802.0|2072.0|21.0|40.0|MergeNode_BJX5bhyEwTmeqnXA.html|MergeNode_BJX5bhyEwTmeqnXA.html|hJX5bhyEwTmeqnXJ" id="optionhJX5bhyEwTmeqnXJ">MergeNode6 : Merge Node</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Create_a_Trip_v1.png" usemap="#diagram_map" class="Image" width="1716.0" height="2426.0"/>				<map name = "diagram_map">
+
+<area coords="802.0, 2402.0, 822.0, 2434.0" coords2="802.0, 2402.0, 822.0, 2434.0" shape="rect" alt="ActivityFinalNode:Activity Final Node" id="areaQggbjhyEwTmesNzd" href="ActivityFinalNode_QggbjhyEwTmesNzU.html" onmouseover="storeReferenceAndSubdiagramInfos('802.0, 2402.0, 822.0, 2422.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=wggbjhyEwTmesNzo/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=VJX5bhyEwTmeqnaW/Unnamed/ControlFlow'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('802.0, 2402.0, 822.0, 2422.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      new trip is created and inserted into the persistent storage.</font>
+    </p>
+  </body>" coords="2.0, 462.0, 322.0, 514.0" coords2="2.0, 462.0, 322.0, 514.0" shape="rect" alt="5. A new trip is created and inserted into the persistent storage.:Action" id="areaAggbjhyEwTmesNyH" href="ActivityAction_AggbjhyEwTmesNx_.html" onmouseover="storeReferenceAndSubdiagramInfos('2.0, 462.0, 322.0, 502.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=gggbjhyEwTmesNzS/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=wggbjhyEwTmesNzo/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('2.0, 462.0, 322.0, 502.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user provides all the required information and submits the form.</font>
+    </p>
+  </body>" coords="182.0, 302.0, 482.0, 354.0" coords2="182.0, 302.0, 482.0, 354.0" shape="rect" alt="4. The user provides all the required information and submits the form.:Action" id="area_AgbjhyEwTmesNwx" href="ActivityAction_fAgbjhyEwTmesNwo.html" onmouseover="storeReferenceAndSubdiagramInfos('182.0, 302.0, 482.0, 342.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_BN6XDhyEwTmesIGu.html/The user provides all the required information and submits the form./Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AggbjhyEwTmesNx8/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=gggbjhyEwTmesNzS/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=TRX5bhyEwTmeqmgv/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('182.0, 302.0, 482.0, 342.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system asks the user to add the source and destination of the trip, as 
+      well as, the transport mean that was used. For each of those fields, the 
+      system might let the user to choose from some pre-defined values (e.g. 
+      common addresses and transport) that had been configured by the user.</font>
+    </p>
+  </body>" coords="252.0, 222.0, 412.0, 274.0" coords2="252.0, 222.0, 412.0, 274.0" shape="rect" alt="3. The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user.:Action" id="areavAgbjhyEwTmesNvb" href="ActivityAction_vAgbjhyEwTmesNvS.html" onmouseover="storeReferenceAndSubdiagramInfos('252.0, 222.0, 412.0, 262.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_ANs3DhyEwTmesIhp.html/The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user./Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=fAgbjhyEwTmesNwm/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AggbjhyEwTmesNx8/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('252.0, 222.0, 412.0, 262.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system identifies the user</font>
+    </p>
+  </body>" coords="282.0, 142.0, 382.0, 194.0" coords2="282.0, 142.0, 382.0, 194.0" shape="rect" alt="2. Check Identity:Action" id="area3AgbjhyEwTmesNuF" href="ActivityAction_3AgbjhyEwTmesNt8.html" onmouseover="storeReferenceAndSubdiagramInfos('282.0, 142.0, 382.0, 182.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_r5JXDhyEwTmesIHJ.html/ 4laeshyEwTmc2iqP /Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=PAgbjhyEwTmesNvQ/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=fAgbjhyEwTmesNwm/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('282.0, 142.0, 382.0, 182.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user asks the system to create a new trip</font>
+    </p>
+  </body>" coords="212.0, 62.0, 462.0, 114.0" coords2="212.0, 62.0, 462.0, 114.0" shape="rect" alt="1. The user asks the system to create a new trip:Action" id="areanAgbjhyEwTmesNsv" href="ActivityAction_nAgbjhyEwTmesNsm.html" onmouseover="storeReferenceAndSubdiagramInfos('212.0, 62.0, 462.0, 102.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_P7ZHDhyEwTmesIFT.html/The user asks the system to create a new trip/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=XAgbjhyEwTmesNt6/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=PAgbjhyEwTmesNvQ/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('212.0, 62.0, 462.0, 102.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="312.0, 2.0, 352.0, 34.0" coords2="312.0, 2.0, 352.0, 34.0" shape="rect" alt="InitialNode:Initial Node" id="areanAgbjhyEwTmesNsk" href="InitialNode_HAgbjhyEwTmesNsb.html" onmouseover="storeReferenceAndSubdiagramInfos('312.0, 2.0, 352.0, 22.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=XAgbjhyEwTmesNt6/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('312.0, 2.0, 352.0, 22.0')"/>
+<area coords="652.0, 2232.0, 972.0, 2284.0" coords2="652.0, 2232.0, 972.0, 2284.0" shape="rect" alt="6. A new trip is created and inserted into the persistent storage.:Action" id="area5JX5bhyEwTmeqnZA" href="ActivityAction_ZJX5bhyEwTmeqnY3.html" onmouseover="storeReferenceAndSubdiagramInfos('652.0, 2232.0, 972.0, 2272.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_DI95bhyEwTmeqk__.html/A new trip is created and inserted into the persistent storage./Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=FJX5bhyEwTmeqnaL/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=VJX5bhyEwTmeqnaW/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('652.0, 2232.0, 972.0, 2272.0')"/>
+<area coords="702.0, 2152.0, 932.0, 2204.0" coords2="702.0, 2152.0, 932.0, 2204.0" shape="rect" alt="5. The user add the date and time of the trip:Action" id="areaJJX5bhyEwTmeqnXq" href="ActivityAction_JJX5bhyEwTmeqnXh.html" onmouseover="storeReferenceAndSubdiagramInfos('702.0, 2152.0, 932.0, 2192.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_7wVhbhyEwTmeqkRb.html/The user add the date and time of the trip/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=ZJX5bhyEwTmeqnY1/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=FJX5bhyEwTmeqnaL/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('702.0, 2152.0, 932.0, 2192.0')"/>
+<area coords="802.0, 2072.0, 823.0, 2124.0" coords2="802.0, 2072.0, 823.0, 2124.0" shape="rect" alt="MergeNode6:Merge Node" id="areahJX5bhyEwTmeqnXJ" href="MergeNode_BJX5bhyEwTmeqnXA.html" onmouseover="storeReferenceAndSubdiagramInfos('802.0, 2072.0, 823.0, 2112.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=RJX5bhyEwTmeqnXU/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=xJX5bhyEwTmeqnXf/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=ZJX5bhyEwTmeqnY1/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('802.0, 2072.0, 823.0, 2112.0')"/>
+<area coords="1002.0, 1612.0, 1312.0, 1664.0" coords2="1002.0, 1612.0, 1312.0, 1664.0" shape="rect" alt="4.2.3.1. The user selects the specific type of transport mean :Action" id="areauJX5bhyEwTmeqnUu" href="ActivityAction_OJX5bhyEwTmeqnUl.html" onmouseover="storeReferenceAndSubdiagramInfos('1002.0, 1612.0, 1312.0, 1652.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_DAy5bhyEwTmeqk_s.html/The user selects the specific type of transport mean /Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=.JX5bhyEwTmeqnW./Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=xJX5bhyEwTmeqnXf/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1002.0, 1612.0, 1312.0, 1652.0')"/>
+<area coords="652.0, 1922.0, 673.0, 1974.0" coords2="652.0, 1922.0, 673.0, 1974.0" shape="rect" alt="MergeNode5:Merge Node" id="areamJX5bhyEwTmeqnUN" href="MergeNode_GJX5bhyEwTmeqnUE.html" onmouseover="storeReferenceAndSubdiagramInfos('652.0, 1922.0, 673.0, 1962.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=WJX5bhyEwTmeqnUY/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=2JX5bhyEwTmeqnUj/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=RJX5bhyEwTmeqnXU/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('652.0, 1922.0, 673.0, 1962.0')"/>
+<area coords="652.0, 1772.0, 1072.0, 1824.0" coords2="652.0, 1772.0, 1072.0, 1824.0" shape="rect" alt="4.2.2.2.3. The system add the car to the list of cars that have been used by the user:Action" id="areaqJX5bhyEwTmeqnRb" href="ActivityAction_KJX5bhyEwTmeqnRS.html" onmouseover="storeReferenceAndSubdiagramInfos('652.0, 1772.0, 1072.0, 1812.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_EYA5bhyEwTmeqk_R.html/The system add the car to the list of cars that have been used by the user/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=6JX5bhyEwTmeqnUC/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=2JX5bhyEwTmeqnUj/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('652.0, 1772.0, 1072.0, 1812.0')"/>
+<area coords="632.0, 1692.0, 1102.0, 1744.0" coords2="632.0, 1692.0, 1102.0, 1744.0" shape="rect" alt="4.2.2.2.2. The user adds some the information about the car (e.g. engine capacity,name etc. ):Action" id="areaSJX5bhyEwTmeqnOp" href="ActivityAction_iJX5bhyEwTmeqnOg.html" onmouseover="storeReferenceAndSubdiagramInfos('632.0, 1692.0, 1102.0, 1732.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_lw3xbhyEwTmeqkvZ.html/The user adds some the information about the car (e.g. engine capacity,name etc. )/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=KJX5bhyEwTmeqnRQ/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=6JX5bhyEwTmeqnUC/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('632.0, 1692.0, 1102.0, 1732.0')"/>
+<area coords="742.0, 1612.0, 982.0, 1664.0" coords2="742.0, 1612.0, 982.0, 1664.0" shape="rect" alt="4.2.2.2.1. The system show a car creation form:Action" id="areacJX5bhyEwTmeqnL3" href="ActivityAction_cJX5bhyEwTmeqnLu.html" onmouseover="storeReferenceAndSubdiagramInfos('742.0, 1612.0, 982.0, 1652.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_GHUJbhyEwTmeqkv0.html/The system show a car creation form/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=CJX5bhyEwTmeqnOe/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=KJX5bhyEwTmeqnRQ/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('742.0, 1612.0, 982.0, 1652.0')"/>
+<area coords="382.0, 1612.0, 552.0, 1664.0" coords2="382.0, 1612.0, 552.0, 1664.0" shape="rect" alt="4.2.2.1.2. the user selects a car:Action" id="area0JX5bhyEwTmeqnJF" href="ActivityAction_UJX5bhyEwTmeqnI8.html" onmouseover="storeReferenceAndSubdiagramInfos('382.0, 1612.0, 552.0, 1652.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_3Y2xbhyEwTmeqkus.html/the user selects a car/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=sJX5bhyEwTmeqnLs/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=WJX5bhyEwTmeqnUY/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('382.0, 1612.0, 552.0, 1652.0')"/>
+<area coords="282.0, 1512.0, 652.0, 1564.0" coords2="282.0, 1512.0, 652.0, 1564.0" shape="rect" alt="4.2.2.1.1. the system show all the cars that the user stored in the system:Action" id="area4JX5bhyEwTmeqnGT" href="ActivityAction_YJX5bhyEwTmeqnGK.html" onmouseover="storeReferenceAndSubdiagramInfos('282.0, 1512.0, 652.0, 1552.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_T_fRbhyEwTmeqkua.html/the system show all the cars that the user stored in the system/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=kJX5bhyEwTmeqnI6/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=sJX5bhyEwTmeqnLs/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('282.0, 1512.0, 652.0, 1552.0')"/>
+<area coords="852.0, 1512.0, 872.0, 1564.0" coords2="852.0, 1512.0, 872.0, 1564.0" shape="rect" alt="4.2.2.1. the user wants to select one of the cars he stored into the system?:Decision Node" id="areaoJX5bhyEwTmeqnF9" href="DecisionNode_IJX5bhyEwTmeqnF0.html" onmouseover="storeReferenceAndSubdiagramInfos('852.0, 1512.0, 872.0, 1552.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=YJX5bhyEwTmeqnGI/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=kJX5bhyEwTmeqnI6/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=CJX5bhyEwTmeqnOe/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('852.0, 1512.0, 872.0, 1552.0')"/>
+<area coords="1152.0, 1512.0, 1172.0, 1564.0" coords2="1152.0, 1512.0, 1172.0, 1564.0" shape="rect" alt="4.2.2. the user selected the car option?:Decision Node" id="areaQJX5bhyEwTmeqnFn" href="DecisionNode_gJX5bhyEwTmeqnFe.html" onmouseover="storeReferenceAndSubdiagramInfos('1152.0, 1512.0, 1172.0, 1552.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=wJX5bhyEwTmeqnFy/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=YJX5bhyEwTmeqnGI/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=.JX5bhyEwTmeqnW./Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1152.0, 1512.0, 1172.0, 1552.0')"/>
+<area coords="962.0, 1432.0, 1352.0, 1484.0" coords2="962.0, 1432.0, 1352.0, 1484.0" shape="rect" alt="4.2.1. The user selects the type of the transport mean (e.g. car, bus, taxi etc.):Action" id="areafxX5bhyEwTmeqnDj" href="ActivityAction_fxX5bhyEwTmeqnDa.html" onmouseover="storeReferenceAndSubdiagramInfos('962.0, 1432.0, 1352.0, 1472.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_L6mRbhyEwTmeqktt.html/The user selects the type of the transport mean (e.g. car, bus, taxi etc.)/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AJX5bhyEwTmeqnFc/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=wJX5bhyEwTmeqnFy/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('962.0, 1432.0, 1352.0, 1472.0')"/>
+<area coords="1062.0, 1352.0, 1262.0, 1404.0" coords2="1062.0, 1352.0, 1262.0, 1404.0" shape="rect" alt="4.2. The user adds the transport mean :Action" id="area3xX5bhyEwTmeqnB2" href="ActivityAction_3xX5bhyEwTmeqnBt.html" onmouseover="storeReferenceAndSubdiagramInfos('1062.0, 1352.0, 1262.0, 1392.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_OtihbhyEwTmeqkP8.html/The user adds the transport mean /Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=vxX5bhyEwTmeqnDY/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AJX5bhyEwTmeqnFc/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1062.0, 1352.0, 1262.0, 1392.0')"/>
+<area coords="1152.0, 1272.0, 1173.0, 1324.0" coords2="1152.0, 1272.0, 1173.0, 1324.0" shape="rect" alt="MergeNode4:Merge Node" id="areaHxX5bhyEwTmeqnBV" href="MergeNode_7xX5bhyEwTmeqnBM.html" onmouseover="storeReferenceAndSubdiagramInfos('1152.0, 1272.0, 1173.0, 1312.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=nxX5bhyEwTmeqnBg/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=XxX5bhyEwTmeqnBr/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=vxX5bhyEwTmeqnDY/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1152.0, 1272.0, 1173.0, 1312.0')"/>
+<area coords="632.0, 1122.0, 962.0, 1174.0" coords2="632.0, 1122.0, 962.0, 1174.0" shape="rect" alt="4.1.2.6. The system stores the address into the persistent storage:Action" id="areaLxX5bhyEwTmeqm.6" href="ActivityAction_zxX5bhyEwTmeqm_x.html" onmouseover="storeReferenceAndSubdiagramInfos('632.0, 1122.0, 962.0, 1162.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_QJVhbhyEwTmeqkRt.html/The system stores the address into the persistent storage/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=bxX5bhyEwTmeqnBK/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=XxX5bhyEwTmeqnBr/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('632.0, 1122.0, 962.0, 1162.0')"/>
+<area coords="682.0, 1042.0, 922.0, 1094.0" coords2="682.0, 1042.0, 922.0, 1094.0" shape="rect" alt="4.1.2.5. The user click the add address button:Action" id="areaDxX5bhyEwTmeqm8f" href="ActivityAction_DxX5bhyEwTmeqm8W.html" onmouseover="storeReferenceAndSubdiagramInfos('682.0, 1042.0, 922.0, 1082.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_j6UhbhyEwTmeqkPB.html/The user click the add address button/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=TxX5bhyEwTmeqm.v/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=bxX5bhyEwTmeqnBK/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('682.0, 1042.0, 922.0, 1082.0')"/>
+<area coords="612.0, 962.0, 992.0, 1014.0" coords2="612.0, 962.0, 992.0, 1014.0" shape="rect" alt="4.1.2.4. The user specifies the visibility of the address (i.e. private or public):Action" id="areatxX5bhyEwTmeqm6E" href="ActivityAction_NxX5bhyEwTmeqm57.html" onmouseover="storeReferenceAndSubdiagramInfos('612.0, 962.0, 992.0, 1002.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_fUwhbhyEwTmeqkO4.html/The user specifies the visibility of the address (i.e. private or public)/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=9xX5bhyEwTmeqm8U/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=TxX5bhyEwTmeqm.v/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('612.0, 962.0, 992.0, 1002.0')"/>
+<area coords="702.0, 802.0, 892.0, 854.0" coords2="702.0, 802.0, 892.0, 854.0" shape="rect" alt="4.1.2.3. The user enters the address:Action" id="arealxX5bhyEwTmeqm3p" href="ActivityAction_FxX5bhyEwTmeqm3g.html" onmouseover="storeReferenceAndSubdiagramInfos('702.0, 802.0, 892.0, 842.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_w4LBbhyEwTmeqkOd.html/The user enters the address/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=1xX5bhyEwTmeqm55/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=9xX5bhyEwTmeqm8U/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('702.0, 802.0, 892.0, 842.0')"/>
+<area coords="662.0, 722.0, 932.0, 774.0" coords2="662.0, 722.0, 932.0, 774.0" shape="rect" alt="4.1.2.2. The system shows the address creation form:Action" id="areapxX5bhyEwTmeqm1O" href="ActivityAction_pxX5bhyEwTmeqm1F.html" onmouseover="storeReferenceAndSubdiagramInfos('662.0, 722.0, 932.0, 762.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_hKtBbhyEwTmeqkOL.html/The system shows the address creation form/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=5xX5bhyEwTmeqm3e/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=1xX5bhyEwTmeqm55/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('662.0, 722.0, 932.0, 762.0')"/>
+<area coords="672.0, 642.0, 932.0, 694.0" coords2="672.0, 642.0, 932.0, 694.0" shape="rect" alt="4.1.2.1. The users chooses to add a new address:Action" id="areaRxX5bhyEwTmeqmyz" href="ActivityAction_RxX5bhyEwTmeqmyq.html" onmouseover="storeReferenceAndSubdiagramInfos('672.0, 642.0, 932.0, 682.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_cGVBbhyEwTmeqkOC.html/The users chooses to add a new address/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=JxX5bhyEwTmeqm1D/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=5xX5bhyEwTmeqm3e/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('672.0, 642.0, 932.0, 682.0')"/>
+<area coords="1322.0, 962.0, 1343.0, 1014.0" coords2="1322.0, 962.0, 1343.0, 1014.0" shape="rect" alt="MergeNode3:Merge Node" id="areaexX5bhyEwTmeqmyS" href="MergeNode_uxX5bhyEwTmeqmyJ.html" onmouseover="storeReferenceAndSubdiagramInfos('1322.0, 962.0, 1343.0, 1002.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=BxX5bhyEwTmeqmyd/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=hxX5bhyEwTmeqmyo/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=nxX5bhyEwTmeqnBg/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1322.0, 962.0, 1343.0, 1002.0')"/>
+<area coords="982.0, 802.0, 1282.0, 854.0" coords2="982.0, 802.0, 1282.0, 854.0" shape="rect" alt="4.1.1.2.3. The user confirms the address or picks a different:Action" id="areaWxX5bhyEwTmeqmvg" href="ActivityAction_WxX5bhyEwTmeqmvX.html" onmouseover="storeReferenceAndSubdiagramInfos('982.0, 802.0, 1282.0, 842.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_KQBBbhyEwTmeqkNw.html/The user confirms the address or picks a different/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=OxX5bhyEwTmeqmyH/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=hxX5bhyEwTmeqmyo/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('982.0, 802.0, 1282.0, 842.0')"/>
+<area coords="1002.0, 722.0, 1262.0, 774.0" coords2="1002.0, 722.0, 1262.0, 774.0" shape="rect" alt="4.1.1.2.2. The system shows the address on a map:Action" id="area6xX5bhyEwTmeqmsu" href="ActivityAction_axX5bhyEwTmeqmsl.html" onmouseover="storeReferenceAndSubdiagramInfos('1002.0, 722.0, 1262.0, 762.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_nw_BbhyEwTmeqkNe.html/The system shows the address on a map/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=mxX5bhyEwTmeqmvV/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=OxX5bhyEwTmeqmyH/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1002.0, 722.0, 1262.0, 762.0')"/>
+<area coords="952.0, 642.0, 1312.0, 694.0" coords2="952.0, 642.0, 1312.0, 694.0" shape="rect" alt="4.1.1.2.1. The user selects an address from the list of public addresses:Action" id="areayxX5bhyEwTmeqmp8" href="ActivityAction_yxX5bhyEwTmeqmpz.html" onmouseover="storeReferenceAndSubdiagramInfos('952.0, 642.0, 1312.0, 682.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_hJL_bhyEwTmeqkDx.html/The user selects an address from the list of public addresses/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=qxX5bhyEwTmeqmsj/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=mxX5bhyEwTmeqmvV/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('952.0, 642.0, 1312.0, 682.0')"/>
+<area coords="1382.0, 722.0, 1682.0, 774.0" coords2="1382.0, 722.0, 1682.0, 774.0" shape="rect" alt="4.1.1.1.3. The user confirms the address or picks a different:Action" id="areaCxX5bhyEwTmeqmnK" href="ActivityAction_8xX5bhyEwTmeqmnB.html" onmouseover="storeReferenceAndSubdiagramInfos('1382.0, 722.0, 1682.0, 762.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_THYBbhyEwTmeqkND.html/The user confirms the address or picks a different/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=SxX5bhyEwTmeqmpx/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=BxX5bhyEwTmeqmyd/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1382.0, 722.0, 1682.0, 762.0')"/>
+<area coords="1402.0, 642.0, 1662.0, 694.0" coords2="1402.0, 642.0, 1662.0, 694.0" shape="rect" alt="4.1.1.1.2. The system shows the address on a map:Action" id="areaMxX5bhyEwTmeqmkY" href="ActivityAction_MxX5bhyEwTmeqmkP.html" onmouseover="storeReferenceAndSubdiagramInfos('1402.0, 642.0, 1662.0, 682.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_DzwBbhyEwTmeqkM6.html/The system shows the address on a map/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=cxX5bhyEwTmeqmm_/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=SxX5bhyEwTmeqmpx/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1402.0, 642.0, 1662.0, 682.0')"/>
+<area coords="1352.0, 542.0, 1712.0, 594.0" coords2="1352.0, 542.0, 1712.0, 594.0" shape="rect" alt="4.1.1.1.1. The user selects an address from the list of private addresses:Action" id="areakxX5bhyEwTmeqmhm" href="ActivityAction_kxX5bhyEwTmeqmhd.html" onmouseover="storeReferenceAndSubdiagramInfos('1352.0, 542.0, 1712.0, 582.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_OCz_bhyEwTmeqkDW.html/The user selects an address from the list of private addresses/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=0xX5bhyEwTmeqmkN/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=cxX5bhyEwTmeqmm_/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1352.0, 542.0, 1712.0, 582.0')"/>
+<area coords="1122.0, 542.0, 1142.0, 594.0" coords2="1122.0, 542.0, 1142.0, 594.0" shape="rect" alt="4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)?:Decision Node" id="area4xX5bhyEwTmeqmhQ" href="DecisionNode_oxX5bhyEwTmeqmhH.html" onmouseover="storeReferenceAndSubdiagramInfos('1122.0, 542.0, 1142.0, 582.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=ExX5bhyEwTmeqmhb/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=0xX5bhyEwTmeqmkN/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=qxX5bhyEwTmeqmsj/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1122.0, 542.0, 1142.0, 582.0')"/>
+<area coords="792.0, 542.0, 812.0, 594.0" coords2="792.0, 542.0, 812.0, 594.0" shape="rect" alt="4.1.1. The address exist in the system?:Decision Node" id="areaIxX5bhyEwTmeqmg6" href="DecisionNode_zRX5bhyEwTmeqmgx.html" onmouseover="storeReferenceAndSubdiagramInfos('792.0, 542.0, 812.0, 582.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=oxX5bhyEwTmeqmhF/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=ExX5bhyEwTmeqmhb/Unnamed/ControlFlow','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=JxX5bhyEwTmeqm1D/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('792.0, 542.0, 812.0, 582.0')"/>
+<area coords="632.0, 462.0, 962.0, 514.0" coords2="632.0, 462.0, 962.0, 514.0" shape="rect" alt="4.1. The user adds the source and destination address of the trip:Action" id="areajRX5bhyEwTmeqmfN" href="ActivityAction_DRX5bhyEwTmeqmfE.html" onmouseover="storeReferenceAndSubdiagramInfos('632.0, 462.0, 962.0, 502.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_SoJebhyEwTmeqkBh.html/The user adds the source and destination address of the trip/Step','ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=TRX5bhyEwTmeqmgv/Unnamed/ControlFlow'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=oxX5bhyEwTmeqmhF/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('632.0, 462.0, 962.0, 502.0')"/>
+<area coords="325.0, 11.0, 325.0, 72.0, 339.0, 72.0, 339.0, 11.0" coords2="325.0, 11.0, 325.0, 72.0, 339.0, 72.0, 339.0, 11.0" shape="poly" alt="null:Control Flow" id="areaXAgbjhyEwTmesNt6" href="ControlFlow_XAgbjhyEwTmesNtx.html" onmouseover="storeReferenceAndSubdiagramInfos('325.0, 11.0, 325.0, 72.0, 339.0, 72.0, 339.0, 11.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=nAgbjhyEwTmesNsk/InitialNode/InitialNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=nAgbjhyEwTmesNsv/1. The user asks the system to create a new trip/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('325.0, 11.0, 325.0, 72.0, 339.0, 72.0, 339.0, 11.0')"/>
+<area coords="325.0, 91.0, 325.0, 152.0, 339.0, 152.0, 339.0, 91.0" coords2="325.0, 91.0, 325.0, 152.0, 339.0, 152.0, 339.0, 91.0" shape="poly" alt="null:Control Flow" id="areaPAgbjhyEwTmesNvQ" href="ControlFlow_PAgbjhyEwTmesNvH.html" onmouseover="storeReferenceAndSubdiagramInfos('325.0, 91.0, 325.0, 152.0, 339.0, 152.0, 339.0, 91.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=nAgbjhyEwTmesNsv/1. The user asks the system to create a new trip/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=3AgbjhyEwTmesNuF/2. Check Identity/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('325.0, 91.0, 325.0, 152.0, 339.0, 152.0, 339.0, 91.0')"/>
+<area coords="325.0, 171.0, 325.0, 232.0, 339.0, 232.0, 339.0, 171.0" coords2="325.0, 171.0, 325.0, 232.0, 339.0, 232.0, 339.0, 171.0" shape="poly" alt="null:Control Flow" id="areafAgbjhyEwTmesNwm" href="ControlFlow_fAgbjhyEwTmesNwd.html" onmouseover="storeReferenceAndSubdiagramInfos('325.0, 171.0, 325.0, 232.0, 339.0, 232.0, 339.0, 171.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=3AgbjhyEwTmesNuF/2. Check Identity/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=vAgbjhyEwTmesNvb/3. The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user./ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('325.0, 171.0, 325.0, 232.0, 339.0, 232.0, 339.0, 171.0')"/>
+<area coords="325.0, 251.0, 325.0, 312.0, 339.0, 312.0, 339.0, 251.0" coords2="325.0, 251.0, 325.0, 312.0, 339.0, 312.0, 339.0, 251.0" shape="poly" alt="null:Control Flow" id="areaAggbjhyEwTmesNx8" href="ControlFlow__AgbjhyEwTmesNxz.html" onmouseover="storeReferenceAndSubdiagramInfos('325.0, 251.0, 325.0, 312.0, 339.0, 312.0, 339.0, 251.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=vAgbjhyEwTmesNvb/3. The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user./ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=_AgbjhyEwTmesNwx/4. The user provides all the required information and submits the form./ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('325.0, 251.0, 325.0, 312.0, 339.0, 312.0, 339.0, 251.0')"/>
+<area coords="245.0, 331.0, 245.0, 472.0, 259.0, 472.0, 259.0, 331.0" coords2="245.0, 331.0, 245.0, 472.0, 259.0, 472.0, 259.0, 331.0" shape="poly" alt="null:Control Flow" id="areagggbjhyEwTmesNzS" href="ControlFlow_gggbjhyEwTmesNzJ.html" onmouseover="storeReferenceAndSubdiagramInfos('245.0, 331.0, 245.0, 472.0, 259.0, 472.0, 259.0, 331.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=_AgbjhyEwTmesNwx/4. The user provides all the required information and submits the form./ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AggbjhyEwTmesNyH/5. A new trip is created and inserted into the persistent storage./ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('245.0, 331.0, 245.0, 472.0, 259.0, 472.0, 259.0, 331.0')"/>
+<area coords="155.0, 491.0, 155.0, 2405.0, 152.0, 2405.0, 152.0, 2419.0, 155.0, 2419.0, 155.0, 2422.0, 169.0, 2422.0, 169.0, 2419.0, 813.0, 2419.0, 813.0, 2405.0, 169.0, 2405.0, 169.0, 491.0" coords2="155.0, 491.0, 155.0, 2405.0, 152.0, 2405.0, 152.0, 2419.0, 155.0, 2419.0, 155.0, 2422.0, 169.0, 2422.0, 169.0, 2419.0, 813.0, 2419.0, 813.0, 2405.0, 169.0, 2405.0, 169.0, 491.0" shape="poly" alt="null:Control Flow" id="areawggbjhyEwTmesNzo" href="ControlFlow_wggbjhyEwTmesNzf.html" onmouseover="storeReferenceAndSubdiagramInfos('155.0, 491.0, 155.0, 2405.0, 152.0, 2405.0, 152.0, 2419.0, 155.0, 2419.0, 155.0, 2422.0, 169.0, 2422.0, 169.0, 2419.0, 813.0, 2419.0, 813.0, 2405.0, 169.0, 2405.0, 169.0, 491.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=AggbjhyEwTmesNyH/5. A new trip is created and inserted into the persistent storage./ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=QggbjhyEwTmesNzd/ActivityFinalNode/ActivityFinalNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('155.0, 491.0, 155.0, 2405.0, 152.0, 2405.0, 152.0, 2419.0, 155.0, 2419.0, 155.0, 2422.0, 169.0, 2422.0, 169.0, 2419.0, 813.0, 2419.0, 813.0, 2405.0, 169.0, 2405.0, 169.0, 491.0')"/>
+<area coords="795.0, 312.0, 795.0, 315.0, 471.0, 315.0, 471.0, 329.0, 795.0, 329.0, 795.0, 472.0, 809.0, 472.0, 809.0, 329.0, 812.0, 329.0, 812.0, 315.0, 809.0, 315.0, 809.0, 312.0" coords2="795.0, 312.0, 795.0, 315.0, 471.0, 315.0, 471.0, 329.0, 795.0, 329.0, 795.0, 472.0, 809.0, 472.0, 809.0, 329.0, 812.0, 329.0, 812.0, 315.0, 809.0, 315.0, 809.0, 312.0" shape="poly" alt="null:Control Flow" id="areaTRX5bhyEwTmeqmgv" href="ControlFlow_TRX5bhyEwTmeqmgm.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 312.0, 795.0, 315.0, 471.0, 315.0, 471.0, 329.0, 795.0, 329.0, 795.0, 472.0, 809.0, 472.0, 809.0, 329.0, 812.0, 329.0, 812.0, 315.0, 809.0, 315.0, 809.0, 312.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=_AgbjhyEwTmesNwx/4. The user provides all the required information and submits the form./ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=jRX5bhyEwTmeqmfN/4.1. The user adds the source and destination address of the trip/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 312.0, 795.0, 315.0, 471.0, 315.0, 471.0, 329.0, 795.0, 329.0, 795.0, 472.0, 809.0, 472.0, 809.0, 329.0, 812.0, 329.0, 812.0, 315.0, 809.0, 315.0, 809.0, 312.0')"/>
+<area coords="795.0, 491.0, 795.0, 560.0, 809.0, 560.0, 809.0, 491.0" coords2="795.0, 491.0, 795.0, 560.0, 809.0, 560.0, 809.0, 491.0" shape="poly" alt="null:Control Flow" id="areaoxX5bhyEwTmeqmhF" href="ControlFlow_IxX5bhyEwTmeqmg8.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 491.0, 795.0, 560.0, 809.0, 560.0, 809.0, 491.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=jRX5bhyEwTmeqmfN/4.1. The user adds the source and destination address of the trip/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=IxX5bhyEwTmeqmg6/4.1.1. The address exist in the system?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 491.0, 795.0, 560.0, 809.0, 560.0, 809.0, 491.0')"/>
+<area coords="798.0, 555.0, 798.0, 569.0, 1135.0, 569.0, 1135.0, 555.0" coords2="798.0, 555.0, 798.0, 569.0, 1135.0, 569.0, 1135.0, 555.0" shape="poly" alt="null:Control Flow" id="areaExX5bhyEwTmeqmhb" href="ControlFlow_4xX5bhyEwTmeqmhS.html" onmouseover="storeReferenceAndSubdiagramInfos('798.0, 555.0, 798.0, 569.0, 1135.0, 569.0, 1135.0, 555.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=IxX5bhyEwTmeqmg6/4.1.1. The address exist in the system?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=4xX5bhyEwTmeqmhQ/4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('798.0, 555.0, 798.0, 569.0, 1135.0, 569.0, 1135.0, 555.0')"/>
+<area coords="1128.0, 555.0, 1128.0, 569.0, 1362.0, 569.0, 1362.0, 555.0" coords2="1128.0, 555.0, 1128.0, 569.0, 1362.0, 569.0, 1362.0, 555.0" shape="poly" alt="null:Control Flow" id="area0xX5bhyEwTmeqmkN" href="ControlFlow_0xX5bhyEwTmeqmkE.html" onmouseover="storeReferenceAndSubdiagramInfos('1128.0, 555.0, 1128.0, 569.0, 1362.0, 569.0, 1362.0, 555.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=4xX5bhyEwTmeqmhQ/4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=kxX5bhyEwTmeqmhm/4.1.1.1.1. The user selects an address from the list of private addresses/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1128.0, 555.0, 1128.0, 569.0, 1362.0, 569.0, 1362.0, 555.0')"/>
+<area coords="1525.0, 571.0, 1525.0, 652.0, 1539.0, 652.0, 1539.0, 571.0" coords2="1525.0, 571.0, 1525.0, 652.0, 1539.0, 652.0, 1539.0, 571.0" shape="poly" alt="null:Control Flow" id="areacxX5bhyEwTmeqmm_" href="ControlFlow_cxX5bhyEwTmeqmm2.html" onmouseover="storeReferenceAndSubdiagramInfos('1525.0, 571.0, 1525.0, 652.0, 1539.0, 652.0, 1539.0, 571.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=kxX5bhyEwTmeqmhm/4.1.1.1.1. The user selects an address from the list of private addresses/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=MxX5bhyEwTmeqmkY/4.1.1.1.2. The system shows the address on a map/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1525.0, 571.0, 1525.0, 652.0, 1539.0, 652.0, 1539.0, 571.0')"/>
+<area coords="1525.0, 671.0, 1525.0, 732.0, 1539.0, 732.0, 1539.0, 671.0" coords2="1525.0, 671.0, 1525.0, 732.0, 1539.0, 732.0, 1539.0, 671.0" shape="poly" alt="null:Control Flow" id="areaSxX5bhyEwTmeqmpx" href="ControlFlow_ixX5bhyEwTmeqmpo.html" onmouseover="storeReferenceAndSubdiagramInfos('1525.0, 671.0, 1525.0, 732.0, 1539.0, 732.0, 1539.0, 671.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=MxX5bhyEwTmeqmkY/4.1.1.1.2. The system shows the address on a map/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=CxX5bhyEwTmeqmnK/4.1.1.1.3. The user confirms the address or picks a different/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1525.0, 671.0, 1525.0, 732.0, 1539.0, 732.0, 1539.0, 671.0')"/>
+<area coords="1125.0, 563.0, 1125.0, 652.0, 1139.0, 652.0, 1139.0, 563.0" coords2="1125.0, 563.0, 1125.0, 652.0, 1139.0, 652.0, 1139.0, 563.0" shape="poly" alt="null:Control Flow" id="areaqxX5bhyEwTmeqmsj" href="ControlFlow_qxX5bhyEwTmeqmsa.html" onmouseover="storeReferenceAndSubdiagramInfos('1125.0, 563.0, 1125.0, 652.0, 1139.0, 652.0, 1139.0, 563.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=4xX5bhyEwTmeqmhQ/4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=yxX5bhyEwTmeqmp8/4.1.1.2.1. The user selects an address from the list of public addresses/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1125.0, 563.0, 1125.0, 652.0, 1139.0, 652.0, 1139.0, 563.0')"/>
+<area coords="1125.0, 671.0, 1125.0, 732.0, 1139.0, 732.0, 1139.0, 671.0" coords2="1125.0, 671.0, 1125.0, 732.0, 1139.0, 732.0, 1139.0, 671.0" shape="poly" alt="null:Control Flow" id="areamxX5bhyEwTmeqmvV" href="ControlFlow_GxX5bhyEwTmeqmvM.html" onmouseover="storeReferenceAndSubdiagramInfos('1125.0, 671.0, 1125.0, 732.0, 1139.0, 732.0, 1139.0, 671.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=yxX5bhyEwTmeqmp8/4.1.1.2.1. The user selects an address from the list of public addresses/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=6xX5bhyEwTmeqmsu/4.1.1.2.2. The system shows the address on a map/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1125.0, 671.0, 1125.0, 732.0, 1139.0, 732.0, 1139.0, 671.0')"/>
+<area coords="1125.0, 751.0, 1125.0, 812.0, 1139.0, 812.0, 1139.0, 751.0" coords2="1125.0, 751.0, 1125.0, 812.0, 1139.0, 812.0, 1139.0, 751.0" shape="poly" alt="null:Control Flow" id="areaOxX5bhyEwTmeqmyH" href="ControlFlow_OxX5bhyEwTmeqmx_.html" onmouseover="storeReferenceAndSubdiagramInfos('1125.0, 751.0, 1125.0, 812.0, 1139.0, 812.0, 1139.0, 751.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=6xX5bhyEwTmeqmsu/4.1.1.2.2. The system shows the address on a map/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=WxX5bhyEwTmeqmvg/4.1.1.2.3. The user confirms the address or picks a different/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1125.0, 751.0, 1125.0, 812.0, 1139.0, 812.0, 1139.0, 751.0')"/>
+<area coords="1325.0, 732.0, 1325.0, 735.0, 1322.0, 735.0, 1322.0, 749.0, 1325.0, 749.0, 1325.0, 981.0, 1339.0, 981.0, 1339.0, 749.0, 1392.0, 749.0, 1392.0, 735.0, 1339.0, 735.0, 1339.0, 732.0" coords2="1325.0, 732.0, 1325.0, 735.0, 1322.0, 735.0, 1322.0, 749.0, 1325.0, 749.0, 1325.0, 981.0, 1339.0, 981.0, 1339.0, 749.0, 1392.0, 749.0, 1392.0, 735.0, 1339.0, 735.0, 1339.0, 732.0" shape="poly" alt="null:Control Flow" id="areaBxX5bhyEwTmeqmyd" href="ControlFlow__xX5bhyEwTmeqmyU.html" onmouseover="storeReferenceAndSubdiagramInfos('1325.0, 732.0, 1325.0, 735.0, 1322.0, 735.0, 1322.0, 749.0, 1325.0, 749.0, 1325.0, 981.0, 1339.0, 981.0, 1339.0, 749.0, 1392.0, 749.0, 1392.0, 735.0, 1339.0, 735.0, 1339.0, 732.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=CxX5bhyEwTmeqmnK/4.1.1.1.3. The user confirms the address or picks a different/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=exX5bhyEwTmeqmyS/MergeNode3/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1325.0, 732.0, 1325.0, 735.0, 1322.0, 735.0, 1322.0, 749.0, 1325.0, 749.0, 1325.0, 981.0, 1339.0, 981.0, 1339.0, 749.0, 1392.0, 749.0, 1392.0, 735.0, 1339.0, 735.0, 1339.0, 732.0')"/>
+<area coords="1315.0, 812.0, 1315.1765, 815.0, 1271.0, 815.0, 1271.0, 829.0, 1316.0, 829.0, 1325.0, 982.0, 1339.0, 982.0, 1330.0, 829.0, 1332.0, 829.0, 1332.0, 815.0, 1329.1765, 815.0, 1329.0, 812.0" coords2="1315.0, 812.0, 1315.1765, 815.0, 1271.0, 815.0, 1271.0, 829.0, 1316.0, 829.0, 1325.0, 982.0, 1339.0, 982.0, 1330.0, 829.0, 1332.0, 829.0, 1332.0, 815.0, 1329.1765, 815.0, 1329.0, 812.0" shape="poly" alt="null:Control Flow" id="areahxX5bhyEwTmeqmyo" href="ControlFlow_BxX5bhyEwTmeqmyf.html" onmouseover="storeReferenceAndSubdiagramInfos('1315.0, 812.0, 1315.1765, 815.0, 1271.0, 815.0, 1271.0, 829.0, 1316.0, 829.0, 1325.0, 982.0, 1339.0, 982.0, 1330.0, 829.0, 1332.0, 829.0, 1332.0, 815.0, 1329.1765, 815.0, 1329.0, 812.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=WxX5bhyEwTmeqmvg/4.1.1.2.3. The user confirms the address or picks a different/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=exX5bhyEwTmeqmyS/MergeNode3/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1315.0, 812.0, 1315.1765, 815.0, 1271.0, 815.0, 1271.0, 829.0, 1316.0, 829.0, 1325.0, 982.0, 1339.0, 982.0, 1330.0, 829.0, 1332.0, 829.0, 1332.0, 815.0, 1329.1765, 815.0, 1329.0, 812.0')"/>
+<area coords="795.0, 563.0, 795.0, 652.0, 809.0, 652.0, 809.0, 563.0" coords2="795.0, 563.0, 795.0, 652.0, 809.0, 652.0, 809.0, 563.0" shape="poly" alt="null:Control Flow" id="areaJxX5bhyEwTmeqm1D" href="ControlFlow_JxX5bhyEwTmeqm06.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 563.0, 795.0, 652.0, 809.0, 652.0, 809.0, 563.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=IxX5bhyEwTmeqmg6/4.1.1. The address exist in the system?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=RxX5bhyEwTmeqmyz/4.1.2.1. The users chooses to add a new address/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 563.0, 795.0, 652.0, 809.0, 652.0, 809.0, 563.0')"/>
+<area coords="795.0, 671.0, 795.0, 732.0, 809.0, 732.0, 809.0, 671.0" coords2="795.0, 671.0, 795.0, 732.0, 809.0, 732.0, 809.0, 671.0" shape="poly" alt="null:Control Flow" id="area5xX5bhyEwTmeqm3e" href="ControlFlow_5xX5bhyEwTmeqm3V.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 671.0, 795.0, 732.0, 809.0, 732.0, 809.0, 671.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=RxX5bhyEwTmeqmyz/4.1.2.1. The users chooses to add a new address/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=pxX5bhyEwTmeqm1O/4.1.2.2. The system shows the address creation form/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 671.0, 795.0, 732.0, 809.0, 732.0, 809.0, 671.0')"/>
+<area coords="795.0, 751.0, 795.0, 812.0, 809.0, 812.0, 809.0, 751.0" coords2="795.0, 751.0, 795.0, 812.0, 809.0, 812.0, 809.0, 751.0" shape="poly" alt="null:Control Flow" id="area1xX5bhyEwTmeqm55" href="ControlFlow_1xX5bhyEwTmeqm5w.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 751.0, 795.0, 812.0, 809.0, 812.0, 809.0, 751.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=pxX5bhyEwTmeqm1O/4.1.2.2. The system shows the address creation form/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=lxX5bhyEwTmeqm3p/4.1.2.3. The user enters the address/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 751.0, 795.0, 812.0, 809.0, 812.0, 809.0, 751.0')"/>
+<area coords="795.0, 831.0, 795.0, 972.0, 809.0, 972.0, 809.0, 831.0" coords2="795.0, 831.0, 795.0, 972.0, 809.0, 972.0, 809.0, 831.0" shape="poly" alt="null:Control Flow" id="area9xX5bhyEwTmeqm8U" href="ControlFlow_dxX5bhyEwTmeqm8L.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 831.0, 795.0, 972.0, 809.0, 972.0, 809.0, 831.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=lxX5bhyEwTmeqm3p/4.1.2.3. The user enters the address/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=txX5bhyEwTmeqm6E/4.1.2.4. The user specifies the visibility of the address (i.e. private or public)/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 831.0, 795.0, 972.0, 809.0, 972.0, 809.0, 831.0')"/>
+<area coords="795.0, 991.0, 795.0, 1052.0, 809.0, 1052.0, 809.0, 991.0" coords2="795.0, 991.0, 795.0, 1052.0, 809.0, 1052.0, 809.0, 991.0" shape="poly" alt="null:Control Flow" id="areaTxX5bhyEwTmeqm.v" href="ControlFlow_TxX5bhyEwTmeqm_m.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 991.0, 795.0, 1052.0, 809.0, 1052.0, 809.0, 991.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=txX5bhyEwTmeqm6E/4.1.2.4. The user specifies the visibility of the address (i.e. private or public)/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=DxX5bhyEwTmeqm8f/4.1.2.5. The user click the add address button/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 991.0, 795.0, 1052.0, 809.0, 1052.0, 809.0, 991.0')"/>
+<area coords="795.0, 1071.0, 795.0, 1132.0, 809.0, 1132.0, 809.0, 1071.0" coords2="795.0, 1071.0, 795.0, 1132.0, 809.0, 1132.0, 809.0, 1071.0" shape="poly" alt="null:Control Flow" id="areabxX5bhyEwTmeqnBK" href="ControlFlow_rxX5bhyEwTmeqnBB.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 1071.0, 795.0, 1132.0, 809.0, 1132.0, 809.0, 1071.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=DxX5bhyEwTmeqm8f/4.1.2.5. The user click the add address button/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=LxX5bhyEwTmeqm.6/4.1.2.6. The system stores the address into the persistent storage/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 1071.0, 795.0, 1132.0, 809.0, 1132.0, 809.0, 1071.0')"/>
+<area coords="1325.0, 983.0, 1325.0, 1294.071, 1325.0, 1294.071, 1159.0, 1285.0, 1159.0, 1299.0, 1325.0, 1308.071, 1325.0, 1308.071, 1325.0, 1312.0, 1339.0, 1312.0, 1339.0, 1308.836, 1339.0, 1308.836, 1342.0, 1309.0, 1342.0, 1295.0, 1339.0, 1294.836, 1339.0, 1294.836, 1339.0, 983.0" coords2="1325.0, 983.0, 1325.0, 1294.071, 1325.0, 1294.071, 1159.0, 1285.0, 1159.0, 1299.0, 1325.0, 1308.071, 1325.0, 1308.071, 1325.0, 1312.0, 1339.0, 1312.0, 1339.0, 1308.836, 1339.0, 1308.836, 1342.0, 1309.0, 1342.0, 1295.0, 1339.0, 1294.836, 1339.0, 1294.836, 1339.0, 983.0" shape="poly" alt="null:Control Flow" id="areanxX5bhyEwTmeqnBg" href="ControlFlow_HxX5bhyEwTmeqnBX.html" onmouseover="storeReferenceAndSubdiagramInfos('1325.0, 983.0, 1325.0, 1294.071, 1325.0, 1294.071, 1159.0, 1285.0, 1159.0, 1299.0, 1325.0, 1308.071, 1325.0, 1308.071, 1325.0, 1312.0, 1339.0, 1312.0, 1339.0, 1308.836, 1339.0, 1308.836, 1342.0, 1309.0, 1342.0, 1295.0, 1339.0, 1294.836, 1339.0, 1294.836, 1339.0, 983.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=exX5bhyEwTmeqmyS/MergeNode3/MergeNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=HxX5bhyEwTmeqnBV/MergeNode4/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1325.0, 983.0, 1325.0, 1294.071, 1325.0, 1294.071, 1159.0, 1285.0, 1159.0, 1299.0, 1325.0, 1308.071, 1325.0, 1308.071, 1325.0, 1312.0, 1339.0, 1312.0, 1339.0, 1308.836, 1339.0, 1308.836, 1342.0, 1309.0, 1342.0, 1295.0, 1339.0, 1294.836, 1339.0, 1294.836, 1339.0, 983.0')"/>
+<area coords="795.0, 1151.0, 795.0, 1294.9198, 795.0, 1294.9198, 792.0, 1295.0, 792.0, 1309.0, 795.0, 1308.9198, 795.0, 1308.9198, 795.0, 1312.0, 809.0, 1312.0, 809.0, 1308.5454, 809.0, 1308.5454, 1166.0, 1299.0, 1166.0, 1285.0, 809.0, 1294.5454, 809.0, 1294.5454, 809.0, 1151.0" coords2="795.0, 1151.0, 795.0, 1294.9198, 795.0, 1294.9198, 792.0, 1295.0, 792.0, 1309.0, 795.0, 1308.9198, 795.0, 1308.9198, 795.0, 1312.0, 809.0, 1312.0, 809.0, 1308.5454, 809.0, 1308.5454, 1166.0, 1299.0, 1166.0, 1285.0, 809.0, 1294.5454, 809.0, 1294.5454, 809.0, 1151.0" shape="poly" alt="null:Control Flow" id="areaXxX5bhyEwTmeqnBr" href="ControlFlow_XxX5bhyEwTmeqnBi.html" onmouseover="storeReferenceAndSubdiagramInfos('795.0, 1151.0, 795.0, 1294.9198, 795.0, 1294.9198, 792.0, 1295.0, 792.0, 1309.0, 795.0, 1308.9198, 795.0, 1308.9198, 795.0, 1312.0, 809.0, 1312.0, 809.0, 1308.5454, 809.0, 1308.5454, 1166.0, 1299.0, 1166.0, 1285.0, 809.0, 1294.5454, 809.0, 1294.5454, 809.0, 1151.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=LxX5bhyEwTmeqm.6/4.1.2.6. The system stores the address into the persistent storage/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=HxX5bhyEwTmeqnBV/MergeNode4/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('795.0, 1151.0, 795.0, 1294.9198, 795.0, 1294.9198, 792.0, 1295.0, 792.0, 1309.0, 795.0, 1308.9198, 795.0, 1308.9198, 795.0, 1312.0, 809.0, 1312.0, 809.0, 1308.5454, 809.0, 1308.5454, 1166.0, 1299.0, 1166.0, 1285.0, 809.0, 1294.5454, 809.0, 1294.5454, 809.0, 1151.0')"/>
+<area coords="1155.0, 1293.0, 1155.0, 1362.0, 1169.0, 1362.0, 1169.0, 1293.0" coords2="1155.0, 1293.0, 1155.0, 1362.0, 1169.0, 1362.0, 1169.0, 1293.0" shape="poly" alt="null:Control Flow" id="areavxX5bhyEwTmeqnDY" href="ControlFlow_PxX5bhyEwTmeqnDP.html" onmouseover="storeReferenceAndSubdiagramInfos('1155.0, 1293.0, 1155.0, 1362.0, 1169.0, 1362.0, 1169.0, 1293.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=HxX5bhyEwTmeqnBV/MergeNode4/MergeNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=3xX5bhyEwTmeqnB2/4.2. The user adds the transport mean /ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1155.0, 1293.0, 1155.0, 1362.0, 1169.0, 1362.0, 1169.0, 1293.0')"/>
+<area coords="1155.0, 1381.0, 1155.0, 1442.0, 1169.0, 1442.0, 1169.0, 1381.0" coords2="1155.0, 1381.0, 1155.0, 1442.0, 1169.0, 1442.0, 1169.0, 1381.0" shape="poly" alt="null:Control Flow" id="areaAJX5bhyEwTmeqnFc" href="ControlFlow_AJX5bhyEwTmeqnFT.html" onmouseover="storeReferenceAndSubdiagramInfos('1155.0, 1381.0, 1155.0, 1442.0, 1169.0, 1442.0, 1169.0, 1381.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=3xX5bhyEwTmeqnB2/4.2. The user adds the transport mean /ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=fxX5bhyEwTmeqnDj/4.2.1. The user selects the type of the transport mean (e.g. car, bus, taxi etc.)/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1155.0, 1381.0, 1155.0, 1442.0, 1169.0, 1442.0, 1169.0, 1381.0')"/>
+<area coords="1155.0, 1461.0, 1155.0, 1530.0, 1169.0, 1530.0, 1169.0, 1461.0" coords2="1155.0, 1461.0, 1155.0, 1530.0, 1169.0, 1530.0, 1169.0, 1461.0" shape="poly" alt="null:Control Flow" id="areawJX5bhyEwTmeqnFy" href="ControlFlow_wJX5bhyEwTmeqnFp.html" onmouseover="storeReferenceAndSubdiagramInfos('1155.0, 1461.0, 1155.0, 1530.0, 1169.0, 1530.0, 1169.0, 1461.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=fxX5bhyEwTmeqnDj/4.2.1. The user selects the type of the transport mean (e.g. car, bus, taxi etc.)/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=QJX5bhyEwTmeqnFn/4.2.2. the user selected the car option?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1155.0, 1461.0, 1155.0, 1530.0, 1169.0, 1530.0, 1169.0, 1461.0')"/>
+<area coords="858.0, 1525.0, 858.0, 1539.0, 1165.0, 1539.0, 1165.0, 1525.0" coords2="858.0, 1525.0, 858.0, 1539.0, 1165.0, 1539.0, 1165.0, 1525.0" shape="poly" alt="null:Control Flow" id="areaYJX5bhyEwTmeqnGI" href="ControlFlow_oJX5bhyEwTmeqnF_.html" onmouseover="storeReferenceAndSubdiagramInfos('858.0, 1525.0, 858.0, 1539.0, 1165.0, 1539.0, 1165.0, 1525.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=QJX5bhyEwTmeqnFn/4.2.2. the user selected the car option?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=oJX5bhyEwTmeqnF9/4.2.2.1. the user wants to select one of the cars he stored into the system?/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('858.0, 1525.0, 858.0, 1539.0, 1165.0, 1539.0, 1165.0, 1525.0')"/>
+<area coords="641.0, 1525.0, 641.0, 1539.0, 865.0, 1539.0, 865.0, 1525.0" coords2="641.0, 1525.0, 641.0, 1539.0, 865.0, 1539.0, 865.0, 1525.0" shape="poly" alt="null:Control Flow" id="areakJX5bhyEwTmeqnI6" href="ControlFlow_kJX5bhyEwTmeqnIx.html" onmouseover="storeReferenceAndSubdiagramInfos('641.0, 1525.0, 641.0, 1539.0, 865.0, 1539.0, 865.0, 1525.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=oJX5bhyEwTmeqnF9/4.2.2.1. the user wants to select one of the cars he stored into the system?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=4JX5bhyEwTmeqnGT/4.2.2.1.1. the system show all the cars that the user stored in the system/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('641.0, 1525.0, 641.0, 1539.0, 865.0, 1539.0, 865.0, 1525.0')"/>
+<area coords="455.0, 1541.0, 455.0, 1622.0, 469.0, 1622.0, 469.0, 1541.0" coords2="455.0, 1541.0, 455.0, 1622.0, 469.0, 1622.0, 469.0, 1541.0" shape="poly" alt="null:Control Flow" id="areasJX5bhyEwTmeqnLs" href="ControlFlow_MJX5bhyEwTmeqnLj.html" onmouseover="storeReferenceAndSubdiagramInfos('455.0, 1541.0, 455.0, 1622.0, 469.0, 1622.0, 469.0, 1541.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=4JX5bhyEwTmeqnGT/4.2.2.1.1. the system show all the cars that the user stored in the system/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=0JX5bhyEwTmeqnJF/4.2.2.1.2. the user selects a car/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('455.0, 1541.0, 455.0, 1622.0, 469.0, 1622.0, 469.0, 1541.0')"/>
+<area coords="855.0, 1533.0, 855.0, 1622.0, 869.0, 1622.0, 869.0, 1533.0" coords2="855.0, 1533.0, 855.0, 1622.0, 869.0, 1622.0, 869.0, 1533.0" shape="poly" alt="null:Control Flow" id="areaCJX5bhyEwTmeqnOe" href="ControlFlow_CJX5bhyEwTmeqnOV.html" onmouseover="storeReferenceAndSubdiagramInfos('855.0, 1533.0, 855.0, 1622.0, 869.0, 1622.0, 869.0, 1533.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=oJX5bhyEwTmeqnF9/4.2.2.1. the user wants to select one of the cars he stored into the system?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=cJX5bhyEwTmeqnL3/4.2.2.2.1. The system show a car creation form/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('855.0, 1533.0, 855.0, 1622.0, 869.0, 1622.0, 869.0, 1533.0')"/>
+<area coords="855.0, 1641.0, 855.0, 1702.0, 869.0, 1702.0, 869.0, 1641.0" coords2="855.0, 1641.0, 855.0, 1702.0, 869.0, 1702.0, 869.0, 1641.0" shape="poly" alt="null:Control Flow" id="areaKJX5bhyEwTmeqnRQ" href="ControlFlow_yJX5bhyEwTmeqnRH.html" onmouseover="storeReferenceAndSubdiagramInfos('855.0, 1641.0, 855.0, 1702.0, 869.0, 1702.0, 869.0, 1641.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=cJX5bhyEwTmeqnL3/4.2.2.2.1. The system show a car creation form/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=SJX5bhyEwTmeqnOp/4.2.2.2.2. The user adds some the information about the car (e.g. engine capacity,name etc. )/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('855.0, 1641.0, 855.0, 1702.0, 869.0, 1702.0, 869.0, 1641.0')"/>
+<area coords="855.0, 1721.0, 855.0, 1782.0, 869.0, 1782.0, 869.0, 1721.0" coords2="855.0, 1721.0, 855.0, 1782.0, 869.0, 1782.0, 869.0, 1721.0" shape="poly" alt="null:Control Flow" id="area6JX5bhyEwTmeqnUC" href="ControlFlow_6JX5bhyEwTmeqnT5.html" onmouseover="storeReferenceAndSubdiagramInfos('855.0, 1721.0, 855.0, 1782.0, 869.0, 1782.0, 869.0, 1721.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=SJX5bhyEwTmeqnOp/4.2.2.2.2. The user adds some the information about the car (e.g. engine capacity,name etc. )/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=qJX5bhyEwTmeqnRb/4.2.2.2.3. The system add the car to the list of cars that have been used by the user/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('855.0, 1721.0, 855.0, 1782.0, 869.0, 1782.0, 869.0, 1721.0')"/>
+<area coords="455.0, 1641.0, 455.0, 1944.8599, 455.0, 1944.8599, 452.0, 1945.0, 452.0, 1959.0, 455.0, 1958.8599, 455.0, 1958.8599, 455.0, 1962.0, 469.0, 1962.0, 469.0, 1958.2056, 469.0, 1958.2056, 666.0, 1949.0, 666.0, 1935.0, 469.0, 1944.2056, 469.0, 1944.2056, 469.0, 1641.0" coords2="455.0, 1641.0, 455.0, 1944.8599, 455.0, 1944.8599, 452.0, 1945.0, 452.0, 1959.0, 455.0, 1958.8599, 455.0, 1958.8599, 455.0, 1962.0, 469.0, 1962.0, 469.0, 1958.2056, 469.0, 1958.2056, 666.0, 1949.0, 666.0, 1935.0, 469.0, 1944.2056, 469.0, 1944.2056, 469.0, 1641.0" shape="poly" alt="null:Control Flow" id="areaWJX5bhyEwTmeqnUY" href="ControlFlow_WJX5bhyEwTmeqnUP.html" onmouseover="storeReferenceAndSubdiagramInfos('455.0, 1641.0, 455.0, 1944.8599, 455.0, 1944.8599, 452.0, 1945.0, 452.0, 1959.0, 455.0, 1958.8599, 455.0, 1958.8599, 455.0, 1962.0, 469.0, 1962.0, 469.0, 1958.2056, 469.0, 1958.2056, 666.0, 1949.0, 666.0, 1935.0, 469.0, 1944.2056, 469.0, 1944.2056, 469.0, 1641.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=0JX5bhyEwTmeqnJF/4.2.2.1.2. the user selects a car/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=mJX5bhyEwTmeqnUN/MergeNode5/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('455.0, 1641.0, 455.0, 1944.8599, 455.0, 1944.8599, 452.0, 1945.0, 452.0, 1959.0, 455.0, 1958.8599, 455.0, 1958.8599, 455.0, 1962.0, 469.0, 1962.0, 469.0, 1958.2056, 469.0, 1958.2056, 666.0, 1949.0, 666.0, 1935.0, 469.0, 1944.2056, 469.0, 1944.2056, 469.0, 1641.0')"/>
+<area coords="655.0, 1800.0, 655.0, 1941.0, 669.0, 1941.0, 669.0, 1800.0" coords2="655.0, 1800.0, 655.0, 1941.0, 669.0, 1941.0, 669.0, 1800.0" shape="poly" alt="null:Control Flow" id="area2JX5bhyEwTmeqnUj" href="ControlFlow_2JX5bhyEwTmeqnUa.html" onmouseover="storeReferenceAndSubdiagramInfos('655.0, 1800.0, 655.0, 1941.0, 669.0, 1941.0, 669.0, 1800.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=qJX5bhyEwTmeqnRb/4.2.2.2.3. The system add the car to the list of cars that have been used by the user/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=mJX5bhyEwTmeqnUN/MergeNode5/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('655.0, 1800.0, 655.0, 1941.0, 669.0, 1941.0, 669.0, 1800.0')"/>
+<area coords="1155.0, 1533.0, 1155.0, 1622.0, 1169.0, 1622.0, 1169.0, 1533.0" coords2="1155.0, 1533.0, 1155.0, 1622.0, 1169.0, 1622.0, 1169.0, 1533.0" shape="poly" alt="null:Control Flow" id="area.JX5bhyEwTmeqnW." href="ControlFlow_eJX5bhyEwTmeqnW1.html" onmouseover="storeReferenceAndSubdiagramInfos('1155.0, 1533.0, 1155.0, 1622.0, 1169.0, 1622.0, 1169.0, 1533.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=QJX5bhyEwTmeqnFn/4.2.2. the user selected the car option?/DecisionNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=uJX5bhyEwTmeqnUu/4.2.3.1. The user selects the specific type of transport mean /ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1155.0, 1533.0, 1155.0, 1622.0, 1169.0, 1622.0, 1169.0, 1533.0')"/>
+<area coords="659.0, 1935.0, 659.0, 1949.0, 805.0, 1957.957, 805.0, 1957.957, 805.0, 2091.0, 819.0, 2091.0, 819.0, 1958.8159, 819.0, 1958.8159, 822.0, 1959.0, 822.0, 1945.0, 819.0, 1944.8159, 819.0, 1944.8159, 819.0, 1942.0, 805.0, 1942.0, 805.0, 1943.957, 805.0, 1943.957, 659.0, 1935.0" coords2="659.0, 1935.0, 659.0, 1949.0, 805.0, 1957.957, 805.0, 1957.957, 805.0, 2091.0, 819.0, 2091.0, 819.0, 1958.8159, 819.0, 1958.8159, 822.0, 1959.0, 822.0, 1945.0, 819.0, 1944.8159, 819.0, 1944.8159, 819.0, 1942.0, 805.0, 1942.0, 805.0, 1943.957, 805.0, 1943.957, 659.0, 1935.0" shape="poly" alt="null:Control Flow" id="areaRJX5bhyEwTmeqnXU" href="ControlFlow_RJX5bhyEwTmeqnXL.html" onmouseover="storeReferenceAndSubdiagramInfos('659.0, 1935.0, 659.0, 1949.0, 805.0, 1957.957, 805.0, 1957.957, 805.0, 2091.0, 819.0, 2091.0, 819.0, 1958.8159, 819.0, 1958.8159, 822.0, 1959.0, 822.0, 1945.0, 819.0, 1944.8159, 819.0, 1944.8159, 819.0, 1942.0, 805.0, 1942.0, 805.0, 1943.957, 805.0, 1943.957, 659.0, 1935.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=mJX5bhyEwTmeqnUN/MergeNode5/MergeNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=hJX5bhyEwTmeqnXJ/MergeNode6/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('659.0, 1935.0, 659.0, 1949.0, 805.0, 1957.957, 805.0, 1957.957, 805.0, 2091.0, 819.0, 2091.0, 819.0, 1958.8159, 819.0, 1958.8159, 822.0, 1959.0, 822.0, 1945.0, 819.0, 1944.8159, 819.0, 1944.8159, 819.0, 1942.0, 805.0, 1942.0, 805.0, 1943.957, 805.0, 1943.957, 659.0, 1935.0')"/>
+<area coords="1155.0, 1641.0, 1155.0, 2094.5317, 1155.0, 2094.5317, 809.0, 2085.0, 809.0, 2099.0, 1155.0, 2108.5317, 1155.0, 2108.5317, 1155.0, 2112.0, 1169.0, 2112.0, 1169.0, 2108.9172, 1169.0, 2108.9172, 1172.0, 2109.0, 1172.0, 2095.0, 1169.0, 2094.9172, 1169.0, 2094.9172, 1169.0, 1641.0" coords2="1155.0, 1641.0, 1155.0, 2094.5317, 1155.0, 2094.5317, 809.0, 2085.0, 809.0, 2099.0, 1155.0, 2108.5317, 1155.0, 2108.5317, 1155.0, 2112.0, 1169.0, 2112.0, 1169.0, 2108.9172, 1169.0, 2108.9172, 1172.0, 2109.0, 1172.0, 2095.0, 1169.0, 2094.9172, 1169.0, 2094.9172, 1169.0, 1641.0" shape="poly" alt="null:Control Flow" id="areaxJX5bhyEwTmeqnXf" href="ControlFlow_xJX5bhyEwTmeqnXW.html" onmouseover="storeReferenceAndSubdiagramInfos('1155.0, 1641.0, 1155.0, 2094.5317, 1155.0, 2094.5317, 809.0, 2085.0, 809.0, 2099.0, 1155.0, 2108.5317, 1155.0, 2108.5317, 1155.0, 2112.0, 1169.0, 2112.0, 1169.0, 2108.9172, 1169.0, 2108.9172, 1172.0, 2109.0, 1172.0, 2095.0, 1169.0, 2094.9172, 1169.0, 2094.9172, 1169.0, 1641.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=uJX5bhyEwTmeqnUu/4.2.3.1. The user selects the specific type of transport mean /ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=hJX5bhyEwTmeqnXJ/MergeNode6/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('1155.0, 1641.0, 1155.0, 2094.5317, 1155.0, 2094.5317, 809.0, 2085.0, 809.0, 2099.0, 1155.0, 2108.5317, 1155.0, 2108.5317, 1155.0, 2112.0, 1169.0, 2112.0, 1169.0, 2108.9172, 1169.0, 2108.9172, 1172.0, 2109.0, 1172.0, 2095.0, 1169.0, 2094.9172, 1169.0, 2094.9172, 1169.0, 1641.0')"/>
+<area coords="805.0, 2093.0, 805.0, 2162.0, 819.0, 2162.0, 819.0, 2093.0" coords2="805.0, 2093.0, 805.0, 2162.0, 819.0, 2162.0, 819.0, 2093.0" shape="poly" alt="null:Control Flow" id="areaZJX5bhyEwTmeqnY1" href="ControlFlow_pJX5bhyEwTmeqnYs.html" onmouseover="storeReferenceAndSubdiagramInfos('805.0, 2093.0, 805.0, 2162.0, 819.0, 2162.0, 819.0, 2093.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=hJX5bhyEwTmeqnXJ/MergeNode6/MergeNode'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=JJX5bhyEwTmeqnXq/5. The user add the date and time of the trip/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('805.0, 2093.0, 805.0, 2162.0, 819.0, 2162.0, 819.0, 2093.0')"/>
+<area coords="805.0, 2181.0, 805.0, 2242.0, 819.0, 2242.0, 819.0, 2181.0" coords2="805.0, 2181.0, 805.0, 2242.0, 819.0, 2242.0, 819.0, 2181.0" shape="poly" alt="null:Control Flow" id="areaFJX5bhyEwTmeqnaL" href="ControlFlow_FJX5bhyEwTmeqnaC.html" onmouseover="storeReferenceAndSubdiagramInfos('805.0, 2181.0, 805.0, 2242.0, 819.0, 2242.0, 819.0, 2181.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=JJX5bhyEwTmeqnXq/5. The user add the date and time of the trip/ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=5JX5bhyEwTmeqnZA/6. A new trip is created and inserted into the persistent storage./ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('805.0, 2181.0, 805.0, 2242.0, 819.0, 2242.0, 819.0, 2181.0')"/>
+<area coords="805.0, 2261.0, 805.0, 2413.0, 819.0, 2413.0, 819.0, 2261.0" coords2="805.0, 2261.0, 805.0, 2413.0, 819.0, 2413.0, 819.0, 2261.0" shape="poly" alt="null:Control Flow" id="areaVJX5bhyEwTmeqnaW" href="ControlFlow_lJX5bhyEwTmeqnaN.html" onmouseover="storeReferenceAndSubdiagramInfos('805.0, 2261.0, 805.0, 2413.0, 819.0, 2413.0, 819.0, 2261.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=5JX5bhyEwTmeqnZA/6. A new trip is created and inserted into the persistent storage./ActivityAction'),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html?shapeid=QggbjhyEwTmesNzd/ActivityFinalNode/ActivityFinalNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('805.0, 2261.0, 805.0, 2413.0, 819.0, 2413.0, 819.0, 2261.0')"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_nAgbjhyEwTmesNsm.html">1. The user asks the system to create a new trip : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user asks the system to create a new trip</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_3AgbjhyEwTmesNt8.html">2. Check Identity : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system identifies the user</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_vAgbjhyEwTmesNvS.html">3. The system asks the user to add the source and destination of the trip, as well as, the transport mean that was used. For each of those fields, the system might let the user to choose from some pre-defined values (e.g. common addresses and transport means) that had been configured by the user. : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system asks the user to add the source and destination of the trip, as 
+      well as, the transport mean that was used. For each of those fields, the 
+      system might let the user to choose from some pre-defined values (e.g. 
+      common addresses and transport) that had been configured by the user.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_fAgbjhyEwTmesNwo.html">4. The user provides all the required information and submits the form. : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user provides all the required information and submits the form.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_AggbjhyEwTmesNx_.html">5. A new trip is created and inserted into the persistent storage. : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      new trip is created and inserted into the persistent storage.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_DRX5bhyEwTmeqmfE.html">4.1. The user adds the source and destination address of the trip : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_kxX5bhyEwTmeqmhd.html">4.1.1.1.1. The user selects an address from the list of private addresses : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_MxX5bhyEwTmeqmkP.html">4.1.1.1.2. The system shows the address on a map : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_8xX5bhyEwTmeqmnB.html">4.1.1.1.3. The user confirms the address or picks a different : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_yxX5bhyEwTmeqmpz.html">4.1.1.2.1. The user selects an address from the list of public addresses : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_axX5bhyEwTmeqmsl.html">4.1.1.2.2. The system shows the address on a map : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_WxX5bhyEwTmeqmvX.html">4.1.1.2.3. The user confirms the address or picks a different : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_RxX5bhyEwTmeqmyq.html">4.1.2.1. The users chooses to add a new address : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_pxX5bhyEwTmeqm1F.html">4.1.2.2. The system shows the address creation form : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_FxX5bhyEwTmeqm3g.html">4.1.2.3. The user enters the address : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_NxX5bhyEwTmeqm57.html">4.1.2.4. The user specifies the visibility of the address (i.e. private or public) : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_DxX5bhyEwTmeqm8W.html">4.1.2.5. The user click the add address button : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_zxX5bhyEwTmeqm_x.html">4.1.2.6. The system stores the address into the persistent storage : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_3xX5bhyEwTmeqnBt.html">4.2. The user adds the transport mean  : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_fxX5bhyEwTmeqnDa.html">4.2.1. The user selects the type of the transport mean (e.g. car, bus, taxi etc.) : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_YJX5bhyEwTmeqnGK.html">4.2.2.1.1. the system show all the cars that the user stored in the system : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_UJX5bhyEwTmeqnI8.html">4.2.2.1.2. the user selects a car : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_cJX5bhyEwTmeqnLu.html">4.2.2.2.1. The system show a car creation form : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_iJX5bhyEwTmeqnOg.html">4.2.2.2.2. The user adds some the information about the car (e.g. engine capacity,name etc. ) : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_KJX5bhyEwTmeqnRS.html">4.2.2.2.3. The system add the car to the list of cars that have been used by the user : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_OJX5bhyEwTmeqnUl.html">4.2.3.1. The user selects the specific type of transport mean  : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_JJX5bhyEwTmeqnXh.html">5. The user add the date and time of the trip : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_ZJX5bhyEwTmeqnY3.html">6. A new trip is created and inserted into the persistent storage. : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinalNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinalNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityFinalNode_QggbjhyEwTmesNzU.html">ActivityFinalNode : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="DecisionNode_zRX5bhyEwTmeqmgx.html">4.1.1. The address exist in the system? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="DecisionNode_oxX5bhyEwTmeqmhH.html">4.1.1.1. the user wants to select a private address (i.e. addresses had bee added by the user in the past)? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="DecisionNode_gJX5bhyEwTmeqnFe.html">4.2.2. the user selected the car option? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="DecisionNode_IJX5bhyEwTmeqnF0.html">4.2.2.1. the user wants to select one of the cars he stored into the system? : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="InitialNode_HAgbjhyEwTmesNsb.html">InitialNode : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="MergeNode_uxX5bhyEwTmeqmyJ.html">MergeNode3 : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="MergeNode_7xX5bhyEwTmeqnBM.html">MergeNode4 : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="MergeNode_GJX5bhyEwTmeqnUE.html">MergeNode5 : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="MergeNode_BJX5bhyEwTmeqnXA.html">MergeNode6 : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

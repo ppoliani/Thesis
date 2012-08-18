@@ -1,0 +1,359 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - view individual report</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="UseCaseDiagram_JN92shyEwTmc2h1_.html">
+view individual report : Use Case</a>
+	</p>
+	<p class="PageTitle">
+		Activity Diagram - view individual report	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|182.0|82.0|380.0|40.0|ActivityAction_nf0njhyEwTmesH0t.html|ActivityAction_nf0njhyEwTmesH0t.html|nf0njhyEwTmesH02" id="optionnf0njhyEwTmesH02">1. The user asks the system to view her individual carbon emissions report : Action</option>
+<option value="shape|322.0|182.0|100.0|40.0|ActivityAction_3f0njhyEwTmesH2D.html|ActivityAction_3f0njhyEwTmesH2D.html|3f0njhyEwTmesH2M" id="option3f0njhyEwTmesH2M">2. Check Identity : Action</option>
+<option value="shape|222.0|282.0|290.0|40.0|ActivityAction_vf0njhyEwTmesH3Z.html|ActivityAction_vf0njhyEwTmesH3Z.html|vf0njhyEwTmesH3i" id="optionvf0njhyEwTmesH3i">3. The system presents the individual report for the user : Action</option>
+<option value="shape|2.0|382.0|740.0|40.0|ActivityAction__f0njhyEwTmesH4v.html|ActivityAction__f0njhyEwTmesH4v.html|_f0njhyEwTmesH44" id="option_f0njhyEwTmesH44">3.1. View Carbon Footprints per Trip View monthly/weekly/anual carbon footprints View Trends over Time View Carbon Footprints per Trasport mean : Action</option>
+<option value="shape|362.0|482.0|20.0|20.0|ActivityFinalNode_g_0njhyEwTmesH6c.html|ActivityFinalNode_g_0njhyEwTmesH6c.html|g_0njhyEwTmesH6l" id="optiong_0njhyEwTmesH6l">ActivityFinalNode5 : Activity Final Node</option>
+<option value="shape|352.0|2.0|40.0|20.0|InitialNode_7f0njhyEwTmesH0i.html|InitialNode_7f0njhyEwTmesH0i.html|Hf0njhyEwTmesH0r" id="optionHf0njhyEwTmesH0r">InitialNode5 : Initial Node</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/view_individual_report.png" usemap="#diagram_map" class="Image" width="746.0" height="506.0"/>				<map name = "diagram_map">
+
+<area coords="362.0, 482.0, 382.0, 514.0" coords2="362.0, 482.0, 382.0, 514.0" shape="rect" alt="ActivityFinalNode5:Activity Final Node" id="areag_0njhyEwTmesH6l" href="ActivityFinalNode_g_0njhyEwTmesH6c.html" onmouseover="storeReferenceAndSubdiagramInfos('362.0, 482.0, 382.0, 502.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Q_0njhyEwTmesH6w/Unnamed/ControlFlow'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('362.0, 482.0, 382.0, 502.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>User 
+      can:</font>
+    </p>
+    <ol>
+      <li id=&quot;htmlsource0&quot;>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>View 
+        Carbon Footprints per Trip</font>
+      </li>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>View 
+        monthly/weekly/anual carbon footprints</font>
+      </li>
+      <li id=&quot;htmlsource2&quot;>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>View 
+        Trends over Time</font>
+      </li>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>View 
+        Carbon Footprints per Trasport mean</font>
+      </li>
+    </ol>
+  </body>" coords="2.0, 382.0, 742.0, 434.0" coords2="2.0, 382.0, 742.0, 434.0" shape="rect" alt="3.1. View Carbon Footprints per Trip View monthly/weekly/anual carbon footprints View Trends over Time View Carbon Footprints per Trasport mean:Action" id="area_f0njhyEwTmesH44" href="ActivityAction__f0njhyEwTmesH4v.html" onmouseover="storeReferenceAndSubdiagramInfos('2.0, 382.0, 742.0, 422.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_Xo7LjhyEwTmesKx6.html/ paVBshyEwTmc2lbu   J3TBshyEwTmc2liX   CywhshyEwTmc2lpI   bBmhshyEwTmc2m0y /Step','ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=g_0njhyEwTmesH6a/Unnamed/ControlFlow'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Q_0njhyEwTmesH6w/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('2.0, 382.0, 742.0, 422.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="222.0, 282.0, 512.0, 334.0" coords2="222.0, 282.0, 512.0, 334.0" shape="rect" alt="3. The system presents the individual report for the user:Action" id="areavf0njhyEwTmesH3i" href="ActivityAction_vf0njhyEwTmesH3Z.html" onmouseover="storeReferenceAndSubdiagramInfos('222.0, 282.0, 512.0, 322.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_NGRTjhyEwTmesKoX.html/The system presents the individual report for the user/Step','ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=ff0njhyEwTmesH4t/Unnamed/ControlFlow'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=g_0njhyEwTmesH6a/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('222.0, 282.0, 512.0, 322.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Check 
+      user identity</font>
+    </p>
+  </body>" coords="322.0, 182.0, 422.0, 234.0" coords2="322.0, 182.0, 422.0, 234.0" shape="rect" alt="2. Check Identity:Action" id="area3f0njhyEwTmesH2M" href="ActivityAction_3f0njhyEwTmesH2D.html" onmouseover="storeReferenceAndSubdiagramInfos('322.0, 182.0, 422.0, 222.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_OtQ5jhyEwTmesLta.html/ 4laeshyEwTmc2iqP /Step','ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Pf0njhyEwTmesH3X/Unnamed/ControlFlow'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=ff0njhyEwTmesH4t/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('322.0, 182.0, 422.0, 222.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user asks the system to view her individual carbon emissions report</font>
+    </p>
+  </body>" coords="182.0, 82.0, 562.0, 134.0" coords2="182.0, 82.0, 562.0, 134.0" shape="rect" alt="1. The user asks the system to view her individual carbon emissions report:Action" id="areanf0njhyEwTmesH02" href="ActivityAction_nf0njhyEwTmesH0t.html" onmouseover="storeReferenceAndSubdiagramInfos('182.0, 82.0, 562.0, 122.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_o0Q5jhyEwTmesLtI.html/The user asks the system to view her individual carbon emissions report/Step','ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Xf0njhyEwTmesH2B/Unnamed/ControlFlow'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Pf0njhyEwTmesH3X/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('182.0, 82.0, 562.0, 122.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="352.0, 2.0, 392.0, 34.0" coords2="352.0, 2.0, 392.0, 34.0" shape="rect" alt="InitialNode5:Initial Node" id="areaHf0njhyEwTmesH0r" href="InitialNode_7f0njhyEwTmesH0i.html" onmouseover="storeReferenceAndSubdiagramInfos('352.0, 2.0, 392.0, 22.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Xf0njhyEwTmesH2B/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('352.0, 2.0, 392.0, 22.0')"/>
+<area coords="365.0, 11.0, 365.0, 92.0, 379.0, 92.0, 379.0, 11.0" coords2="365.0, 11.0, 365.0, 92.0, 379.0, 92.0, 379.0, 11.0" shape="poly" alt="null:Control Flow" id="areaXf0njhyEwTmesH2B" href="ControlFlow_Xf0njhyEwTmesH14.html" onmouseover="storeReferenceAndSubdiagramInfos('365.0, 11.0, 365.0, 92.0, 379.0, 92.0, 379.0, 11.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=Hf0njhyEwTmesH0r/InitialNode5/InitialNode'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=nf0njhyEwTmesH02/1. The user asks the system to view her individual carbon emissions report/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('365.0, 11.0, 365.0, 92.0, 379.0, 92.0, 379.0, 11.0')"/>
+<area coords="365.0, 111.0, 365.0, 192.0, 379.0, 192.0, 379.0, 111.0" coords2="365.0, 111.0, 365.0, 192.0, 379.0, 192.0, 379.0, 111.0" shape="poly" alt="null:Control Flow" id="areaPf0njhyEwTmesH3X" href="ControlFlow_Pf0njhyEwTmesH3O.html" onmouseover="storeReferenceAndSubdiagramInfos('365.0, 111.0, 365.0, 192.0, 379.0, 192.0, 379.0, 111.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=nf0njhyEwTmesH02/1. The user asks the system to view her individual carbon emissions report/ActivityAction'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=3f0njhyEwTmesH2M/2. Check Identity/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('365.0, 111.0, 365.0, 192.0, 379.0, 192.0, 379.0, 111.0')"/>
+<area coords="365.0, 211.0, 365.0, 292.0, 379.0, 292.0, 379.0, 211.0" coords2="365.0, 211.0, 365.0, 292.0, 379.0, 292.0, 379.0, 211.0" shape="poly" alt="null:Control Flow" id="areaff0njhyEwTmesH4t" href="ControlFlow_ff0njhyEwTmesH4k.html" onmouseover="storeReferenceAndSubdiagramInfos('365.0, 211.0, 365.0, 292.0, 379.0, 292.0, 379.0, 211.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=3f0njhyEwTmesH2M/2. Check Identity/ActivityAction'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=vf0njhyEwTmesH3i/3. The system presents the individual report for the user/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('365.0, 211.0, 365.0, 292.0, 379.0, 292.0, 379.0, 211.0')"/>
+<area coords="365.0, 311.0, 365.0, 392.0, 379.0, 392.0, 379.0, 311.0" coords2="365.0, 311.0, 365.0, 392.0, 379.0, 392.0, 379.0, 311.0" shape="poly" alt="null:Control Flow" id="areag_0njhyEwTmesH6a" href="ControlFlow_A_0njhyEwTmesH6R.html" onmouseover="storeReferenceAndSubdiagramInfos('365.0, 311.0, 365.0, 392.0, 379.0, 392.0, 379.0, 311.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=vf0njhyEwTmesH3i/3. The system presents the individual report for the user/ActivityAction'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=_f0njhyEwTmesH44/3.1. View Carbon Footprints per Trip View monthly/weekly/anual carbon footprints View Trends over Time View Carbon Footprints per Trasport mean/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('365.0, 311.0, 365.0, 392.0, 379.0, 392.0, 379.0, 311.0')"/>
+<area coords="365.0, 411.0, 365.0, 493.0, 379.0, 493.0, 379.0, 411.0" coords2="365.0, 411.0, 365.0, 493.0, 379.0, 493.0, 379.0, 411.0" shape="poly" alt="null:Control Flow" id="areaQ_0njhyEwTmesH6w" href="ControlFlow_Q_0njhyEwTmesH6n.html" onmouseover="storeReferenceAndSubdiagramInfos('365.0, 411.0, 365.0, 493.0, 379.0, 493.0, 379.0, 411.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=_f0njhyEwTmesH44/3.1. View Carbon Footprints per Trip View monthly/weekly/anual carbon footprints View Trends over Time View Carbon Footprints per Trasport mean/ActivityAction'),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html?shapeid=g_0njhyEwTmesH6l/ActivityFinalNode5/ActivityFinalNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('365.0, 411.0, 365.0, 493.0, 379.0, 493.0, 379.0, 411.0')"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_nf0njhyEwTmesH0t.html">1. The user asks the system to view her individual carbon emissions report : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user asks the system to view her individual carbon emissions report</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_3f0njhyEwTmesH2D.html">2. Check Identity : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Check 
+      user identity</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_vf0njhyEwTmesH3Z.html">3. The system presents the individual report for the user : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction__f0njhyEwTmesH4v.html">3.1. View Carbon Footprints per Trip View monthly/weekly/anual carbon footprints View Trends over Time View Carbon Footprints per Trasport mean : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">User 
+      can:</font>
+    </p>
+    <ol>
+      <li id="htmlsource0">
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">View 
+        Carbon Footprints per Trip</font>
+      </li>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">View 
+        monthly/weekly/anual carbon footprints</font>
+      </li>
+      <li id="htmlsource2">
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">View 
+        Trends over Time</font>
+      </li>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">View 
+        Carbon Footprints per Trasport mean</font>
+      </li>
+    </ol>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinalNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinalNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityFinalNode_g_0njhyEwTmesH6c.html">ActivityFinalNode5 : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="InitialNode_7f0njhyEwTmesH0i.html">InitialNode5 : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

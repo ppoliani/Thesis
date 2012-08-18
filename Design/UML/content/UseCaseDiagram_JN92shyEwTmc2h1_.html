@@ -1,0 +1,639 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Use Case Diagram - Use Cases</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p class="PageTitle">
+		Use Case Diagram - Use Cases	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|52.0|112.0|30.0|60.0|Actor_uj0OshyEwTmc2h2I.html|Actor_uj0OshyEwTmc2h2I.html|ij0OshyEwTmc2h2H" id="optionij0OshyEwTmc2h2H">Student/Staff : Actor</option>
+<option value="shape|592.0|122.0|30.0|60.0|Actor_bLPeshyEwTmc2jTW.html|Actor_bLPeshyEwTmc2jTW.html|bLPeshyEwTmc2jTV" id="optionbLPeshyEwTmc2jTV">Database : Actor</option>
+<option value="shape|182.0|72.0|80.0|40.0|UseCase_4phOshyEwTmc2h4w.html|UseCase_4phOshyEwTmc2h4w.html|4phOshyEwTmc2h4v" id="option4phOshyEwTmc2h4v">Create a Trip : Use Case</option>
+<option value="shape|332.0|132.0|180.0|60.0|UseCase_4laeshyEwTmc2iqP.html|UseCase_4laeshyEwTmc2iqP.html|4laeshyEwTmc2iqO" id="option4laeshyEwTmc2iqO">Check Identity : Use Case</option>
+<option value="shape|182.0|142.0|80.0|40.0|UseCase_2kzeshyEwTmc2jMa.html|UseCase_2kzeshyEwTmc2jMa.html|2kzeshyEwTmc2jMZ" id="option2kzeshyEwTmc2jMZ">Edit a Trip : Use Case</option>
+<option value="shape|392.0|2.0|80.0|40.0|UseCase_Yrh_shyEwTmc2jxu.html|UseCase_Yrh_shyEwTmc2jxu.html|Yrh.shyEwTmc2jxt" id="optionYrh.shyEwTmc2jxt">Login : Use Case</option>
+<option value="shape|172.0|232.0|120.0|40.0|UseCase_68hBshyEwTmc2lUJ.html|UseCase_68hBshyEwTmc2lUJ.html|68hBshyEwTmc2lUI" id="option68hBshyEwTmc2lUI">view individual report : Use Case</option>
+<option value="shape|352.0|282.0|160.0|40.0|UseCase_paVBshyEwTmc2lbu.html|UseCase_paVBshyEwTmc2lbu.html|paVBshyEwTmc2lbt" id="optionpaVBshyEwTmc2lbt">View Carbon Footprints per Trip : Use Case</option>
+<option value="shape|352.0|432.0|160.0|40.0|UseCase_J3TBshyEwTmc2liX.html|UseCase_J3TBshyEwTmc2liX.html|J3TBshyEwTmc2liW" id="optionJ3TBshyEwTmc2liW">View monthly/weekly/anual carbon footprints : Use Case</option>
+<option value="shape|352.0|362.0|160.0|40.0|UseCase_CywhshyEwTmc2lpI.html|UseCase_CywhshyEwTmc2lpI.html|CywhshyEwTmc2lpH" id="optionCywhshyEwTmc2lpH">View Trends over Time : Use Case</option>
+<option value="shape|352.0|502.0|160.0|40.0|UseCase_bBmhshyEwTmc2m0y.html|UseCase_bBmhshyEwTmc2m0y.html|bBmhshyEwTmc2m0x" id="optionbBmhshyEwTmc2m0x">View Carbon Footprints per Trasport mean : Use Case</option>
+<option value="shape|142.0|412.0|110.0|40.0|UseCase_EpDxshyEwTmc2nvs.html|UseCase_EpDxshyEwTmc2nvs.html|EpDxshyEwTmc2nvr" id="optionEpDxshyEwTmc2nvr">View Group Report : Use Case</option>
+<option value="shape|2.0|412.0|120.0|40.0|UseCase_anJcihyGAqACQxj_.html|UseCase_anJcihyGAqACQxj_.html|inJcihyGAqACQxj." id="optioninJcihyGAqACQxj.">View University Report : Use Case</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Use_Cases.png" usemap="#diagram_map" class="Image" width="645.0" height="546.0"/>				<map name = "diagram_map">
+
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where any user can view carbon emissions report about a 
+      university.</font>
+    </p>
+  </body>" coords="2.0, 412.0, 122.0, 452.0" coords2="2.0, 412.0, 122.0, 452.0" shape="rect" alt="View University Report:Use Case" id="areainJcihyGAqACQxj." href="UseCase_anJcihyGAqACQxj_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users can view the report of the groups 
+      that they are members.</font>
+    </p>
+  </body>" coords="142.0, 412.0, 252.0, 452.0" coords2="142.0, 412.0, 252.0, 452.0" shape="rect" alt="View Group Report:Use Case" id="areaEpDxshyEwTmc2nvr" href="UseCase_EpDxshyEwTmc2nvs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emissions categorized by the 
+      transport means that were used.</font>
+    </p>
+  </body>" coords="352.0, 502.0, 512.0, 542.0" coords2="352.0, 502.0, 512.0, 542.0" shape="rect" alt="View Carbon Footprints per Trasport mean:Use Case" id="areabBmhshyEwTmc2m0x" href="UseCase_bBmhshyEwTmc2m0y.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view their carbon emissions over the course of 
+      time.</font>
+    </p>
+  </body>" coords="352.0, 362.0, 512.0, 402.0" coords2="352.0, 362.0, 512.0, 402.0" shape="rect" alt="View Trends over Time:Use Case" id="areaCywhshyEwTmc2lpH" href="UseCase_CywhshyEwTmc2lpI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emissions on weekly, daily or 
+      annual basis.</font>
+    </p>
+  </body>" coords="352.0, 432.0, 512.0, 472.0" coords2="352.0, 432.0, 512.0, 472.0" shape="rect" alt="View monthly/weekly/anual carbon footprints:Use Case" id="areaJ3TBshyEwTmc2liW" href="UseCase_J3TBshyEwTmc2liX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emitted by each of the trips they 
+      have made.</font>
+    </p>
+  </body>" coords="352.0, 282.0, 512.0, 322.0" coords2="352.0, 282.0, 512.0, 322.0" shape="rect" alt="View Carbon Footprints per Trip:Use Case" id="areapaVBshyEwTmc2lbt" href="UseCase_paVBshyEwTmc2lbu.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users (i.e. students or members of the 
+      university staff) can view their individual carbon emissions report.</font>
+    </p>
+  </body>" coords="172.0, 232.0, 292.0, 272.0" coords2="172.0, 232.0, 292.0, 272.0" shape="rect" alt="view individual report:Use Case" id="area68hBshyEwTmc2lUI" href="UseCase_68hBshyEwTmc2lUJ.html" onmouseover="storeReferenceAndSubdiagramInfos(this.coords,new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_bf0njhyEwTmesH0g.html/view individual report/ActivityDiagram'),new Array(),new Array(),new Array()),hideReferenceIcon(),showSubdiagramIcon(this.coords),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where users provide their credentials in order to enter the 
+      system and be able to execute operations that require them to be 
+      authenticated</font>
+    </p>
+  </body>" coords="392.0, 2.0, 472.0, 42.0" coords2="392.0, 2.0, 472.0, 42.0" shape="rect" alt="Login:Use Case" id="areaYrh.shyEwTmc2jxt" href="UseCase_Yrh_shyEwTmc2jxu.html" onmouseover="storeReferenceAndSubdiagramInfos(this.coords,new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram__uqHjhyEwTmesE3g.html/Login/ActivityDiagram'),new Array(),new Array(),new Array()),hideReferenceIcon(),showSubdiagramIcon(this.coords),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      persistent storage where all the data are stored</font>
+    </p>
+  </body>" coords="592.0, 122.0, 622.0, 182.0" coords2="592.0, 122.0, 622.0, 182.0" shape="rect" alt="Database:Actor" id="areabLPeshyEwTmc2jTV" href="Actor_bLPeshyEwTmc2jTW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where an authenticated user (i.e. a student or a member of the 
+      staff) can modify the details of a trip that she has created</font>
+    </p>
+  </body>" coords="182.0, 142.0, 262.0, 182.0" coords2="182.0, 142.0, 262.0, 182.0" shape="rect" alt="Edit a Trip:Use Case" id="area2kzeshyEwTmc2jMZ" href="UseCase_2kzeshyEwTmc2jMa.html" onmouseover="storeReferenceAndSubdiagramInfos(this.coords,new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html/Edit a Trip/ActivityDiagram'),new Array(),new Array(),new Array()),hideReferenceIcon(),showSubdiagramIcon(this.coords),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      process that assures that some operations can only be executed by 
+      authenticated users</font>
+    </p>
+  </body>" coords="332.0, 132.0, 512.0, 192.0" coords2="332.0, 132.0, 512.0, 192.0" shape="rect" alt="Check Identity:Use Case" id="area4laeshyEwTmc2iqO" href="UseCase_4laeshyEwTmc2iqP.html" onmouseover="storeReferenceAndSubdiagramInfos(this.coords,new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html/Check Identity/ActivityDiagram'),new Array(),new Array(),new Array()),showReferenceIcon(this.coords),showSubdiagramIcon(this.coords),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      use case where authenticated users can add trips that they have made, by 
+      providing the appropriate details.</font>
+    </p>
+  </body>" coords="182.0, 72.0, 262.0, 112.0" coords2="182.0, 72.0, 262.0, 112.0" shape="rect" alt="Create a Trip:Use Case" id="area4phOshyEwTmc2h4v" href="UseCase_4phOshyEwTmc2h4w.html" onmouseover="storeReferenceAndSubdiagramInfos(this.coords,new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_7AgbjhyEwTmesNsZ.html/Create a Trip v1/ActivityDiagram'),new Array(),new Array(),new Array()),hideReferenceIcon(),showSubdiagramIcon(this.coords),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Students 
+      of members of a university staff</font>
+    </p>
+  </body>" coords="52.0, 112.0, 82.0, 172.0" coords2="52.0, 112.0, 82.0, 172.0" shape="rect" alt="Student/Staff:Actor" id="areaij0OshyEwTmc2h2H" href="Actor_uj0OshyEwTmc2h2I.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="243.0, 97.0, 239.0, 111.0, 365.0, 150.0, 368.0, 136.0, 243.0, 97.0" coords2="243.0, 97.0, 239.0, 111.0, 365.0, 150.0, 368.0, 136.0, 243.0, 97.0" shape="poly" alt=":Include" id="areaZnDeshyEwTmc2jMR" href="Include_9HDeshyEwTmc2jL_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="252.0, 155.0, 252.0, 169.0, 342.0, 169.0, 342.0, 155.0" coords2="252.0, 155.0, 252.0, 169.0, 342.0, 169.0, 342.0, 155.0" shape="poly" alt=":Include" id="area8sXeshyEwTmc2jTR" href="Include_8sXeshyEwTmc2jTH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="202.0, 97.0, 71.0, 137.0, 75.0, 151.0, 205.0, 111.0, 202.0, 97.0" coords2="202.0, 97.0, 71.0, 137.0, 75.0, 151.0, 205.0, 111.0, 202.0, 97.0" shape="poly" alt=":Association" id="areazn_eshyEwTmc2jUt" href="Association_yH_eshyEwTmc2jUO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="72.0, 155.0, 72.0, 169.0, 192.0, 169.0, 192.0, 155.0" coords2="72.0, 155.0, 72.0, 169.0, 192.0, 169.0, 192.0, 155.0" shape="poly" alt=":Association" id="area89g.shyEwTmc2jVW" href="Association_89g_shyEwTmc2jU5.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="497.0, 145.0, 497.0, 159.0, 601.0, 159.0, 601.0, 145.0" coords2="497.0, 145.0, 497.0, 159.0, 601.0, 159.0, 601.0, 145.0" shape="poly" alt=":Association" id="area_9y.shyEwTmc2ji." href="Association__9y_shyEwTmc2jih.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="425.0, 32.0, 425.0, 142.0, 439.0, 142.0, 439.0, 32.0" coords2="425.0, 32.0, 425.0, 142.0, 439.0, 142.0, 439.0, 32.0" shape="poly" alt="{if user has not been  authenticated}:Extend" id="area9gEBshyEwTmc2k9_" href="Extend_dgEBshyEwTmc2k90.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="92.0, 176.0, 84.0, 187.0, 187.0, 250.0, 195.0, 239.0, 92.0, 176.0" coords2="92.0, 176.0, 84.0, 187.0, 187.0, 250.0, 195.0, 239.0, 92.0, 176.0" shape="poly" alt=":Association" id="area6q5BshyEwTmc2lbX" href="Association_6q5BshyEwTmc2la6.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="347.0, 166.0, 271.0, 242.0, 281.0, 252.0, 357.0, 176.0, 347.0, 166.0" coords2="347.0, 166.0, 271.0, 242.0, 281.0, 252.0, 357.0, 176.0, 347.0, 166.0" shape="poly" alt=":Include" id="area7TFBshyEwTmc2lbn" href="Include_bTFBshyEwTmc2lbd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="264.0, 258.0, 262.0, 272.0, 385.0, 296.0, 387.0, 282.0, 264.0, 258.0" coords2="264.0, 258.0, 262.0, 272.0, 385.0, 296.0, 387.0, 282.0, 264.0, 258.0" shape="poly" alt=":Include" id="area4zyhshyEwTmc2mUj" href="Include_4zyhshyEwTmc2mUZ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="260.0, 260.0, 250.0, 270.0, 364.0, 384.0, 374.0, 374.0, 260.0, 260.0" coords2="260.0, 260.0, 250.0, 270.0, 364.0, 384.0, 374.0, 374.0, 260.0, 260.0" shape="poly" alt=":Include" id="area.JKhshyEwTmc2mUx" href="Include_eJKhshyEwTmc2mUn.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="242.0, 260.0, 231.0, 268.0, 359.0, 455.0, 370.0, 447.0, 242.0, 260.0" coords2="242.0, 260.0, 231.0, 268.0, 359.0, 455.0, 370.0, 447.0, 242.0, 260.0" shape="poly" alt=":Include" id="area56qhshyEwTmc2mU_" href="Include_56qhshyEwTmc2mU1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="212.0, 260.0, 201.0, 268.0, 358.0, 524.0, 369.0, 516.0, 212.0, 260.0" coords2="212.0, 260.0, 201.0, 268.0, 358.0, 524.0, 369.0, 516.0, 212.0, 260.0" shape="poly" alt=":Include" id="area5HFhshyEwTmc2nV2" href="Include_5HFhshyEwTmc2nVs.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="195.0, 260.0, 195.0, 422.0, 209.0, 422.0, 209.0, 260.0" coords2="195.0, 260.0, 195.0, 422.0, 209.0, 422.0, 209.0, 260.0" shape="poly" alt=":Generalization" id="area59XJshyEwTmc2pWr" href="Generalization_59XJshyEwTmc2pWi.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="178.0, 250.0, 61.0, 415.0, 72.0, 423.0, 189.0, 258.0, 178.0, 250.0" coords2="178.0, 250.0, 61.0, 415.0, 72.0, 423.0, 189.0, 258.0, 178.0, 250.0" shape="poly" alt=":Generalization" id="area1sNcihyGAqACQxwR" href="Generalization_VsNcihyGAqACQxwI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="183.0, 10.0, 177.51456, 15.0, 172.0, 15.0, 172.0, 20.026548, 70.0, 113.0, 80.0, 123.0, 183.12622, 29.0, 402.0, 29.0, 402.0, 15.0, 188.0, 15.0, 183.0, 10.0" coords2="183.0, 10.0, 177.51456, 15.0, 172.0, 15.0, 172.0, 20.026548, 70.0, 113.0, 80.0, 123.0, 183.12622, 29.0, 402.0, 29.0, 402.0, 15.0, 188.0, 15.0, 183.0, 10.0" shape="poly" alt=":Association" id="areal4kfDhyEwTmesKNP" href="Association_l4kfDhyEwTmesKMy.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="294.0, 73.0, 293.7143, 75.0, 247.0, 75.0, 247.0, 89.0, 305.95456, 89.0, 599.0, 131.0, 601.0, 117.0, 312.0, 75.5798, 312.0, 75.0, 307.95456, 75.0, 294.0, 73.0" coords2="294.0, 73.0, 293.7143, 75.0, 247.0, 75.0, 247.0, 89.0, 305.95456, 89.0, 599.0, 131.0, 601.0, 117.0, 312.0, 75.5798, 312.0, 75.0, 307.95456, 75.0, 294.0, 73.0" shape="poly" alt=":Association" id="areaBgDhjhyEwTmesBWA" href="Association__gDhjhyEwTmesBVj.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="595.0, 151.0, 500.27075, 214.15283, 500.27075, 214.15283, 238.0, 169.0, 236.0, 183.0, 494.76285, 227.54892, 498.0, 232.0, 502.6419, 228.90538, 502.6419, 228.90538, 509.0, 230.0, 509.8421, 224.10527, 603.0, 162.0, 595.0, 151.0" coords2="595.0, 151.0, 500.27075, 214.15283, 500.27075, 214.15283, 238.0, 169.0, 236.0, 183.0, 494.76285, 227.54892, 498.0, 232.0, 502.6419, 228.90538, 502.6419, 228.90538, 509.0, 230.0, 509.8421, 224.10527, 603.0, 162.0, 595.0, 151.0" shape="poly" alt=":Association" id="areaDFThjhyEwTmesBjo" href="Association_DFThjhyEwTmesBjL.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="573.0, 185.0, 493.0, 296.0, 504.0, 304.0, 584.0, 193.0, 573.0, 185.0" coords2="573.0, 185.0, 493.0, 296.0, 504.0, 304.0, 584.0, 193.0, 573.0, 185.0" shape="poly" alt=":Association" id="areaCF3pjhyEwTmesJQ0" href="Association_CF3pjhyEwTmesJQX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="570.0, 186.0, 496.0, 381.0, 510.0, 384.0, 584.0, 190.0, 570.0, 186.0" coords2="570.0, 186.0, 496.0, 381.0, 510.0, 384.0, 584.0, 190.0, 570.0, 186.0" shape="poly" alt=":Association" id="areaEtPpjhyEwTmesJRX" href="Association_4tPpjhyEwTmesJQ6.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="570.0, 186.0, 497.0, 451.0, 511.0, 454.0, 584.0, 190.0, 570.0, 186.0" coords2="570.0, 186.0, 497.0, 451.0, 511.0, 454.0, 584.0, 190.0, 570.0, 186.0" shape="poly" alt=":Association" id="areaDFvpjhyEwTmesJR5" href="Association_9FvpjhyEwTmesJRc.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="569.0, 187.0, 499.0, 523.0, 513.0, 525.0, 583.0, 189.0, 569.0, 187.0" coords2="569.0, 187.0, 499.0, 523.0, 513.0, 525.0, 583.0, 189.0, 569.0, 187.0" shape="poly" alt=":Association" id="areaD2fpjhyEwTmesJSb" href="Association_92fpjhyEwTmesJR_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Actor_uj0OshyEwTmc2h2I.html">Student/Staff : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Students 
+      of members of a university staff</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Actor.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Actor.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Actor_bLPeshyEwTmc2jTW.html">Database : Actor</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      persistent storage where all the data are stored</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_4phOshyEwTmc2h4w.html">Create a Trip : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users can add trips that they have made, by 
+      providing the appropriate details.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_4laeshyEwTmc2iqP.html">Check Identity : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      process that assures that some operations can only be executed by 
+      authenticated users</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_2kzeshyEwTmc2jMa.html">Edit a Trip : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where an authenticated user (i.e. a student or a member of the 
+      staff) can modify the details of a trip that she has created</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_Yrh_shyEwTmc2jxu.html">Login : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where users provide their credentials in order to enter the 
+      system and be able to execute operations that require them to be 
+      authenticated</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_68hBshyEwTmc2lUJ.html">view individual report : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users (i.e. students or members of the 
+      university staff) can view their individual carbon emissions report.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_paVBshyEwTmc2lbu.html">View Carbon Footprints per Trip : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emitted by each of the trips they 
+      have made.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_J3TBshyEwTmc2liX.html">View monthly/weekly/anual carbon footprints : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emissions on weekly, daily or 
+      annual basis.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_CywhshyEwTmc2lpI.html">View Trends over Time : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view their carbon emissions over the course of 
+      time.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_bBmhshyEwTmc2m0y.html">View Carbon Footprints per Trasport mean : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users (e.g. students and members of 
+      university staff) can view the carbon emissions categorized by the 
+      transport means that were used.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_EpDxshyEwTmc2nvs.html">View Group Report : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where authenticated users can view the report of the groups 
+      that they are members.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/UseCase.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/UseCase.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="UseCase_anJcihyGAqACQxj_.html">View University Report : Use Case</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">A 
+      use case where any user can view carbon emissions report about a 
+      university.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

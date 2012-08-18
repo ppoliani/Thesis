@@ -1,0 +1,466 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Requirement Diagram - Requirement Diagram1</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p class="PageTitle">
+		Requirement Diagram - Requirement Diagram1	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|2.0|2.0|110.0|150.0|Requirement_hBJ8NhyEwTmekxoo.html|Requirement_hBJ8NhyEwTmekxoo.html|2BJ8NhyEwTmekxon" id="option2BJ8NhyEwTmekxon">Trip Creation : Requirement</option>
+<option value="shape|192.0|2.0|110.0|150.0|Requirement_BcJCNhyEwTmekyrG.html|Requirement_BcJCNhyEwTmekyrG.html|BcJCNhyEwTmekyrF" id="optionBcJCNhyEwTmekyrF">Trip Correction : Requirement</option>
+<option value="shape|382.0|2.0|270.0|150.0|Requirement_H8wiNhyEwTmekzA7.html|Requirement_H8wiNhyEwTmekzA7.html|H8wiNhyEwTmekzA6" id="optionH8wiNhyEwTmekzA6">View Individual Report : Requirement</option>
+<option value="shape|462.0|232.0|110.0|150.0|Requirement_vkkqNhyEwTmek1W2.html|Requirement_vkkqNhyEwTmek1W2.html|vkkqNhyEwTmek1W1" id="optionvkkqNhyEwTmek1W1">View Group Report : Requirement</option>
+<option value="shape|132.0|242.0|210.0|170.0|Requirement_stiaNhyEwTmek3Bd.html|Requirement_stiaNhyEwTmek3Bd.html|0tiaNhyEwTmek3Bc" id="option0tiaNhyEwTmek3Bc">View University Report : Requirement</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Requirement_Diagram1.png" usemap="#diagram_map" class="Image" width="656.0" height="416.0"/>				<map name = "diagram_map">
+
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system shall allow any user to view a summary report about the carbon 
+      emissions of the entire university.</font>
+    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>
+</font>    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      details of the report are specified in the requirement &quot;View Individual 
+      Report&quot;</font>
+    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>
+</font>    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Users 
+      need not to be authenticated</font>
+    </p>
+  </body>" coords="132.0, 242.0, 342.0, 412.0" coords2="132.0, 242.0, 342.0, 412.0" shape="rect" alt="View University Report:Requirement" id="area0tiaNhyEwTmek3Bc" href="Requirement_stiaNhyEwTmek3Bd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system should allow a student and a member of the university staff to 
+      view carbon emission report, concerning the groups that they are member 
+      of (e.g. research groups etc.).</font>
+    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>
+</font>    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      details of the report are specified in the requirement &quot;View Individual 
+      Report&quot;</font>
+    </p>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>
+</font>    </p>
+    <p margin-top=&quot;0&quot;>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Both 
+      students and members of the university staff shall be authenticated.</font>
+    </p>
+  </body>" coords="462.0, 232.0, 572.0, 382.0" coords2="462.0, 232.0, 572.0, 382.0" shape="rect" alt="View Group Report:Requirement" id="areavkkqNhyEwTmek1W1" href="Requirement_vkkqNhyEwTmek1W2.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system shall allow a student and a member of the university staff to 
+      view his individual report presenting his carbon footprints. The report 
+      shall present:</font>
+    </p>
+    <ol>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>individual 
+        carbon emissions per trip</font>
+      </li>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>individual 
+        carbon emissions on monthly/weekly/annual basis</font>
+      </li>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>individual 
+        carbon emissions per transport mean</font>
+      </li>
+      <li>
+        <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>individual 
+        carbon emissions trends over the course of time</font>
+      </li>
+    </ol>
+    <p margin-top=&quot;0&quot;>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>
+</font>    </p>
+    <p margin-top=&quot;0&quot;>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      report shall be accompanied by appropriate visualization elements (e.g. 
+      charts etc.).</font>
+    </p>
+    <p margin-top=&quot;0&quot;>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Both 
+      students and members of the university staff shall be authenticated.</font>
+    </p>
+  </body>" coords="382.0, 2.0, 652.0, 152.0" coords2="382.0, 2.0, 652.0, 152.0" shape="rect" alt="View Individual Report:Requirement" id="areaH8wiNhyEwTmekzA6" href="Requirement_H8wiNhyEwTmekzA7.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system shall allow a student or a member of the university staff to edit 
+      a trip that he has already created. This action demands the user to be 
+      authenticated.</font>
+    </p>
+  </body>" coords="192.0, 2.0, 302.0, 152.0" coords2="192.0, 2.0, 302.0, 152.0" shape="rect" alt="Trip Correction:Requirement" id="areaBcJCNhyEwTmekyrF" href="Requirement_BcJCNhyEwTmekyrG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+    system shall allow a student or a member of the staff to add a new trip, 
+    by providing the appropriate information, such as, source and destination 
+    of the trip. as well as, the transport mean that was used. A user must be 
+    authenticated before adding a new trip.</font>
+  </body>" coords="2.0, 2.0, 112.0, 152.0" coords2="2.0, 2.0, 112.0, 152.0" shape="rect" alt="Trip Creation:Requirement" id="area2BJ8NhyEwTmekxon" href="Requirement_hBJ8NhyEwTmekxoo.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Requirement.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Requirement.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Requirement_hBJ8NhyEwTmekxoo.html">Trip Creation : Requirement</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+    system shall allow a student or a member of the staff to add a new trip, 
+    by providing the appropriate information, such as, source and destination 
+    of the trip. as well as, the transport mean that was used. A user must be 
+    authenticated before adding a new trip.</font>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Requirement.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Requirement.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Requirement_BcJCNhyEwTmekyrG.html">Trip Correction : Requirement</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system shall allow a student or a member of the university staff to edit 
+      a trip that he has already created. This action demands the user to be 
+      authenticated.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Requirement.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Requirement.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Requirement_H8wiNhyEwTmekzA7.html">View Individual Report : Requirement</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system shall allow a student and a member of the university staff to 
+      view his individual report presenting his carbon footprints. The report 
+      shall present:</font>
+    </p>
+    <ol>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">individual 
+        carbon emissions per trip</font>
+      </li>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">individual 
+        carbon emissions on monthly/weekly/annual basis</font>
+      </li>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">individual 
+        carbon emissions per transport mean</font>
+      </li>
+      <li>
+        <font color="#000000" face="Courier New" size="11px" style="font-size:11px">individual 
+        carbon emissions trends over the course of time</font>
+      </li>
+    </ol>
+    <p margin-top="0">
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">
+</font>    </p>
+    <p margin-top="0">
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      report shall be accompanied by appropriate visualization elements (e.g. 
+      charts etc.).</font>
+    </p>
+    <p margin-top="0">
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Both 
+      students and members of the university staff shall be authenticated.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Requirement.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Requirement.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Requirement_vkkqNhyEwTmek1W2.html">View Group Report : Requirement</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system should allow a student and a member of the university staff to 
+      view carbon emission report, concerning the groups that they are member 
+      of (e.g. research groups etc.).</font>
+    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">
+</font>    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      details of the report are specified in the requirement &quot;View Individual 
+      Report&quot;</font>
+    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">
+</font>    </p>
+    <p margin-top="0">
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Both 
+      students and members of the university staff shall be authenticated.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Requirement.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Requirement.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Requirement_stiaNhyEwTmek3Bd.html">View University Report : Requirement</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system shall allow any user to view a summary report about the carbon 
+      emissions of the entire university.</font>
+    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">
+</font>    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      details of the report are specified in the requirement &quot;View Individual 
+      Report&quot;</font>
+    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">
+</font>    </p>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Users 
+      need not to be authenticated</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

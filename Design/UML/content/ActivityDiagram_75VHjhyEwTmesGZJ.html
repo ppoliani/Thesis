@@ -1,0 +1,341 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - Check Identity</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="UseCaseDiagram_JN92shyEwTmc2h1_.html">
+Check Identity : Use Case</a>
+	</p>
+	<p class="PageTitle">
+		Activity Diagram - Check Identity	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|2.0|82.0|360.0|40.0|ActivityAction_35VHjhyEwTmesGZW.html|ActivityAction_35VHjhyEwTmesGZW.html|35VHjhyEwTmesGZf" id="option35VHjhyEwTmesGZf">1. The system checks if the given user has already been authenticated : Action</option>
+<option value="shape|372.0|182.0|60.0|40.0|ActivityAction_f5VHjhyEwTmesGbC.html|ActivityAction_f5VHjhyEwTmesGbC.html|f5VHjhyEwTmesGbL" id="optionf5VHjhyEwTmesGbL">1.a. Login : Action</option>
+<option value="shape|92.0|402.0|400.0|40.0|ActivityAction_wFVHjhyEwTmesGdQ.html|ActivityAction_wFVHjhyEwTmesGdQ.html|wFVHjhyEwTmesGdZ" id="optionwFVHjhyEwTmesGdZ">2. The system allow the user to execute the operations that need authentication : Action</option>
+<option value="shape|282.0|502.0|20.0|20.0|ActivityFinalNode_oFVHjhyEwTmesGem.html|ActivityFinalNode_oFVHjhyEwTmesGem.html|YFVHjhyEwTmesGev" id="optionYFVHjhyEwTmesGev">ActivityFinalNode4 : Activity Final Node</option>
+<option value="shape|172.0|182.0|20.0|40.0|DecisionNode_v5VHjhyEwTmesGas.html|DecisionNode_v5VHjhyEwTmesGas.html|v5VHjhyEwTmesGa1" id="optionv5VHjhyEwTmesGa1">DecisionNode : Decision Node</option>
+<option value="shape|162.0|2.0|40.0|20.0|InitialNode_n5VHjhyEwTmesGZL.html|InitialNode_n5VHjhyEwTmesGZL.html|n5VHjhyEwTmesGZU" id="optionn5VHjhyEwTmesGZU">InitialNode4 : Initial Node</option>
+<option value="shape|282.0|302.0|21.0|40.0|MergeNode_AFVHjhyEwTmesGcv.html|MergeNode_AFVHjhyEwTmesGcv.html|gFVHjhyEwTmesGc4" id="optiongFVHjhyEwTmesGc4">MergeNode2 : Merge Node</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Check_Identity.png" usemap="#diagram_map" class="Image" width="496.0" height="526.0"/>				<map name = "diagram_map">
+
+<area coords="282.0, 502.0, 302.0, 534.0" coords2="282.0, 502.0, 302.0, 534.0" shape="rect" alt="ActivityFinalNode4:Activity Final Node" id="areaYFVHjhyEwTmesGev" href="ActivityFinalNode_oFVHjhyEwTmesGem.html" onmouseover="storeReferenceAndSubdiagramInfos('282.0, 502.0, 302.0, 522.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=YFVHjhyEwTmesGe6/Unnamed/ControlFlow'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('282.0, 502.0, 302.0, 522.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system allow the user to execute the operations that need authentication</font>
+    </p>
+  </body>" coords="92.0, 402.0, 492.0, 454.0" coords2="92.0, 402.0, 492.0, 454.0" shape="rect" alt="2. The system allow the user to execute the operations that need authentication:Action" id="areawFVHjhyEwTmesGdZ" href="ActivityAction_wFVHjhyEwTmesGdQ.html" onmouseover="storeReferenceAndSubdiagramInfos('92.0, 402.0, 492.0, 442.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_CuavDhyEwTmesJoF.html/The system allow the user to execute the operations that need authentication/Step','ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=IFVHjhyEwTmesGek/Unnamed/ControlFlow'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=YFVHjhyEwTmesGe6/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('92.0, 402.0, 492.0, 442.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="282.0, 302.0, 303.0, 354.0" coords2="282.0, 302.0, 303.0, 354.0" shape="rect" alt="MergeNode2:Merge Node" id="areagFVHjhyEwTmesGc4" href="MergeNode_AFVHjhyEwTmesGcv.html" onmouseover="storeReferenceAndSubdiagramInfos('282.0, 302.0, 303.0, 342.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=gFVHjhyEwTmesGdD/Unnamed/ControlFlow','ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=QFVHjhyEwTmesGdO/else/ControlFlow'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=IFVHjhyEwTmesGek/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('282.0, 302.0, 303.0, 342.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>User 
+      is asked to login</font>
+    </p>
+  </body>" coords="372.0, 182.0, 432.0, 234.0" coords2="372.0, 182.0, 432.0, 234.0" shape="rect" alt="1.a. Login:Action" id="areaf5VHjhyEwTmesGbL" href="ActivityAction_f5VHjhyEwTmesGbC.html" onmouseover="storeReferenceAndSubdiagramInfos('372.0, 182.0, 432.0, 222.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Extension_lwrvDhyEwTmesJrR.html/Login/Extension','ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=AFVHjhyEwTmesGct/if not authenticated/ControlFlow'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=gFVHjhyEwTmesGdD/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('372.0, 182.0, 432.0, 222.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="172.0, 182.0, 192.0, 234.0" coords2="172.0, 182.0, 192.0, 234.0" shape="rect" alt="DecisionNode:Decision Node" id="areav5VHjhyEwTmesGa1" href="DecisionNode_v5VHjhyEwTmesGas.html" onmouseover="storeReferenceAndSubdiagramInfos('172.0, 182.0, 192.0, 222.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=f5VHjhyEwTmesGbA/Unnamed/ControlFlow'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=AFVHjhyEwTmesGct/if not authenticated/ControlFlow','ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=QFVHjhyEwTmesGdO/else/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('172.0, 182.0, 192.0, 222.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system checks if the given user has already been authenticated</font>
+    </p>
+  </body>" coords="2.0, 82.0, 362.0, 134.0" coords2="2.0, 82.0, 362.0, 134.0" shape="rect" alt="1. The system checks if the given user has already been authenticated:Action" id="area35VHjhyEwTmesGZf" href="ActivityAction_35VHjhyEwTmesGZW.html" onmouseover="storeReferenceAndSubdiagramInfos('2.0, 82.0, 362.0, 122.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_8mEvDhyEwTmesJnK.html/The system checks if the given user has already been authenticated/Step','ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=P5VHjhyEwTmesGaq/Unnamed/ControlFlow'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=f5VHjhyEwTmesGbA/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('2.0, 82.0, 362.0, 122.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="162.0, 2.0, 202.0, 34.0" coords2="162.0, 2.0, 202.0, 34.0" shape="rect" alt="InitialNode4:Initial Node" id="arean5VHjhyEwTmesGZU" href="InitialNode_n5VHjhyEwTmesGZL.html" onmouseover="storeReferenceAndSubdiagramInfos('162.0, 2.0, 202.0, 22.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=P5VHjhyEwTmesGaq/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('162.0, 2.0, 202.0, 22.0')"/>
+<area coords="175.0, 11.0, 175.0, 92.0, 189.0, 92.0, 189.0, 11.0" coords2="175.0, 11.0, 175.0, 92.0, 189.0, 92.0, 189.0, 11.0" shape="poly" alt="null:Control Flow" id="areaP5VHjhyEwTmesGaq" href="ControlFlow_P5VHjhyEwTmesGah.html" onmouseover="storeReferenceAndSubdiagramInfos('175.0, 11.0, 175.0, 92.0, 189.0, 92.0, 189.0, 11.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=n5VHjhyEwTmesGZU/InitialNode4/InitialNode'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=35VHjhyEwTmesGZf/1. The system checks if the given user has already been authenticated/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('175.0, 11.0, 175.0, 92.0, 189.0, 92.0, 189.0, 11.0')"/>
+<area coords="175.0, 111.0, 175.0, 200.0, 189.0, 200.0, 189.0, 111.0" coords2="175.0, 111.0, 175.0, 200.0, 189.0, 200.0, 189.0, 111.0" shape="poly" alt="null:Control Flow" id="areaf5VHjhyEwTmesGbA" href="ControlFlow_f5VHjhyEwTmesGa3.html" onmouseover="storeReferenceAndSubdiagramInfos('175.0, 111.0, 175.0, 200.0, 189.0, 200.0, 189.0, 111.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=35VHjhyEwTmesGZf/1. The system checks if the given user has already been authenticated/ActivityAction'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=v5VHjhyEwTmesGa1/DecisionNode/DecisionNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('175.0, 111.0, 175.0, 200.0, 189.0, 200.0, 189.0, 111.0')"/>
+<area coords="178.0, 195.0, 178.0, 209.0, 382.0, 209.0, 382.0, 195.0" coords2="178.0, 195.0, 178.0, 209.0, 382.0, 209.0, 382.0, 195.0" shape="poly" alt="if not authenticated:Control Flow" id="areaAFVHjhyEwTmesGct" href="ControlFlow_AFVHjhyEwTmesGck.html" onmouseover="storeReferenceAndSubdiagramInfos('178.0, 195.0, 178.0, 209.0, 382.0, 209.0, 382.0, 195.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=v5VHjhyEwTmesGa1/DecisionNode/DecisionNode'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=f5VHjhyEwTmesGbL/1.a. Login/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('178.0, 195.0, 178.0, 209.0, 382.0, 209.0, 382.0, 195.0')"/>
+<area coords="285.0, 202.0, 285.0, 205.0, 282.0, 205.0, 282.0, 219.0, 285.0, 219.0, 285.0, 321.0, 299.0, 321.0, 299.0, 219.0, 384.0, 219.0, 384.0, 205.0, 299.0, 205.0, 299.0, 202.0" coords2="285.0, 202.0, 285.0, 205.0, 282.0, 205.0, 282.0, 219.0, 285.0, 219.0, 285.0, 321.0, 299.0, 321.0, 299.0, 219.0, 384.0, 219.0, 384.0, 205.0, 299.0, 205.0, 299.0, 202.0" shape="poly" alt="null:Control Flow" id="areagFVHjhyEwTmesGdD" href="ControlFlow_gFVHjhyEwTmesGc6.html" onmouseover="storeReferenceAndSubdiagramInfos('285.0, 202.0, 285.0, 205.0, 282.0, 205.0, 282.0, 219.0, 285.0, 219.0, 285.0, 321.0, 299.0, 321.0, 299.0, 219.0, 384.0, 219.0, 384.0, 205.0, 299.0, 205.0, 299.0, 202.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=f5VHjhyEwTmesGbL/1.a. Login/ActivityAction'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=gFVHjhyEwTmesGc4/MergeNode2/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('285.0, 202.0, 285.0, 205.0, 282.0, 205.0, 282.0, 219.0, 285.0, 219.0, 285.0, 321.0, 299.0, 321.0, 299.0, 219.0, 384.0, 219.0, 384.0, 205.0, 299.0, 205.0, 299.0, 202.0')"/>
+<area coords="175.0, 203.0, 175.0, 305.216, 175.0, 305.216, 172.0, 305.0, 172.0, 319.0, 175.0, 319.216, 175.0, 319.216, 175.0, 322.0, 189.0, 322.0, 189.0, 320.224, 189.0, 320.224, 297.0, 328.0, 297.0, 314.0, 189.0, 306.224, 189.0, 306.224, 189.0, 203.0" coords2="175.0, 203.0, 175.0, 305.216, 175.0, 305.216, 172.0, 305.0, 172.0, 319.0, 175.0, 319.216, 175.0, 319.216, 175.0, 322.0, 189.0, 322.0, 189.0, 320.224, 189.0, 320.224, 297.0, 328.0, 297.0, 314.0, 189.0, 306.224, 189.0, 306.224, 189.0, 203.0" shape="poly" alt="else:Control Flow" id="areaQFVHjhyEwTmesGdO" href="ControlFlow_QFVHjhyEwTmesGdF.html" onmouseover="storeReferenceAndSubdiagramInfos('175.0, 203.0, 175.0, 305.216, 175.0, 305.216, 172.0, 305.0, 172.0, 319.0, 175.0, 319.216, 175.0, 319.216, 175.0, 322.0, 189.0, 322.0, 189.0, 320.224, 189.0, 320.224, 297.0, 328.0, 297.0, 314.0, 189.0, 306.224, 189.0, 306.224, 189.0, 203.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=v5VHjhyEwTmesGa1/DecisionNode/DecisionNode'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=gFVHjhyEwTmesGc4/MergeNode2/MergeNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('175.0, 203.0, 175.0, 305.216, 175.0, 305.216, 172.0, 305.0, 172.0, 319.0, 175.0, 319.216, 175.0, 319.216, 175.0, 322.0, 189.0, 322.0, 189.0, 320.224, 189.0, 320.224, 297.0, 328.0, 297.0, 314.0, 189.0, 306.224, 189.0, 306.224, 189.0, 203.0')"/>
+<area coords="285.0, 323.0, 285.0, 412.0, 299.0, 412.0, 299.0, 323.0" coords2="285.0, 323.0, 285.0, 412.0, 299.0, 412.0, 299.0, 323.0" shape="poly" alt="null:Control Flow" id="areaIFVHjhyEwTmesGek" href="ControlFlow_IFVHjhyEwTmesGeb.html" onmouseover="storeReferenceAndSubdiagramInfos('285.0, 323.0, 285.0, 412.0, 299.0, 412.0, 299.0, 323.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=gFVHjhyEwTmesGc4/MergeNode2/MergeNode'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=wFVHjhyEwTmesGdZ/2. The system allow the user to execute the operations that need authentication/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('285.0, 323.0, 285.0, 412.0, 299.0, 412.0, 299.0, 323.0')"/>
+<area coords="285.0, 431.0, 285.0, 513.0, 299.0, 513.0, 299.0, 431.0" coords2="285.0, 431.0, 285.0, 513.0, 299.0, 513.0, 299.0, 431.0" shape="poly" alt="null:Control Flow" id="areaYFVHjhyEwTmesGe6" href="ControlFlow_YFVHjhyEwTmesGex.html" onmouseover="storeReferenceAndSubdiagramInfos('285.0, 431.0, 285.0, 513.0, 299.0, 513.0, 299.0, 431.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=wFVHjhyEwTmesGdZ/2. The system allow the user to execute the operations that need authentication/ActivityAction'),new Array('ActivityDiagram_75VHjhyEwTmesGZJ.html?shapeid=YFVHjhyEwTmesGev/ActivityFinalNode4/ActivityFinalNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('285.0, 431.0, 285.0, 513.0, 299.0, 513.0, 299.0, 431.0')"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_35VHjhyEwTmesGZW.html">1. The system checks if the given user has already been authenticated : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system checks if the given user has already been authenticated</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_f5VHjhyEwTmesGbC.html">1.a. Login : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">User 
+      is asked to login</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_wFVHjhyEwTmesGdQ.html">2. The system allow the user to execute the operations that need authentication : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system allow the user to execute the operations that need authentication</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinalNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinalNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityFinalNode_oFVHjhyEwTmesGem.html">ActivityFinalNode4 : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DecisionNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DecisionNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="DecisionNode_v5VHjhyEwTmesGas.html">DecisionNode : Decision Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="InitialNode_n5VHjhyEwTmesGZL.html">InitialNode4 : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/MergeNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/MergeNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="MergeNode_AFVHjhyEwTmesGcv.html">MergeNode2 : Merge Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

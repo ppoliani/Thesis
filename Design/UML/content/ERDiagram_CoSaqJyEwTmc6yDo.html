@@ -1,0 +1,3566 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Entity Relationship Diagram - DataModel Update 11/8/2012</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p class="PageTitle">
+		Entity Relationship Diagram - DataModel Update 11/8/2012	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|940.0|270.0|300.0|160.0|DBTable___lFNhyEwTmek6bz.html|DBTable___lFNhyEwTmek6bz.html|cZaaqJyEwTmc6yFr" id="optioncZaaqJyEwTmc6yFr">Users : Entity</option>
+<option value="shape|1300.0|50.0|300.0|100.0|DBTable__uRVNhyEwTmek60o.html|DBTable__uRVNhyEwTmek60o.html|GZaaqJyEwTmc6yFy" id="optionGZaaqJyEwTmc6yFy">Groups : Entity</option>
+<option value="shape|980.0|60.0|200.0|80.0|DBTable_DoV9NhyEwTmek_AX.html|DBTable_DoV9NhyEwTmek_AX.html|hZaaqJyEwTmc6yF5" id="optionhZaaqJyEwTmc6yF5">GroupMembers : Entity</option>
+<option value="shape|10.0|330.0|220.0|190.0|DBTable_PakrNhyEwTmekx1t.html|DBTable_PakrNhyEwTmekx1t.html|1ZaaqJyEwTmc6yGA" id="option1ZaaqJyEwTmc6yGA">Addresses : Entity</option>
+<option value="shape|590.0|370.0|280.0|140.0|DBTable_okpbNhyEwTmekycq.html|DBTable_okpbNhyEwTmekycq.html|HZaaqJyEwTmc6yGH" id="optionHZaaqJyEwTmc6yGH">Trips : Entity</option>
+<option value="shape|290.0|210.0|240.0|120.0|DBTable_gaM3NhyEwTmekzwG.html|DBTable_gaM3NhyEwTmekzwG.html|A5aaqJyEwTmc6yGO" id="optionA5aaqJyEwTmc6yGO">TripLegCarbonEmissions : Entity</option>
+<option value="shape|600.0|900.0|290.0|140.0|DBTable_BILPNhyEwTmek1A9.html|DBTable_BILPNhyEwTmek1A9.html|k5aaqJyEwTmc6yGV" id="optionk5aaqJyEwTmc6yGV">Cars : Entity</option>
+<option value="shape|1200.0|660.0|240.0|70.0|DBTable_FB_fNhyEwTmek1X_.html|DBTable_FB_fNhyEwTmek1X_.html|i5aaqJyEwTmc6yGc" id="optioni5aaqJyEwTmc6yGc">transportMeansUsedByUsers : Entity</option>
+<option value="shape|390.0|670.0|180.0|100.0|DBTable_Cgj_NhyEwTmek2cE.html|DBTable_Cgj_NhyEwTmek2cE.html|W5aaqJyEwTmc6yGj" id="optionW5aaqJyEwTmc6yGj">EFSources : Entity</option>
+<option value="shape|30.0|40.0|200.0|80.0|DBTable_Ht2AthyEwTmek2nU.html|DBTable_Ht2AthyEwTmek2nU.html|x5aaqJyEwTmc6yGq" id="optionx5aaqJyEwTmc6yGq">userLocations : Entity</option>
+<option value="shape|620.0|230.0|240.0|70.0|DBTable_xt_gthyEwTmek20_.html|DBTable_xt_gthyEwTmek20_.html|15aaqJyEwTmc6yGx" id="option15aaqJyEwTmc6yGx">CalculationMethods : Entity</option>
+<option value="shape|620.0|700.0|290.0|170.0|DBTable_SyvbbhyEwTmeqpXV.html|DBTable_SyvbbhyEwTmeqpXV.html|L5aaqJyEwTmc6yG4" id="optionL5aaqJyEwTmc6yG4">TransportMean : Entity</option>
+<option value="shape|0.0|650.0|250.0|160.0|DBTable_3ATnbhyEwTmeqrWZ.html|DBTable_3ATnbhyEwTmeqrWZ.html|v5aaqJyEwTmc6yHA" id="optionv5aaqJyEwTmc6yHA">EmissionFactors : Entity</option>
+<option value="shape|0.0|910.0|240.0|100.0|DBTable_xnYU7hyEwTmeqsx6.html|DBTable_xnYU7hyEwTmeqsx6.html|YFaaqJyEwTmc6yHH" id="optionYFaaqJyEwTmc6yHH">CarEmissionFactors : Entity</option>
+<option value="shape|300.0|370.0|210.0|140.0|DBTable_jWk0YRyEwTmefCyq.html|DBTable_jWk0YRyEwTmefCyq.html|cFaaqJyEwTmc6yHP" id="optioncFaaqJyEwTmc6yHP">TripLegs : Entity</option>
+<option value="shape|640.0|90.0|170.0|80.0|DBTable_MxLSYRyEwTmefEj_.html|DBTable_MxLSYRyEwTmefEj_.html|6FaaqJyEwTmc6yHX" id="option6FaaqJyEwTmc6yHX">Method : Entity</option>
+<option value="shape|1230.0|530.0|210.0|70.0|DBTable_8_QmqJyEwTmc632H.html|DBTable_8_QmqJyEwTmc632H.html|c_QmqJyEwTmc632G" id="optionc_QmqJyEwTmc632G">transportMeansOwnedByUsers : Entity</option>
+<option value="shape|1430.0|370.0|200.0|60.0|DBTable_5_tmqJyEwTmc64as.html|DBTable_5_tmqJyEwTmc64as.html|Z.tmqJyEwTmc64ar" id="optionZ.tmqJyEwTmc64ar">transportMeansOwnedByGroups : Entity</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/DataModel_Update_1182012.png" usemap="#diagram_map" class="Image" width="1654.0" height="1044.0"/>				<map name = "diagram_map">
+
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing all the transport means that are owned by groups.</font>
+    </p>
+  </body>" coords="1430.0, 370.0, 1630.0, 430.0" coords2="1430.0, 370.0, 1630.0, 430.0" shape="rect" alt="transportMeansOwnedByGroups:Entity" id="areaZ.tmqJyEwTmc64ar" href="DBTable_5_tmqJyEwTmc64as.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing all the transport means that are owned by users.</font>
+    </p>
+  </body>" coords="1230.0, 530.0, 1440.0, 600.0" coords2="1230.0, 530.0, 1440.0, 600.0" shape="rect" alt="transportMeansOwnedByUsers:Entity" id="areac_QmqJyEwTmc632G" href="DBTable_8_QmqJyEwTmc632H.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      method can be anything that calculated the carbon emissions. For 
+      example, an extrapolation method for calculating the annual carbon 
+      emissions for an individual, based on partial set of trips that she has 
+      added. This information can be used to track down the provenance of the 
+      annual individual carbon emissions.</font>
+    </p>
+  </body>" coords="640.0, 90.0, 810.0, 170.0" coords2="640.0, 90.0, 810.0, 170.0" shape="rect" alt="Method:Entity" id="area6FaaqJyEwTmc6yHX" href="DBTable_MxLSYRyEwTmefEj_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="300.0, 370.0, 510.0, 510.0" coords2="300.0, 370.0, 510.0, 510.0" shape="rect" alt="TripLegs:Entity" id="areacFaaqJyEwTmc6yHP" href="DBTable_jWk0YRyEwTmefCyq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="0.0, 910.0, 240.0, 1010.0" coords2="0.0, 910.0, 240.0, 1010.0" shape="rect" alt="CarEmissionFactors:Entity" id="areaYFaaqJyEwTmc6yHH" href="DBTable_xnYU7hyEwTmeqsx6.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing the emission factor for various types of cars.</font>
+    </p>
+  </body>" coords="0.0, 650.0, 250.0, 810.0" coords2="0.0, 650.0, 250.0, 810.0" shape="rect" alt="EmissionFactors:Entity" id="areav5aaqJyEwTmc6yHA" href="DBTable_3ATnbhyEwTmeqrWZ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="620.0, 700.0, 910.0, 870.0" coords2="620.0, 700.0, 910.0, 870.0" shape="rect" alt="TransportMean:Entity" id="areaL5aaqJyEwTmc6yG4" href="DBTable_SyvbbhyEwTmeqpXV.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing the different methods for calculating carbon emissions</font>
+    </p>
+  </body>" coords="620.0, 230.0, 860.0, 300.0" coords2="620.0, 230.0, 860.0, 300.0" shape="rect" alt="CalculationMethods:Entity" id="area15aaqJyEwTmc6yGx" href="DBTable_xt_gthyEwTmek20_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing user's addresses</font>
+    </p>
+  </body>" coords="30.0, 40.0, 230.0, 120.0" coords2="30.0, 40.0, 230.0, 120.0" shape="rect" alt="userLocations:Entity" id="areax5aaqJyEwTmc6yGq" href="DBTable_Ht2AthyEwTmek2nU.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing the sources for emission factors, which are used for in the 
+      carbon emission calculation formula.</font>
+    </p>
+  </body>" coords="390.0, 670.0, 570.0, 770.0" coords2="390.0, 670.0, 570.0, 770.0" shape="rect" alt="EFSources:Entity" id="areaW5aaqJyEwTmc6yGj" href="DBTable_Cgj_NhyEwTmek2cE.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing all the transport means that were used by all the users.</font>
+    </p>
+  </body>" coords="1200.0, 660.0, 1440.0, 730.0" coords2="1200.0, 660.0, 1440.0, 730.0" shape="rect" alt="transportMeansUsedByUsers:Entity" id="areai5aaqJyEwTmc6yGc" href="DBTable_FB_fNhyEwTmek1X_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing some information about cars. The original data set is located 
+      in <a href=&quot;http://carfueldata.direct.gov.uk/&quot;>http://carfueldata.direct.gov.uk/</a></font>
+    </p>
+  </body>" coords="600.0, 900.0, 890.0, 1040.0" coords2="600.0, 900.0, 890.0, 1040.0" shape="rect" alt="Cars:Entity" id="areak5aaqJyEwTmc6yGV" href="DBTable_BILPNhyEwTmek1A9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing the estimated carbon emissions of each trip.</font>
+    </p>
+  </body>" coords="290.0, 210.0, 530.0, 330.0" coords2="290.0, 210.0, 530.0, 330.0" shape="rect" alt="TripLegCarbonEmissions:Entity" id="areaA5aaqJyEwTmc6yGO" href="DBTable_gaM3NhyEwTmekzwG.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      containing the trips made by students and the members of the university 
+      staff</font>
+    </p>
+  </body>" coords="590.0, 370.0, 870.0, 510.0" coords2="590.0, 370.0, 870.0, 510.0" shape="rect" alt="Trips:Entity" id="areaHZaaqJyEwTmc6yGH" href="DBTable_okpbNhyEwTmekycq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>A 
+      table containing details about addresses.</font>
+    </p>
+  </body>" coords="10.0, 330.0, 230.0, 520.0" coords2="10.0, 330.0, 230.0, 520.0" shape="rect" alt="Addresses:Entity" id="area1ZaaqJyEwTmc6yGA" href="DBTable_PakrNhyEwTmekx1t.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>It 
+      contains user's and the groups they are member of</font>
+    </p>
+  </body>" coords="980.0, 60.0, 1180.0, 140.0" coords2="980.0, 60.0, 1180.0, 140.0" shape="rect" alt="GroupMembers:Entity" id="areahZaaqJyEwTmc6yF5" href="DBTable_DoV9NhyEwTmek_AX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Any 
+      group that contains a number of people, such as a research group, an 
+      academic unit or the whole university.</font>
+    </p>
+  </body>" coords="1300.0, 50.0, 1600.0, 150.0" coords2="1300.0, 50.0, 1600.0, 150.0" shape="rect" alt="Groups:Entity" id="areaGZaaqJyEwTmc6yFy" href="DBTable__uRVNhyEwTmek60o.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Table 
+      with the system's users</font>
+    </p>
+  </body>" coords="940.0, 270.0, 1240.0, 430.0" coords2="940.0, 270.0, 1240.0, 430.0" shape="rect" alt="Users:Entity" id="areacZaaqJyEwTmc6yFr" href="DBTable___lFNhyEwTmek6bz.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon(),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="1443.0, -10.0, 1443.0, -7.0, 1440.0, -7.0, 1440.0, 7.0, 1443.0, 7.0, 1443.0, 59.0, 1457.0, 59.0, 1457.0, 7.0, 1643.0, 7.0, 1643.0, 93.0, 1590.0, 93.0, 1590.0, 107.0, 1643.0, 107.0, 1643.0, 110.0, 1657.0, 110.0, 1657.0, 107.0, 1660.0, 107.0, 1660.0, 93.0, 1657.0, 93.0, 1657.0, 7.0, 1660.0, 7.0, 1660.0, -7.0, 1657.0, -7.0, 1657.0, -10.0, 1643.0, -10.0, 1643.0, -7.0, 1457.0, -7.0, 1457.0, -10.0" coords2="1443.0, -10.0, 1443.0, -7.0, 1440.0, -7.0, 1440.0, 7.0, 1443.0, 7.0, 1443.0, 59.0, 1457.0, 59.0, 1457.0, 7.0, 1643.0, 7.0, 1643.0, 93.0, 1590.0, 93.0, 1590.0, 107.0, 1643.0, 107.0, 1643.0, 110.0, 1657.0, 110.0, 1657.0, 107.0, 1660.0, 107.0, 1660.0, 93.0, 1657.0, 93.0, 1657.0, 7.0, 1660.0, 7.0, 1660.0, -7.0, 1657.0, -7.0, 1657.0, -10.0, 1643.0, -10.0, 1643.0, -7.0, 1457.0, -7.0, 1457.0, -10.0" shape="poly" alt=":Relationship" id="areaeFaaqJyEwTmc6yHe" href="DBForeignKey_RM3g7hyEwTmeqivV.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1063.0, 130.0, 1063.0, 279.0, 1077.0, 279.0, 1077.0, 130.0" coords2="1063.0, 130.0, 1063.0, 279.0, 1077.0, 279.0, 1077.0, 130.0" shape="poly" alt=":Relationship" id="areaUlaaqJyEwTmc6yHi" href="DBForeignKey_Bau_NhyEwTmek2Az.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1170.0, 93.0, 1170.0, 107.0, 1309.0, 107.0, 1309.0, 93.0" coords2="1170.0, 93.0, 1170.0, 107.0, 1309.0, 107.0, 1309.0, 93.0" shape="poly" alt=":Relationship" id="areaslaaqJyEwTmc6yHm" href="DBForeignKey_igB_NhyEwTmek2FV.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="860.0, 393.0, 860.0, 407.0, 949.0, 407.0, 949.0, 393.0" coords2="860.0, 393.0, 860.0, 407.0, 949.0, 407.0, 949.0, 393.0" shape="poly" alt="madeBy:Relationship" id="areaClaaqJyEwTmc6yHq" href="DBForeignKey_1cyE7hyEwTmeqqkI.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1053.0, 420.0, 1053.0, 693.0, 1050.0, 693.0, 1050.0, 707.0, 1053.0, 707.0, 1053.0, 710.0, 1067.0, 710.0, 1067.0, 707.0, 1209.0, 707.0, 1209.0, 693.0, 1067.0, 693.0, 1067.0, 420.0" coords2="1053.0, 420.0, 1053.0, 693.0, 1050.0, 693.0, 1050.0, 707.0, 1053.0, 707.0, 1053.0, 710.0, 1067.0, 710.0, 1067.0, 707.0, 1209.0, 707.0, 1209.0, 693.0, 1067.0, 693.0, 1067.0, 420.0" shape="poly" alt="used:Relationship" id="areaylaaqJyEwTmc6yHu" href="DBForeignKey_Fkx_NhyEwTmek2Jh.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="943.0, 60.0, 943.0, 63.0, 220.0, 63.0, 220.0, 77.0, 943.0, 77.0, 943.0, 279.0, 957.0, 279.0, 957.0, 77.0, 960.0, 77.0, 960.0, 63.0, 957.0, 63.0, 957.0, 60.0" coords2="943.0, 60.0, 943.0, 63.0, 220.0, 63.0, 220.0, 77.0, 943.0, 77.0, 943.0, 279.0, 957.0, 279.0, 957.0, 77.0, 960.0, 77.0, 960.0, 63.0, 957.0, 63.0, 957.0, 60.0" shape="poly" alt="hasLocation:Relationship" id="areaBlaaqJyEwTmc6yH6" href="DBForeignKey_DRggthyEwTmek2vH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="113.0, 110.0, 113.0, 339.0, 127.0, 339.0, 127.0, 110.0" coords2="113.0, 110.0, 113.0, 339.0, 127.0, 339.0, 127.0, 110.0" shape="poly" alt="has:Relationship" id="areaxlaaqJyEwTmc6yH." href="DBForeignKey_mIYgthyEwTmek2wj.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="520.0, 253.0, 520.0, 267.0, 629.0, 267.0, 629.0, 253.0" coords2="520.0, 253.0, 520.0, 267.0, 629.0, 267.0, 629.0, 253.0" shape="poly" alt="computedBy:Relationship" id="area5laaqJyEwTmc6yIC" href="DBForeignKey_rRqsYRyEwTmefE3_.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="733.0, 860.0, 733.0, 909.0, 747.0, 909.0, 747.0, 860.0" coords2="733.0, 860.0, 733.0, 909.0, 747.0, 909.0, 747.0, 860.0" shape="poly" alt="ISA:Relationship" id="area1laaqJyEwTmc6yIG" href="DBForeignKey_2lWY7hyEwTmeqnCd.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="900.0, 713.0, 900.0, 727.0, 1209.0, 727.0, 1209.0, 713.0" coords2="900.0, 713.0, 900.0, 727.0, 1209.0, 727.0, 1209.0, 713.0" shape="poly" alt=":Relationship" id="areadlaaqJyEwTmc6yIK" href="DBForeignKey_AX623hyEwTmc_cxX.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="240.0, 703.0, 240.0, 717.0, 399.0, 717.0, 399.0, 703.0" coords2="240.0, 703.0, 240.0, 717.0, 399.0, 717.0, 399.0, 703.0" shape="poly" alt="hasSource:Relationship" id="areaTlaaqJyEwTmc6yIO" href="DBForeignKey_TPKfbhyEwTmeqsvo.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="285.0, 320.0, 240.0, 657.0, 254.0, 659.0, 299.0, 322.0, 285.0, 320.0" coords2="285.0, 320.0, 240.0, 657.0, 254.0, 659.0, 299.0, 322.0, 285.0, 320.0" shape="poly" alt=":Relationship" id="areablaaqJyEwTmc6yIS" href="DBForeignKey_TKoX0JyEwTmeEEAD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="240.0, 778.0, 240.0, 792.0, 629.0, 792.0, 629.0, 778.0" coords2="240.0, 778.0, 240.0, 792.0, 629.0, 792.0, 629.0, 778.0" shape="poly" alt="hasEmissionFactor:Relationship" id="areaXlaaqJyEwTmc6yIW" href="DBForeignKey_2B_JiJyEwTmcHzGq.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="113.0, 800.0, 113.0, 919.0, 127.0, 919.0, 127.0, 800.0" coords2="113.0, 800.0, 113.0, 919.0, 127.0, 919.0, 127.0, 800.0" shape="poly" alt="ISA:Relationship" id="areaflaaqJyEwTmc6yIa" href="DBForeignKey_2dHU7hyEwTmeqt5m.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="500.0, 393.0, 500.0, 407.0, 599.0, 407.0, 599.0, 393.0" coords2="500.0, 393.0, 500.0, 407.0, 599.0, 407.0, 599.0, 393.0" shape="poly" alt=":Relationship" id="areaQVaaqJyEwTmc6yIe" href="DBForeignKey_wDhMYRyEwTmefDTW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="220.0, 413.0, 220.0, 427.0, 309.0, 427.0, 309.0, 413.0" coords2="220.0, 413.0, 220.0, 427.0, 309.0, 427.0, 309.0, 413.0" shape="poly" alt=":Relationship" id="areaYVaaqJyEwTmc6yIi" href="DBForeignKey_cLJMYRyEwTmefDWM.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="220.0, 393.0, 220.0, 407.0, 309.0, 407.0, 309.0, 393.0" coords2="220.0, 393.0, 220.0, 407.0, 309.0, 407.0, 309.0, 393.0" shape="poly" alt=":Relationship" id="areaUVaaqJyEwTmc6yIm" href="DBForeignKey_ZqZMYRyEwTmefDZA.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="413.0, 500.0, 413.0, 593.0, 410.0, 593.0, 410.0, 607.0, 413.0, 607.0, 413.0, 610.0, 427.0, 610.0, 427.0, 607.0, 733.0, 607.0, 733.0, 709.0, 747.0, 709.0, 747.0, 607.0, 750.0, 607.0, 750.0, 593.0, 747.0, 593.0, 747.0, 590.0, 733.0, 590.0, 733.0, 593.0, 427.0, 593.0, 427.0, 500.0" coords2="413.0, 500.0, 413.0, 593.0, 410.0, 593.0, 410.0, 607.0, 413.0, 607.0, 413.0, 610.0, 427.0, 610.0, 427.0, 607.0, 733.0, 607.0, 733.0, 709.0, 747.0, 709.0, 747.0, 607.0, 750.0, 607.0, 750.0, 593.0, 747.0, 593.0, 747.0, 590.0, 733.0, 590.0, 733.0, 593.0, 427.0, 593.0, 427.0, 500.0" shape="poly" alt="used:Relationship" id="area8VaaqJyEwTmc6yIq" href="DBForeignKey_fxFMYRyEwTmefDfg.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="373.0, 320.0, 373.0, 379.0, 387.0, 379.0, 387.0, 320.0" coords2="373.0, 320.0, 373.0, 379.0, 387.0, 379.0, 387.0, 320.0" shape="poly" alt="hasCarbonEmisiion:Relationship" id="areaKVaaqJyEwTmc6yIu" href="DBForeignKey_oeHiYRyEwTmefERR.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="713.0, 160.0, 713.0, 239.0, 727.0, 239.0, 727.0, 160.0" coords2="713.0, 160.0, 713.0, 239.0, 727.0, 239.0, 727.0, 160.0" shape="poly" alt="ISA:Relationship" id="areaGVaaqJyEwTmc6yIy" href="DBForeignKey_YBTyYRyEwTmefE2j.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="520.0, 224.0, 520.0, 238.0, 629.0, 238.0, 629.0, 224.0" coords2="520.0, 224.0, 520.0, 238.0, 629.0, 238.0, 629.0, 224.0" shape="poly" alt=":Relationship" id="areaHNaaqJyEwTmc6zNc" href="DBForeignKey_AJSwthyEwTmek3Hv.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="526.0, 319.0, 518.0, 330.0, 593.0, 380.0, 601.0, 369.0, 526.0, 319.0" coords2="526.0, 319.0, 518.0, 330.0, 593.0, 380.0, 601.0, 369.0, 526.0, 319.0" shape="poly" alt=":Relationship" id="areaKtaaqJyEwTmc6zNg" href="DBForeignKey_ElxPNhyEwTmek0iw.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1233.0, 420.0, 1233.0, 539.0, 1247.0, 539.0, 1247.0, 420.0" coords2="1233.0, 420.0, 1233.0, 539.0, 1247.0, 539.0, 1247.0, 420.0" shape="poly" alt="ownedBy:Relationship" id="area8BJmqJyEwTmc64P6" href="DBForeignKey_8BJmqJyEwTmc64Px.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1483.0, 550.0, 1483.0, 553.0, 1430.0, 553.0, 1430.0, 567.0, 1483.0, 567.0, 1483.0, 793.0, 900.0, 793.0, 900.0, 807.0, 1483.0, 807.0, 1483.0, 810.0, 1497.0, 810.0, 1497.0, 807.0, 1500.0, 807.0, 1500.0, 793.0, 1497.0, 793.0, 1497.0, 567.0, 1500.0, 567.0, 1500.0, 553.0, 1497.0, 553.0, 1497.0, 550.0" coords2="1483.0, 550.0, 1483.0, 553.0, 1430.0, 553.0, 1430.0, 567.0, 1483.0, 567.0, 1483.0, 793.0, 900.0, 793.0, 900.0, 807.0, 1483.0, 807.0, 1483.0, 810.0, 1497.0, 810.0, 1497.0, 807.0, 1500.0, 807.0, 1500.0, 793.0, 1497.0, 793.0, 1497.0, 567.0, 1500.0, 567.0, 1500.0, 553.0, 1497.0, 553.0, 1497.0, 550.0" shape="poly" alt=":Relationship" id="areaDWZmqJyEwTmc64RW" href="DBForeignKey_9WZmqJyEwTmc64RN.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1523.0, 140.0, 1523.0, 379.0, 1537.0, 379.0, 1537.0, 140.0" coords2="1523.0, 140.0, 1523.0, 379.0, 1537.0, 379.0, 1537.0, 140.0" shape="poly" alt="ownedBy:Relationship" id="areaAFIWqJyEwTmc64lt" href="DBForeignKey__5IWqJyEwTmc64lk.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="1533.0, 420.0, 1533.0, 823.0, 900.0, 823.0, 900.0, 837.0, 1533.0, 837.0, 1533.0, 840.0, 1547.0, 840.0, 1547.0, 837.0, 1550.0, 837.0, 1550.0, 823.0, 1547.0, 823.0, 1547.0, 420.0" coords2="1533.0, 420.0, 1533.0, 823.0, 900.0, 823.0, 900.0, 837.0, 1533.0, 837.0, 1533.0, 840.0, 1547.0, 840.0, 1547.0, 837.0, 1550.0, 837.0, 1550.0, 823.0, 1547.0, 823.0, 1547.0, 420.0" shape="poly" alt=":Relationship" id="area5uEWqJyEwTmc64rM" href="DBForeignKey_ZuEWqJyEwTmc64rD.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Database Tables			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="25%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html">Users : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table with the system's users</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable__uRVNhyEwTmek60o.html">Groups : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Any group that contains a number of people, such as a research group, an academic unit or the whole university.</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_DoV9NhyEwTmek_AX.html">GroupMembers : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">It contains user's and the groups they are member of</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html">Addresses : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">A table containing details about addresses.</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html">Trips : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing the trips made by students and the members of the university staff</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html">TripLegCarbonEmissions : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing the estimated carbon emissions of each trip.</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html">Cars : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing some information about cars. The original data set is located in http://carfueldata.direct.gov.uk/</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_FB_fNhyEwTmek1X_.html">transportMeansUsedByUsers : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing all the transport means that were used by all the users.</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_Cgj_NhyEwTmek2cE.html">EFSources : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing the sources for emission factors, which are used for in the carbon emission calculation formula.</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_Ht2AthyEwTmek2nU.html">userLocations : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing user's addresses</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_xt_gthyEwTmek20_.html">CalculationMethods : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing the different methods for calculating carbon emissions</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html">TransportMean : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html">EmissionFactors : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing the emission factor for various types of cars.</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_xnYU7hyEwTmeqsx6.html">CarEmissionFactors : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html">TripLegs : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_MxLSYRyEwTmefEj_.html">Method : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">A method can be anything that calculated the carbon emissions. For example, an extrapolation method for calculating the annual carbon emissions for an individual, based on partial set of trips that she has added. This information can be used to track down the provenance of the annual individual carbon emissions.</span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_8_QmqJyEwTmc632H.html">transportMeansOwnedByUsers : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing all the transport means that are owned by users.</span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/DBTable.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/DBTable.png');">
+					</div>
+&nbsp;<a target="_content_pane" class="ItemLink" href="DBTable_5_tmqJyEwTmc64as.html">transportMeansOwnedByGroups : Entity</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">Table containing all the transport means that are owned by groups.</span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Users Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#9x9FNhyEwTmek6dH">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User Id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#.SHFNhyEwTmek6dq">
+					firstName</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(20)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User's first name			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#.lElNhyEwTmek6eP">
+					lastName</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(20)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User's last name			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#5SilNhyEwTmek6e0">
+					title</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(5)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User's title			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#.cOlNhyEwTmek6hN">
+					type</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(30)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User's type. A user can be either a student or member of the staff.			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#8o3lNhyEwTmek6iZ">
+					occupation</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+This concerns the users who are members of the staff. It represents the member's occupation (e.g. professor)			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable___lFNhyEwTmek6bz.html#8LiVNhyEwTmek6vH">
+					email</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(255)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User's email address			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Groups Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable__uRVNhyEwTmek60o.html#7a1VNhyEwTmek62L">
+					groupID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Group id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable__uRVNhyEwTmek60o.html#nLpg7hyEwTmeqihE">
+					conainingGroup</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+A group can be part of a wider group of people. For example, the WAIS research group is part of the "Electronics and Computer Science" academic unit			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable__uRVNhyEwTmek60o.html#_uA1NhyEwTmek63J">
+					name</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The group's name			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable__uRVNhyEwTmek60o.html#HUY1NhyEwTmek63t">
+					description</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">clob</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Some additional information for a group			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+GroupMembers Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_DoV9NhyEwTmek_AX.html#C_n9NhyEwTmek.ER">
+					groupID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Identification of a group			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_DoV9NhyEwTmek_AX.html#AqADNhyEwTmek.Es">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User identification. This represents a user is member of a group			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Addresses Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#4HKrNhyEwTmekx2h">
+					addressID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The address id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#Ey2rNhyEwTmekx4B">
+					country</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The country of the address			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#CHxrNhyEwTmekx4l">
+					county</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The county of the address			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#9XlrNhyEwTmekx5R">
+					city</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+the city of the address			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#CcjrNhyEwTmekx6S">
+					postalCode</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The postal code of the address			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#.wHrNhyEwTmekx6_">
+					longitude</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(9)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The longitude value of the address			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#BlfrNhyEwTmekx7x">
+					latitude</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(9)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The latitude value of the address			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#kQ99bhyEwTmeqo7H">
+					name</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(100)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The name of the address. It can help users to identify addresses			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_PakrNhyEwTmekx1t.html#get_bhyEwTmeqgTM">
+					visibility</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(255)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Specifies if the address is public or private. Private addresses can be viewed only by the users who added them to the system.			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Trips Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#GWjbNhyEwTmekyde">
+					tripID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The trip id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#iW0E7hyEwTmeqqb7">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the user that made the trip			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#.wE7NhyEwTmekye9">
+					type</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The type of the travel (e.g. commuter, business travel etc)			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#Byu4PhyEwTmc_WDH">
+					name</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(255)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The name of the trip.This can help users to identify pas trips.			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#l9XhbhyEwTmeqkdQ">
+					date</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">date(0)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The date when the trip was made			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_okpbNhyEwTmekycq.html#l8URbhyEwTmeqkeZ">
+					time</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">time(7)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The time when the trip was made			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+TripLegCarbonEmissions Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html#Hn63NhyEwTmekzxi">
+					id</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The record ID			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html#DbB3NhyEwTmekzyv">
+					tripLegID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the trip that the carbon emission where made from			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html#9JgPNhyEwTmekz0A">
+					methodID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the method that was used for calculating the co2 emissions			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html#FYl3NhyEwTmekzzT">
+					value (kg/km)</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(7)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The value of the carbon emission estimation as it was produced by a calculation method.			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_gaM3NhyEwTmekzwG.html#kK7n0JyEwTmeEDpt">
+					emissionFactorID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Cars Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html#H88vNhyEwTmek1HH">
+					carID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record Id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html#6G5vNhyEwTmek1Jl">
+					transmission</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(5)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The car trasmission			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html#.rdvNhyEwTmek1Kh">
+					engineCapacity</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The car's engine capacity			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html#_7LvNhyEwTmek1LR">
+					fuelType</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(20)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The type of fuel that the car uses			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_BILPNhyEwTmek1A9.html#.ySfNhyEwTmek1Q_">
+					euroStandard</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">smallint(1)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The euro standard			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+transportMeansUsedByUsers Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_FB_fNhyEwTmek1X_.html#9E5fNhyEwTmek1Za">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the user who has used the transport mean			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_FB_fNhyEwTmek1X_.html#DGNfNhyEwTmek1Z2">
+					trasnportMeanID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of a transport mean			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+EFSources Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_Cgj_NhyEwTmek2cE.html#G9QAthyEwTmek2cw">
+					EFID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_Cgj_NhyEwTmek2cE.html#GOYAthyEwTmek2dL">
+					name</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The name of the source (e.g. organization providing emission facto data sets)			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_Cgj_NhyEwTmek2cE.html#_zsAthyEwTmek2dv">
+					link</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(100)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The link to the source (e.g. web site, email etc.)			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+userLocations Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_Ht2AthyEwTmek2nU.html#6gLAthyEwTmek2ow">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+User id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_Ht2AthyEwTmek2nU.html#.MnAthyEwTmek2pM">
+					addressID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Address id			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+CalculationMethods Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xt_gthyEwTmek20_.html#FBCQthyEwTmek24D">
+					methodID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xt_gthyEwTmek20_.html#G7yQthyEwTmek24e">
+					tier</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">smallint(1)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The tier type of the method (refer to IPCC 2006 )			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+TransportMean Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#nAg7bhyEwTmeqpY1">
+					id</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The transport mean id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#hOY7bhyEwTmeqpZQ">
+					type</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(255)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The transport mean type (e.g. car, taxi, bus etc.)			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#yVSa7hyEwTmeqhbJ">
+					manufacturer</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(50)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The manufacturer of the transport mean			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#wC6a7hyEwTmeqhcr">
+					model</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(100)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The specific model of the transport mean			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#XhBa7hyEwTmeqhxL">
+					description</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">clob</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Some additional information about the transport mean			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#Qr3a7hyEwTmeqh.9">
+					COEmissions(g/km)</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(5)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The amount of carbon emitted by the transport mean per km			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_SyvbbhyEwTmeqpXV.html#.BSn0JyEwTmeECet">
+					EmissionFactorsid</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+EmissionFactors Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#nCy3bhyEwTmeqrZB">
+					id</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#X1a3bhyEwTmeqrZc">
+					sourceID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Foreign key referencing to the table which contains information about the emissions factor sources			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#n_f3bhyEwTmeqrbG">
+					year</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The year that the emission factor was published			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#kIrPbhyEwTmeqrfu">
+					description</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(100)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+A brief description about the car type that the emission is associated with			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#TrovbhyEwTmeqrhC">
+					CO2(kg/km)</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(6)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The co2 emissions of the car per km			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#VoKvbhyEwTmeqriW">
+					CH4(kg/km)</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(6)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The CH4 emissions of the car per km			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_3ATnbhyEwTmeqrWZ.html#WIpvbhyEwTmeqrj_">
+					N2O(kg/km)</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">decimal(6)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The N2O emissions per km			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+CarEmissionFactors Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xnYU7hyEwTmeqsx6.html#iARU7hyEwTmeqtbP">
+					id</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK / FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xnYU7hyEwTmeqsx6.html#mnuU7hyEwTmeqtaz">
+					minEngineCapacity</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(5)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The minimum engine capacity of a car that this emission factor refers to.			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xnYU7hyEwTmeqsx6.html#T.5U7hyEwTmeqtdC">
+					maxEngineCapacity</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(5)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The maximum engine capacity of a car that this emission factor refers to.			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_xnYU7hyEwTmeqsx6.html#kkdU7hyEwTmeqte.">
+					fuelType</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(20)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Yes			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The car's fuel type			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+TripLegs Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#T_d0YRyEwTmefCzg">
+					id</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#WgT0YRyEwTmefCz7">
+					tripID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the trip that it is part of.			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#yNn0YRyEwTmefC0b">
+					startAddressID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of starting address			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#xYwMYRyEwTmefC0_">
+					endAddress</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of end address			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#g3EMYRyEwTmefC1n">
+					transportMeanId</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of transport mean that was used			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_jWk0YRyEwTmefCyq.html#1IPGYRyEwTmefHRF">
+					step</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The step of the trip. In other words the stage of the trip that this leg represents			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+Method Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_MxLSYRyEwTmefEj_.html#UyuyYRyEwTmefElx">
+					methodID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+PK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+Record id			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_MxLSYRyEwTmefEj_.html#zVByYRyEwTmefEmO">
+					name</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">varchar(100)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The name of the method			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_MxLSYRyEwTmefEj_.html#TfxyYRyEwTmefEmy">
+					description</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">clob</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The method description			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+transportMeansOwnedByUsers Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_8_QmqJyEwTmc632H.html#chsmqJyEwTmc637o">
+					userID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the user that owns the transport mean			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_8_QmqJyEwTmc632H.html#b3imqJyEwTmc638E">
+					transportMeanID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The id of the transport mean that a user owns			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+transportMeansOwnedByGroups Table			</td>
+		</tr>
+		<tr>
+			<td class="TableCellSpaceHolder5PxTall">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="10" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="15%">
+<span class="TableHeaderText">Column Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="10%">
+<span class="TableHeaderText">Data Type</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="7%">
+<span class="TableHeaderText">PK / FK</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="5%">
+<span class="TableHeaderText">Nullable</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td width="*">
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="10" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_5_tmqJyEwTmc64as.html#dR7mqJyEwTmc64iu">
+					groupID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The groups that owns the transport mean			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<a target="_content_pane" class="ItemLink" href="DBTable_5_tmqJyEwTmc64as.html#cNPmqJyEwTmc64kE">
+					transportMeanID</a>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent">integer(10)</span>			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+FK			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+No			</td>
+			<td>
+			</td>
+			<td class="TableContent">
+The transport mean that the group owns			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

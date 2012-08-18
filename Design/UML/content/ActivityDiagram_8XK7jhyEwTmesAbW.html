@@ -1,0 +1,428 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Activity Diagram - Edit a Trip</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="UseCaseDiagram_JN92shyEwTmc2h1_.html">
+Edit a Trip : Use Case</a>
+	</p>
+	<p class="PageTitle">
+		Activity Diagram - Edit a Trip	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|62.0|82.0|210.0|40.0|ActivityAction_SXK7jhyEwTmesAbj.html|ActivityAction_SXK7jhyEwTmesAbj.html|yXK7jhyEwTmesAbs" id="optionyXK7jhyEwTmesAbs">1. Edit a trip : Action</option>
+<option value="shape|102.0|182.0|130.0|40.0|ActivityAction_KXK7jhyEwTmesAc5.html|ActivityAction_KXK7jhyEwTmesAc5.html|KXK7jhyEwTmesAdC" id="optionKXK7jhyEwTmesAdC">2. Check user Identity : Action</option>
+<option value="shape|62.0|282.0|220.0|40.0|ActivityAction_aXK7jhyEwTmesAeP.html|ActivityAction_aXK7jhyEwTmesAeP.html|aXK7jhyEwTmesAeY" id="optionaXK7jhyEwTmesAeY">3. System presents the user's trips : Action</option>
+<option value="shape|82.0|382.0|190.0|40.0|ActivityAction_6XK7jhyEwTmesAfl.html|ActivityAction_6XK7jhyEwTmesAfl.html|GXK7jhyEwTmesAfu" id="optionGXK7jhyEwTmesAfu">4. User selects a trip to modify : Action</option>
+<option value="shape|62.0|482.0|190.0|40.0|ActivityAction_mXK7jhyEwTmesAg7.html|ActivityAction_mXK7jhyEwTmesAg7.html|mXK7jhyEwTmesAhE" id="optionmXK7jhyEwTmesAhE">5. System presents trip details : Action</option>
+<option value="shape|22.0|582.0|290.0|40.0|ActivityAction_2XK7jhyEwTmesAiR.html|ActivityAction_2XK7jhyEwTmesAiR.html|2XK7jhyEwTmesAia" id="option2XK7jhyEwTmesAia">6.User modifies trip details : Action</option>
+<option value="shape|2.0|682.0|330.0|40.0|ActivityAction_uXK7jhyEwTmesAjn.html|ActivityAction_uXK7jhyEwTmesAjn.html|uXK7jhyEwTmesAjw" id="optionuXK7jhyEwTmesAjw">7. The modified trip record is stored back to the persistent storage : Action</option>
+<option value="shape|162.0|782.0|20.0|20.0|ActivityFinalNode_eXK7jhyEwTmesAk9.html|ActivityFinalNode_eXK7jhyEwTmesAk9.html|.XK7jhyEwTmesAlG" id="option.XK7jhyEwTmesAlG">ActivityFinalNode2 : Activity Final Node</option>
+<option value="shape|152.0|2.0|40.0|20.0|InitialNode_iXK7jhyEwTmesAbY.html|InitialNode_iXK7jhyEwTmesAbY.html|SXK7jhyEwTmesAbh" id="optionSXK7jhyEwTmesAbh">InitialNode2 : Initial Node</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Edit_a_Trip.png" usemap="#diagram_map" class="Image" width="336.0" height="806.0"/>				<map name = "diagram_map">
+
+<area coords="162.0, 782.0, 182.0, 814.0" coords2="162.0, 782.0, 182.0, 814.0" shape="rect" alt="ActivityFinalNode2:Activity Final Node" id="area.XK7jhyEwTmesAlG" href="ActivityFinalNode_eXK7jhyEwTmesAk9.html" onmouseover="storeReferenceAndSubdiagramInfos('162.0, 782.0, 182.0, 802.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=BXK7jhyEwTmesAlR/Unnamed/ControlFlow'),new Array()),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('162.0, 782.0, 182.0, 802.0')"/>
+<area coords="2.0, 682.0, 332.0, 734.0" coords2="2.0, 682.0, 332.0, 734.0" shape="rect" alt="7. The modified trip record is stored back to the persistent storage:Action" id="areauXK7jhyEwTmesAjw" href="ActivityAction_uXK7jhyEwTmesAjn.html" onmouseover="storeReferenceAndSubdiagramInfos('2.0, 682.0, 332.0, 722.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_NqxhjhyEwTmesBQG.html/The modified trip record is stored back to the persistent storage/Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=eXK7jhyEwTmesAk7/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=BXK7jhyEwTmesAlR/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('2.0, 682.0, 332.0, 722.0')"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user modifies the trip details and submits the form</font>
+    </p>
+  </body>" coords="22.0, 582.0, 312.0, 634.0" coords2="22.0, 582.0, 312.0, 634.0" shape="rect" alt="6.User modifies trip details:Action" id="area2XK7jhyEwTmesAia" href="ActivityAction_2XK7jhyEwTmesAiR.html" onmouseover="storeReferenceAndSubdiagramInfos('22.0, 582.0, 312.0, 622.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_KWgBjhyEwTmesArO.html/The user modifies the trip details and submits the form /Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=OXK7jhyEwTmesAjl/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=eXK7jhyEwTmesAk7/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('22.0, 582.0, 312.0, 622.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system presents a form populated with the details about the selected 
+      trip.</font>
+    </p>
+  </body>" coords="62.0, 482.0, 252.0, 534.0" coords2="62.0, 482.0, 252.0, 534.0" shape="rect" alt="5. System presents trip details:Action" id="areamXK7jhyEwTmesAhE" href="ActivityAction_mXK7jhyEwTmesAg7.html" onmouseover="storeReferenceAndSubdiagramInfos('62.0, 482.0, 252.0, 522.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_Ixp_jhyEwTmesAq8.html/The system presents a form populated with the details about the selected trip./Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=WXK7jhyEwTmesAiP/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=OXK7jhyEwTmesAjl/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('62.0, 482.0, 252.0, 522.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user selects the trip she wants to modify</font>
+    </p>
+  </body>" coords="82.0, 382.0, 272.0, 434.0" coords2="82.0, 382.0, 272.0, 434.0" shape="rect" alt="4. User selects a trip to modify:Action" id="areaGXK7jhyEwTmesAfu" href="ActivityAction_6XK7jhyEwTmesAfl.html" onmouseover="storeReferenceAndSubdiagramInfos('82.0, 382.0, 272.0, 422.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_53u_jhyEwTmesAmZ.html/The user selects the trip she wants to modify/Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=mXK7jhyEwTmesAg5/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=WXK7jhyEwTmesAiP/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('82.0, 382.0, 272.0, 422.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      system retrieves from the persistent storage, the the trips that has 
+      been added by the user. Trips should be easily searchable, so that users 
+      can easily locate the one they want to alter.</font>
+    </p>
+  </body>" coords="62.0, 282.0, 282.0, 334.0" coords2="62.0, 282.0, 282.0, 334.0" shape="rect" alt="3. System presents the user's trips:Action" id="areaaXK7jhyEwTmesAeY" href="ActivityAction_aXK7jhyEwTmesAeP.html" onmouseover="storeReferenceAndSubdiagramInfos('62.0, 282.0, 282.0, 322.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_WBuejhyEwTmesAmQ.html/The system retrieves from the persistent storage, the the trips that has been added by the user. Trips should be easily searchable, so that users can easily locate the one they want to alter./Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=6XK7jhyEwTmesAfj/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=mXK7jhyEwTmesAg5/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('62.0, 282.0, 282.0, 322.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>Check 
+      user Identity</font>
+    </p>
+  </body>" coords="102.0, 182.0, 232.0, 234.0" coords2="102.0, 182.0, 232.0, 234.0" shape="rect" alt="2. Check user Identity:Action" id="areaKXK7jhyEwTmesAdC" href="ActivityAction_KXK7jhyEwTmesAc5.html" onmouseover="storeReferenceAndSubdiagramInfos('102.0, 182.0, 232.0, 222.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step_i4qejhyEwTmesAl_.html/ 4laeshyEwTmc2iqP /Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=qXK7jhyEwTmesAeN/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=6XK7jhyEwTmesAfj/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('102.0, 182.0, 232.0, 222.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area docContent="<head>
+    
+  </head>
+  <body>
+    <p>
+      <font color=&quot;#000000&quot; face=&quot;Courier New&quot; size=&quot;11px&quot; style=&quot;font-size:11px&quot;>The 
+      user asks the system to edit a trip</font>
+    </p>
+  </body>" coords="62.0, 82.0, 272.0, 134.0" coords2="62.0, 82.0, 272.0, 134.0" shape="rect" alt="1. Edit a trip:Action" id="areayXK7jhyEwTmesAbs" href="ActivityAction_SXK7jhyEwTmesAbj.html" onmouseover="storeReferenceAndSubdiagramInfos('62.0, 82.0, 272.0, 122.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('Step__OcejhyEwTmesAlj.html/The user asks the system to edit a trip/Step','ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=yXK7jhyEwTmesAc3/Unnamed/ControlFlow'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=qXK7jhyEwTmesAeN/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('62.0, 82.0, 272.0, 122.0'),showTooltip(this)" onmouseout="hideTooltip()"/>
+<area coords="152.0, 2.0, 192.0, 34.0" coords2="152.0, 2.0, 192.0, 34.0" shape="rect" alt="InitialNode2:Initial Node" id="areaSXK7jhyEwTmesAbh" href="InitialNode_iXK7jhyEwTmesAbY.html" onmouseover="storeReferenceAndSubdiagramInfos('152.0, 2.0, 192.0, 22.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=yXK7jhyEwTmesAc3/Unnamed/ControlFlow')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('152.0, 2.0, 192.0, 22.0')"/>
+<area coords="165.0, 11.0, 165.0, 92.0, 179.0, 92.0, 179.0, 11.0" coords2="165.0, 11.0, 165.0, 92.0, 179.0, 92.0, 179.0, 11.0" shape="poly" alt="null:Control Flow" id="areayXK7jhyEwTmesAc3" href="ControlFlow_yXK7jhyEwTmesAcu.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 11.0, 165.0, 92.0, 179.0, 92.0, 179.0, 11.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=SXK7jhyEwTmesAbh/InitialNode2/InitialNode'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=yXK7jhyEwTmesAbs/1. Edit a trip/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 11.0, 165.0, 92.0, 179.0, 92.0, 179.0, 11.0')"/>
+<area coords="165.0, 111.0, 165.0, 192.0, 179.0, 192.0, 179.0, 111.0" coords2="165.0, 111.0, 165.0, 192.0, 179.0, 192.0, 179.0, 111.0" shape="poly" alt="null:Control Flow" id="areaqXK7jhyEwTmesAeN" href="ControlFlow_qXK7jhyEwTmesAeE.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 111.0, 165.0, 192.0, 179.0, 192.0, 179.0, 111.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=yXK7jhyEwTmesAbs/1. Edit a trip/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=KXK7jhyEwTmesAdC/2. Check user Identity/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 111.0, 165.0, 192.0, 179.0, 192.0, 179.0, 111.0')"/>
+<area coords="165.0, 211.0, 165.0, 292.0, 179.0, 292.0, 179.0, 211.0" coords2="165.0, 211.0, 165.0, 292.0, 179.0, 292.0, 179.0, 211.0" shape="poly" alt="null:Control Flow" id="area6XK7jhyEwTmesAfj" href="ControlFlow_6XK7jhyEwTmesAfa.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 211.0, 165.0, 292.0, 179.0, 292.0, 179.0, 211.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=KXK7jhyEwTmesAdC/2. Check user Identity/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=aXK7jhyEwTmesAeY/3. System presents the user's trips/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 211.0, 165.0, 292.0, 179.0, 292.0, 179.0, 211.0')"/>
+<area coords="165.0, 311.0, 165.0, 392.0, 179.0, 392.0, 179.0, 311.0" coords2="165.0, 311.0, 165.0, 392.0, 179.0, 392.0, 179.0, 311.0" shape="poly" alt="null:Control Flow" id="areamXK7jhyEwTmesAg5" href="ControlFlow_GXK7jhyEwTmesAgw.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 311.0, 165.0, 392.0, 179.0, 392.0, 179.0, 311.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=aXK7jhyEwTmesAeY/3. System presents the user's trips/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=GXK7jhyEwTmesAfu/4. User selects a trip to modify/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 311.0, 165.0, 392.0, 179.0, 392.0, 179.0, 311.0')"/>
+<area coords="165.0, 411.0, 165.0, 492.0, 179.0, 492.0, 179.0, 411.0" coords2="165.0, 411.0, 165.0, 492.0, 179.0, 492.0, 179.0, 411.0" shape="poly" alt="null:Control Flow" id="areaWXK7jhyEwTmesAiP" href="ControlFlow_WXK7jhyEwTmesAiG.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 411.0, 165.0, 492.0, 179.0, 492.0, 179.0, 411.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=GXK7jhyEwTmesAfu/4. User selects a trip to modify/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=mXK7jhyEwTmesAhE/5. System presents trip details/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 411.0, 165.0, 492.0, 179.0, 492.0, 179.0, 411.0')"/>
+<area coords="165.0, 511.0, 165.0, 592.0, 179.0, 592.0, 179.0, 511.0" coords2="165.0, 511.0, 165.0, 592.0, 179.0, 592.0, 179.0, 511.0" shape="poly" alt="null:Control Flow" id="areaOXK7jhyEwTmesAjl" href="ControlFlow_OXK7jhyEwTmesAjc.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 511.0, 165.0, 592.0, 179.0, 592.0, 179.0, 511.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=mXK7jhyEwTmesAhE/5. System presents trip details/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=2XK7jhyEwTmesAia/6.User modifies trip details/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 511.0, 165.0, 592.0, 179.0, 592.0, 179.0, 511.0')"/>
+<area coords="165.0, 611.0, 165.0, 692.0, 179.0, 692.0, 179.0, 611.0" coords2="165.0, 611.0, 165.0, 692.0, 179.0, 692.0, 179.0, 611.0" shape="poly" alt="null:Control Flow" id="areaeXK7jhyEwTmesAk7" href="ControlFlow_eXK7jhyEwTmesAky.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 611.0, 165.0, 692.0, 179.0, 692.0, 179.0, 611.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=2XK7jhyEwTmesAia/6.User modifies trip details/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=uXK7jhyEwTmesAjw/7. The modified trip record is stored back to the persistent storage/ActivityAction')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 611.0, 165.0, 692.0, 179.0, 692.0, 179.0, 611.0')"/>
+<area coords="165.0, 711.0, 165.0, 793.0, 179.0, 793.0, 179.0, 711.0" coords2="165.0, 711.0, 165.0, 793.0, 179.0, 793.0, 179.0, 711.0" shape="poly" alt="null:Control Flow" id="areaBXK7jhyEwTmesAlR" href="ControlFlow__XK7jhyEwTmesAlI.html" onmouseover="storeReferenceAndSubdiagramInfos('165.0, 711.0, 165.0, 793.0, 179.0, 793.0, 179.0, 711.0',new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array(),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=uXK7jhyEwTmesAjw/7. The modified trip record is stored back to the persistent storage/ActivityAction'),new Array('ActivityDiagram_8XK7jhyEwTmesAbW.html?shapeid=.XK7jhyEwTmesAlG/ActivityFinalNode2/ActivityFinalNode')),hideReferenceIcon(),hideSubdiagramIcon(),showTransitorIcon('165.0, 711.0, 165.0, 793.0, 179.0, 793.0, 179.0, 711.0')"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_SXK7jhyEwTmesAbj.html">1. Edit a trip : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user asks the system to edit a trip</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_KXK7jhyEwTmesAc5.html">2. Check user Identity : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">Check 
+      user Identity</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_aXK7jhyEwTmesAeP.html">3. System presents the user's trips : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system retrieves from the persistent storage, the the trips that has 
+      been added by the user. Trips should be easily searchable, so that users 
+      can easily locate the one they want to alter.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_6XK7jhyEwTmesAfl.html">4. User selects a trip to modify : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user selects the trip she wants to modify</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_mXK7jhyEwTmesAg7.html">5. System presents trip details : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      system presents a form populated with the details about the selected 
+      trip.</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_2XK7jhyEwTmesAiR.html">6.User modifies trip details : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"><head>
+    
+  </head>
+  <body>
+    <p>
+      <font color="#000000" face="Courier New" size="11px" style="font-size:11px">The 
+      user modifies the trip details and submits the form</font>
+    </p>
+  </body></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityAction.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityAction.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityAction_uXK7jhyEwTmesAjn.html">7. The modified trip record is stored back to the persistent storage : Action</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/ActivityFinalNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/ActivityFinalNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="ActivityFinalNode_eXK7jhyEwTmesAk9.html">ActivityFinalNode2 : Activity Final Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/InitialNode.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/InitialNode.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="InitialNode_iXK7jhyEwTmesAbY.html">InitialNode2 : Initial Node</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

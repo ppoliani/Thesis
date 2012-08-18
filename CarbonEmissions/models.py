@@ -81,6 +81,9 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+#################### Emission Factors #############################
+class EmissionFactor(models.Model):
+    """Emission factors relation"""
 
 #################### Transport Means #############################
 class TransportMean(models.Model):
