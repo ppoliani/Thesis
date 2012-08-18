@@ -24,7 +24,7 @@ class Address(models.Model):
     number = models.CharField(max_length=10, null=True)
     
     #the postal code of the address
-    postalCode = models.CharField(max_length=10)
+    postalCode = models.CharField(max_length=15)
     
     #the longitude value of the address
     longitude = models.DecimalField(max_digits=10, decimal_places=6)
@@ -33,7 +33,7 @@ class Address(models.Model):
     latitude = models.DecimalField(max_digits=10, decimal_places=6)
     
     #The name of the address. It can help users to identify addresses
-    name = models.CharField(max_length=20, null=True)
+    name = models.CharField(max_length=50, null=True)
     
     #Specifies if the address is public or private. Private addresses can be 
     #viewed only by the users who added them to the system.
@@ -41,7 +41,7 @@ class Address(models.Model):
     
     def __unicode__(self):
         """unicode string representation of the model"""
-        return self.name;
+        return self.street;
     
     class Meta:
         """Inline class for specifying various model-specific options"""
@@ -81,9 +81,112 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 post_save.connect(create_user_profile, sender=User)
 
+
 #################### Emission Factors #############################
+class EmissionFactorSource(models.Model):
+    """Sources for Emission factors relation"""
+    name = models.CharField(max_length=50)
+    
+    #the year of emission factor publication
+    year = models.PositiveSmallIntegerField()
+    
+    #the month of emission factor publication
+    month = models.CharField(max_length='3', choices=(('Jan', 'Jan'), ('Feb', 'Feb'), ('Mar', 'Mar'), ('Apr', 'Apr'), ('May', 'May'), \
+                                                      ('Jun', 'Jun'), ('Jul', 'Jul'), ('Aug', 'Aug'), ('Sep', 'Sep'), ('Oct', 'Oct'), \
+                                                      ('Nov', 'Nov'), ('Dec', ('Dec'))))
+    
+    #link to the source location
+    link = models.URLField()
+    
+    def __unicode__(self):
+        """unicode string representation of the model"""
+        return u'%s %s' % (self.name, self.year) 
+    
+     
+    class Meta:
+        """Inline class for specifying various model-specific options"""
+        ordering = ['name']
+        
+
+#################### Abstract Emission Factors #############################
 class EmissionFactor(models.Model):
-    """Emission factors relation"""
+    """Emission factor relation. Abastact model"""
+    
+    #the source of this emission factor
+    source = models.ForeignKey(EmissionFactorSource)
+    
+    #the direct Grenn House Gas emitted to the atmosphere (Kg C02e/km)
+    directGHGEmissions = models.DecimalField(max_digits=6, decimal_places=4)
+    
+    def __unicode__(self):
+        """unicode string representation of the model"""
+        return u'%s %s %s' % (self.source.name, self.source.year, self.directGHGEmissions) 
+    
+    class Meta:
+        """Inline class for specifying various model-specific options"""
+        abstract = True
+         
+
+#################### Car Emission Factors  #############################
+class CarEmissionFactor(EmissionFactor):
+    """Emission factor relation, for cars"""
+    
+    #the fuel type used by the car
+    fuelType = models.CharField(max_length=10)
+    
+    #the minimum (Lower limit) engine capacity of the car 
+    minEngineCapacity = models.PositiveSmallIntegerField()
+    
+    #the maximum (Upper limit) engine capacity of the car
+    maxEngineCapacity = models.PositiveSmallIntegerField()
+    
+#################### Bus Emission Factors #############################
+class BusEmissionFactor(EmissionFactor):
+    """Emission factor relation, for buses"""
+    
+    #the type of the bus e.g. local london bus, coach, average local bus
+    busType = models.CharField(max_length=50)
+
+#################### Taxi Emission Factors  #############################
+class TaxiEmissionFactor(EmissionFactor):
+    """Emission factor relation, for taxis"""
+    
+    #the type of the bus e.g. black cab, regular taxi
+    taxiType = models.CharField(max_length=50)
+    
+    
+#################### Rail Emission Factors  #############################
+class RailEmissionFactor(EmissionFactor):
+    """Emission factor relation, for trains"""
+    
+    #the type of the train e.g. national rail, international etc.
+    railType = models.CharField(max_length=50)
+    
+#################### Ferry Emission factors  #############################
+class FerryEmissionFactor(EmissionFactor):
+    """Emission factor relation, for ferries"""
+    
+    #the type of ferry bus e.g. foot passangers
+    ferryType = models.CharField(max_length=50)
+    
+#################### Motorcycles Emission factors  #############################
+class MotorcycleEmissionFactor(EmissionFactor):
+    """Emission factor relation, for motorcycles"""
+    
+    #the type of the motorcycle e.g. small petrol motorbike up to 125cc
+    motorcycleType = models.TextField()
+    
+#################### Aviation Emission factors#############################
+class aviationEmissionFactor(EmissionFactor):
+    """Emission factor relation, for airplanes"""
+    
+    #the type of the flight e.g. small petrol motorbike up to 125cc
+    flightType = models.CharField(max_length=50)
+    
+    #the cabin type e.g. economy, business, first class
+    cabinClass = models.CharField(max_length=50) 
+    
+    
 
 #################### Transport Means #############################
 class TransportMean(models.Model):
@@ -96,10 +199,8 @@ class TransportMean(models.Model):
     #Some additional information about the transport mean
     description = models.TextField(null=True)
     
-    #Greenhouse gas(kg/km).The sum of CO2, CO4 and N2O emitted by the transport mean per km
-    directGHGEmissions = models.DecimalField(max_digits=5, decimal_places=4)
-    
-    ##### ADD EmissionFactorsid LATER !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+    #Greenhouse gas(kg/km).The sum of CO2, CO4 and N2O emitted by the specific transport (tier 2 method) mean per km
+    directGHGEmissions = models.DecimalField(max_digits=6, decimal_places=4, null=True)
     
     def __unicode__(self):
         """unicode string representation of the model"""
@@ -109,7 +210,23 @@ class TransportMean(models.Model):
         """Inline class for specifying various model-specific options"""
         abstract = True
         
-        
+
+#################### Transport Mean realtion factors#############################
+class TransportMeanEmissionFactor(models.Model):
+    """The emission factors of transport means"""
+    
+    #because django doesn't allow to add foreign key to an abstract class, we use a generic relations
+    # read https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1
+    transportMean_content_type = models.ForeignKey(ContentType, related_name='transportMean')  
+    transportMean__id = models.PositiveIntegerField()
+    transportMean = generic.GenericForeignKey('transportMean_content_type', 'transportMean__id')
+    
+    #generic emission factor foreign key
+    emissionFactor_content_type = models.ForeignKey(ContentType, related_name='emissionFactor')
+    emissionFactor_id = models.PositiveSmallIntegerField()
+    emissionFactor = generic.GenericForeignKey('emissionFactor_content_type', 'emissionFactor_id')
+
+     
 #################### Trip model #############################
 class Trip(models.Model):
     """The trip model"""

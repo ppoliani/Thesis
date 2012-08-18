@@ -17,20 +17,24 @@ class DbTest(TestCase):
         self.user = User.objects.create(username='ppoliani')
         self.userProfile = models.UserProfile.objects.create(user=self.user, title='Mr', type='student', occupation='student')
         
-        self.address = models.Address.objects.create(country='UK', county='Hampshire', city='Southampton', postalCode='SO17 3ST', \
+        self.address = models.Address.objects.create(country='UK', county='Hampshire', city='Southampton', street='723 portswood road' ,postalCode='SO17 3ST', \
                                                      longitude = 123.6765, latitude= 123.675, name='some name', visibility=False)
-        self.trip = models.Trip.objects.create(userProfile=self.userProfile, type='commuter', name='trip name', date=datetime.now(),\
-                                                time=datetime.time(datetime.now()))
-        self.car = models.Car.objects.create(manufacturer='Audi', model='A5', CO2Emissions=10.102, engineCapacity=2000, \
+        self.trip = models.Trip.objects.create(userProfile=self.userProfile, type='commuter', name='trip name', date=datetime.now())
+        self.car = models.Car.objects.create(manufacturer='Audi', model='A5', directGHGEmissions=10.102, engineCapacity=2000, \
                                              fuelType='petrol')
         self.tripLeg = models.TripLeg.objects.create(trip=self.trip, startAddress=self.address, endAddress=self.address, \
-                                                     transportMean=self.car, step=1)
+                                                     transportMean=self.car, step=1, time=datetime.time(datetime.now()))
         self.transportMeanUsedByUser = models.TransportMeansUsedByUsers.objects.create(transportMean=self.car, userProfile=self.userProfile)
+        
+        self.emissionFactorSource = models.EmissionFactorSources.objects.create(name='Defra', year=2012, link='http://link.com')
+        self.emissionFactor = models.CarEmissionFactor.objects.create(source=self.emissionFactorSource, directGHGEmissions=0.1232, \
+                                                                      minEngineCapacity=0, maxEngineCapacity=1400)
+        
+        self.transportMeanEmissionFactor = models.TransportMeanEmissionFactor.objects.create(transportMean=self.car, emissionFactor=self.emissionFactor)
 
     #is called after each test case (e.g test_insertingUserProfiles)
     def tearDown(self):
         self.address.delete()
-        self.user.delete()
         self.userProfile.delete()
         self.trip.delete()
         self.car.delete()
@@ -75,7 +79,7 @@ class DbTest(TestCase):
         #passes
         self.assertEqual(self.car.model,'A5')  
         #fails
-        self.assertEqual(self.car.CO2Emissions, 10.123)
+        self.assertEqual(self.car.directGHGEmissions, 10.123)
     
     #Testing the insertion of cars into our datbase         
     def test_insertTripLegs(self):
@@ -99,4 +103,13 @@ class DbTest(TestCase):
         #fails
         self.assertEqual(self.transportMeanUsedByUser.userProfile.title, 'Miss')
         
+    def test_insertingTransportMeanEmissionFacotrs(self):
+        """
+            Testing the insertion of transport mean emission factors 
+        """  
+        #passes 
+        self.assertEqual(self.transportMeanEmissionFactor.transportMean.model, 'A5')
+        
+        #fails
+        self.assertEqual(self.transportMeanEmissionFactor.emissionFactor.source.name, 'WrongName')
 

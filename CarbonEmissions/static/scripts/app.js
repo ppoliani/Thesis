@@ -592,8 +592,8 @@ App.tripManagerController = Em.Object.create({
 					if( tripLegModel.get('carModel') ){
 						var carModel = tripLegModel.get('carModel');
 						var url = '/get-transportMeanId/?type=Car'  
-												   + '&model=' + carModel.get('model') 
-												   + '&description=' + carModel.get('description')
+												   + '&model=' + encodeURIComponent(carModel.get('model'))
+												   + '&description=' + encodeURIComponent(carModel.get('description'))
 												   + '&engineCapacity=' + carModel.get('engineCapacity') 
 												   + '&fuelType=' + carModel.get('fuelType') 
 												   + '&transmission=' + carModel.get('transmission');	

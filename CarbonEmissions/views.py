@@ -89,7 +89,7 @@ def getCarModelData(request):
 def getTransportMeanId(request):
     if request.GET['type'] == 'Car':
         model = request.GET['model']
-        description = request.GET['description']
+        description = str(request.GET['description'])
         engineCapacity = request.GET['engineCapacity']
         fuelType = request.GET['fuelType']
         transmission = request.GET['transmission']
@@ -126,33 +126,35 @@ def saveTripLeg(request):
     
     #save the start address
     postedCountry = request.POST.getlist('startAddrCountry')[0]
-    postedCounty = request.POST.getlist('startAddrCounty')[0]
+    postedCounty = None if request.POST.getlist('startAddrCounty')[0] == 'null' else request.POST.getlist('startAddrCounty')[0]
     postedCity = request.POST.getlist('startAddrCity')[0]
     postedPostalCode = request.POST.getlist('startAddrPostalCode')[0]
     postedStreet = request.POST.getlist('startAddrStreet')[0]
-    postedVisibilitry = request.POST.getlist('startAddrVisibility')[0]
+    postedVisibilitry = True if request.POST.getlist('startAddrVisibility')[0] == 'Visible' else False
     #postedAddrName = request.POST.getlist('startAddrName')[0]
-    postedLongitude = request.POST.getlist('startAddrLongitude')[0]
-    postedLatitude = request.POST.getlist('startAddrLatitude')[0]
+    postedLongitude = '%.6f' % float(request.POST.getlist('startAddrLongitude')[0])
+    postedLatitude = '%.6f' % float(request.POST.getlist('startAddrLatitude')[0])
     
-    startAddress = models.Address.objects.create(country=postedCountry, county=postedCounty, city=postedCity, postalCode=postedPostalCode, \
+    #add address if not exist. If exist then reuse it
+    startAddress = models.Address.objects.get_or_create(country=postedCountry, county=postedCounty, city=postedCity, postalCode=postedPostalCode, \
                                                  street=postedStreet, visibility=postedVisibilitry, longitude=postedLongitude, \
-                                                 latitude=postedLatitude)
-    
+                                                 latitude=postedLatitude)[0]
+        
     #save the end address
     postedCountry = request.POST.getlist('endAddrCountry')[0]
-    postedCounty = request.POST.getlist('endAddrCounty')[0]
+    postedCounty = None if request.POST.getlist('endAddrCounty')[0] == 'null' else request.POST.getlist('endAddrCounty')[0]
     postedCity = request.POST.getlist('endAddrCity')[0]
     postedPostalCode = request.POST.getlist('endAddrPostalCode')[0]
     postedStreet = request.POST.getlist('endAddrStreet')[0]
-    postedVisibilitry = request.POST.getlist('endAddrVisibility')[0]
+    postedVisibilitry = True if request.POST.getlist('endAddrVisibility')[0] == 'Visible' else False
     #postedAddrName = request.POST.getlist('endAddrName')[0]
-    postedLongitude = request.POST.getlist('endAddrLongitude')[0]
-    postedLatitude = request.POST.getlist('endAddrLatitude')[0]
+    postedLongitude =  '%.6f' % float(request.POST.getlist('endAddrLongitude')[0])
+    postedLatitude = '%.6f' % float(request.POST.getlist('endAddrLatitude')[0])
     
-    endAddress = models.Address.objects.create(country=postedCountry, county=postedCounty, city=postedCity, postalCode=postedPostalCode, \
+    #add address if not exist. If exist then reuse it. Get_or_creta returns tuple of two values, the first one is the model instance
+    endAddress = models.Address.objects.get_or_create(country=postedCountry, county=postedCounty, city=postedCity, postalCode=postedPostalCode, \
                                                  street=postedStreet, visibility=postedVisibilitry, longitude=postedLongitude, \
-                                                 latitude=postedLatitude)
+                                                 latitude=postedLatitude)[0]
     
     #if user has not added the value just retrieve the existing car, otherwise save the new car created by the user
     if request.POST.getlist('carName')[0] == '':
@@ -171,9 +173,21 @@ def saveTripLeg(request):
                                             step=tripLegStep, time=tripLegTime)
     
     
-    #finally store this transport mean in the transportMeanUsedByusers model, for future use
+    #finally store this transport mean in the transportMeanUsedByusers and user_locations model (if records not already exist), for future use
     userProfile = User.get_profile(request.user)
-    models.TransportMeansUsedByUsers(userProfile=userProfile, transportMean=transportMean).save()
+
+    models.TransportMeansUsedByUsers.objects.get_or_create(userProfile=userProfile, object_id=transportMean.id)
+    
+    #check if user location already exist before adding
+    try:
+        models.UserProfile.objects.get(locations=startAddress)
+    except models.UserProfile.DoesNotExist:
+        userProfile.locations.add(startAddress) 
+    
+    try:
+        models.UserProfile.objects.get(locations=endAddress)
+    except models.UserProfile.DoesNotExist:
+        userProfile.locations.add(endAddress)     
     
     json = simplejson.dumps( {'tripLegId': tripLeg.id} )
     
