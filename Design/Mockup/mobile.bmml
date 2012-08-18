@@ -1,0 +1,38 @@
+<mockup version="1.0" skin="sketch" measuredW="688" measuredH="643" mockupW="282" mockupH="510">
+  <controls>
+    <control controlID="0" controlTypeID="com.balsamiq.mockups::iPhone" x="406" y="133" w="-1" h="-1" measuredW="282" measuredH="510" zOrder="0" locked="false" isInGroup="-1"/>
+    <control controlID="3" controlTypeID="com.balsamiq.mockups::Image" x="449" y="246" w="196" h="72" measuredW="330" measuredH="220" zOrder="1" locked="false" isInGroup="-1">
+      <controlProperties>
+        <src>http%3A//www.astro.soton.ac.uk/%7Es.jones/soton.gif</src>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="4" controlTypeID="com.balsamiq.mockups::Label" x="446" y="350" w="-1" h="-1" measuredW="75" measuredH="21" zOrder="2" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>User%20Name%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="5" controlTypeID="com.balsamiq.mockups::TextInput" x="526" y="347" w="-1" h="-1" measuredW="79" measuredH="27" zOrder="3" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="6" controlTypeID="com.balsamiq.mockups::TextInput" x="526" y="391" w="-1" h="-1" measuredW="79" measuredH="27" zOrder="4" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text/>
+      </controlProperties>
+    </control>
+    <control controlID="7" controlTypeID="com.balsamiq.mockups::Label" x="446" y="391" w="-1" h="-1" measuredW="64" measuredH="21" zOrder="5" locked="false" isInGroup="-1">
+      <controlProperties>
+        <text>password%3A</text>
+      </controlProperties>
+    </control>
+    <control controlID="8" controlTypeID="com.balsamiq.mockups::Button" x="510" y="448" w="-1" h="-1" measuredW="56" measuredH="27" zOrder="6" locked="false" isInGroup="-1">
+      <controlProperties>
+        <href>mobile_main%26bm%3Bmobile_main.bmml%26bm%3Bmobile_main.bmml%26bm%3Bmobile_main.bmml</href>
+        <map>%3Carea%20shape%3D%22rect%22%20coords%3D%22104%2C315%2C160%2C342%22%20href%3D%22mobile_main.bmml%22%20alt%3D%22mobile_main%22%20id%3D%228%22/%3E</map>
+        <text>Enter</text>
+      </controlProperties>
+    </control>
+  </controls>
+</mockup>
