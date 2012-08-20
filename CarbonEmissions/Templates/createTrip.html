@@ -4,6 +4,7 @@
 
 {% block additionalScripts %}
 {% load staticfiles %}
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
     <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
     <script src="{% static "scripts/bingMaps.js" %}"></script>
     <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
@@ -166,32 +167,34 @@
     <div>
         <span class="clarification-msg">If you can't find a car from the list above, add a new one</span>
         <button class="inline-to-block btn" {{action "showAddNewCarForm"
-        }}>Add new car</button>
+        }}>Select a general car</button>
     </div>
 </script>
 
 <!--Template containing the form elements for adding a new car. Child of App.TripLegView -->
-<script type="text/x-handlebars" data-template-name="new-car-view">
+<script type="text/x-handlebars" data-template-name="general-car-view">
+	<div>
+        <span class="form-field-label">Fuel Type: </span>
+        {{view Em.Select contentBinding="App.fuelTypes"
+                         selectionBinding="fuelType"
+                         prompt="Please Select"
+        }}
+    </div>
 	 <div>
-        <span class="form-field-label">Name: </span>
-        {{view Em.TextField valueBinding="name"
+        <span class="form-field-label">description: </span>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
         }}
    </div>
-    <div>
-        <span class="form-field-label">Engine Capacity: </span>
-        {{view Em.TextField valueBinding="engineCapacity"
-        }}
-    </div>
-     <div>
-        <span class="form-field-label">Fuel Type: </span>
-        {{view Em.TextField valueBinding="fuelType"
-        }}
-    </div>
     <div>
         <span class="clarification-msg">Select a car from the list:</span>
         <button class="inline-to-block btn" {{action "showCarListForm"
         }}>Select from list</button>
     </div>
 </script>
+
+<!--Map used to get the driving distance. It is not viisble to users-->
+<div id="tempMap" style="display:none;"></div>
 
 {% endblock %}

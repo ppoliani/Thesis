@@ -8,6 +8,9 @@ import json
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from CarbonEmissions.ProvManager import ProvManager
+from django.contrib.contenttypes.models import ContentType
+from decimal import Decimal
+import datetime
 
 from django.utils import simplejson
 
@@ -17,18 +20,28 @@ def bingMaps(request):
 def parseCarCsv(request):
     """populate the car table with csv files taken from http://carfueldata.direct.gov.uk/downloads/default.aspx"""
     
+    #the emission factor source used when the application was developed
+    emisisonFactorSource = models.EmissionFactorSource.objects.get(name='DirectGov')
+    
     #use file object's context manager
     #latin-1 encoding to get french characters
-    with codecs.open('Thesis/CarbonEmissions/temp/euro4.csv', 'r', 'latin-1') as file_object:
+    with codecs.open('Thesis/CarbonEmissions/temp/euro6.csv', 'r', 'latin-1') as file_object:
         file_object.readline()
         for line in file_object:
             values = line.split(',')
             #add co2 and co4 together. convert to kg/km
             ghgEmissions = float(values[13])/1000 + float(values[16])/1000000
+            #save car model emission factor
+            carModelEmissionFactor = models.CarModelEmissionFactor.objects.create(source=emisisonFactorSource,\
+                                                                                   directGHGEmissions=ghgEmissions)
             #combine transmision and AorM together and store it as transmission in the table
             transmission =  '%s %s' % (values[3], values[4],)  # or values[3] + ' ' + values[4]
-            models.Car(manufacturer=values[0], model=values[1], description=values[2], directGHGEmissions=ghgEmissions, \
-                       transmission=transmission, engineCapacity=int(values[5]), fuelType=values[6]).save()
+            
+            carModel = models.Car.objects.create(manufacturer=values[0], model=values[1], description=values[2],transmission=transmission,\
+                                                engineCapacity=int(values[5]), fuelType=values[6])
+            
+            #save the conection between transport mean and emission factor
+            models.TransportMeanEmissionFactor(transportMean=carModel, emissionFactor=carModelEmissionFactor).save()
                        
     
 
@@ -44,8 +57,27 @@ def createTrip(request):
         
     return render_to_response('createTrip.html', {'form': form})
 
+#returns the description from the general cars table
+def getGeneralCarDescription(request):
+    """
+       returns the description from the general cars table
+    """
+    
+    fuelType = request.GET['fuelType']
+    
+    if fuelType == 'null':
+        descriptions = list(models.GeneralCar.objects.values('description')) 
+    else:
+        descriptions = list(models.GeneralCar.objects.values('description').filter(fuelType=fuelType))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+
 # A view that returns the  distinct car manufacturers values from the db in JSON format
 def getCarManufacturers(request):
+    """
+         A view that returns the  distinct car manufacturers values from the db in JSON format
+    """
     manufacturers = models.Car.objects.values('manufacturer').distinct()
     # refer to http://stackoverflow.com/questions/6601174/converting-a-django-valuesqueryset-to-a-json-object/6601250#6601250 
     # and http://djangosnippets.org/snippets/2454/ for explanation
@@ -53,8 +85,12 @@ def getCarManufacturers(request):
     
     return HttpResponse(json.dumps(manufacturers), mimetype='application/json')
 
+
 #returns the models that correspond to a specific manufacturer passed as get parameter, in JSON format
 def getCarModels(request):
+    """
+        returns the models that correspond to a specific manufacturer passed as get parameter, in JSON format
+    """
     if request.GET['manufacturer'] != 'null':
         cars = models.Car.objects.values('model').filter(manufacturer=request.GET['manufacturer'])
         cars = list(cars)
@@ -63,6 +99,10 @@ def getCarModels(request):
     
 #returns the engine capacity that correspond to a specific model passed as get parameter, in JSON format
 def getCarModelData(request):
+    """
+        returns the engine capacity that correspond to a specific model passed as get parameter, in JSON format
+    """
+    
     # the value changed determines which paramater to use in the filter() of the Queryset. e.g if user choose a value for 
     # car's engine capacity, the result should return the values that correspond to that engine capacity
     if request.GET['model'] != 'null':
@@ -87,21 +127,38 @@ def getCarModelData(request):
     
 #view for AJAX Calls. returns the id of a transport mean
 def getTransportMeanId(request):
-    if request.GET['type'] == 'Car':
+    """
+        view for AJAX Calls. returns the id of a transport mean
+    """
+    
+    if request.GET['type'] == 'car':
         model = request.GET['model']
         description = str(request.GET['description'])
         engineCapacity = request.GET['engineCapacity']
         fuelType = request.GET['fuelType']
         transmission = request.GET['transmission']
         
-        car = models.Car.objects.get(model=model, description=description, engineCapacity=engineCapacity, fuelType=fuelType, transmission=transmission)
-        json = simplejson.dumps( {'transportMeanId': car.id})
+        car = models.Car.objects.get(model=model, description=description, engineCapacity=engineCapacity, fuelType=fuelType,\
+                                     transmission=transmission)
         
-        return HttpResponse(json,  mimetype='application/json')
+        json = simplejson.dumps( {'transportMeanId': car.id})
+    elif request.GET['type'] == 'generalCar':
+        fuelType = request.GET['fuelType']
+        description = str(request.GET['description'])
+        
+        generalCar = models.GeneralCar.objects.get(fuelType=fuelType, description=description)
+        
+        json = simplejson.dumps( {'transportMeanId': generalCar.id})
+        
+    return HttpResponse(json,  mimetype='application/json')
 
 #saves the trip and returns the id of the saved trip
 @csrf_exempt
 def saveTrip(request):
+    """
+        saves the trip and returns the id of the saved trip
+    """
+    
     userProfile = User.get_profile(request.user)
 
     postedType = request.POST.getlist('type')[0]
@@ -115,9 +172,12 @@ def saveTrip(request):
     
     return HttpResponse(json,  mimetype='application/json')
 
-#saves the trip leg 
+#saves a trip leg 
 @csrf_exempt
 def saveTripLeg(request):
+    """
+        saves the trip leg 
+    """
     tripId = request.POST.getlist('tripId')[0]
     tripLegStep = request.POST.getlist('step')[0]
     tripLegTime = request.POST.getlist('time')[0]
@@ -156,17 +216,12 @@ def saveTripLeg(request):
                                                  street=postedStreet, visibility=postedVisibilitry, longitude=postedLongitude, \
                                                  latitude=postedLatitude)[0]
     
-    #if user has not added the value just retrieve the existing car, otherwise save the new car created by the user
-    if request.POST.getlist('carName')[0] == '':
+    #retrieve the apropraite transport mean
+    if request.POST.getlist('transportMeanType')[0] == 'car':
         transportMean = models.Car.objects.get(id=request.POST.getlist('transportMeanId')[0]) 
         
-    else:
-        postedEngineCapacity = request.POST.getlist('engineCapacity')[0]
-        postedCarName = request.POST.getlist('carName')[0]
-        postedFuelType = request.POST.getlist('fuelType')[0]
-        #the directGHGEmissions field has dummy value. It will be changed during the second milestone
-        transportMean = models.Car.objects.create(engineCapacity=int(postedEngineCapacity), description=postedCarName, fuelType=postedFuelType, \
-                                           directGHGEmissions = 1.23)
+    elif request.POST.getlist('transportMeanType')[0] == 'generalCar':
+        transportMean = models.GeneralCar.objects.get(id=request.POST.getlist('transportMeanId')[0]) 
         
     #save the trip leg
     tripLeg = models.TripLeg.objects.create(trip=trip, startAddress=startAddress, endAddress=endAddress, transportMean=transportMean, \
@@ -175,8 +230,15 @@ def saveTripLeg(request):
     
     #finally store this transport mean in the transportMeanUsedByusers and user_locations model (if records not already exist), for future use
     userProfile = User.get_profile(request.user)
-
-    models.TransportMeansUsedByUsers.objects.get_or_create(userProfile=userProfile, object_id=transportMean.id)
+    
+    #check if TransportMeansUsedByUsers record already exist. refet to https://code.djangoproject.com/ticket/12351 issue
+    #to  see why get_or_create was not used and to http://stackoverflow.com/questions/11960422/django-how-do-i-query-based-on-genericforeignkeys-fields
+    #to see the solution that we did not used here (although we could have)
+    try:
+        models.TransportMeansUsedByUsers.objects.get(userProfile=userProfile, object_id=transportMean.id)
+    except models.TransportMeansUsedByUsers.DoesNotExist:
+        models.TransportMeansUsedByUsers.objects.create(userProfile=userProfile, transportMean=transportMean)
+        
     
     #check if user location already exist before adding
     try:
@@ -194,20 +256,63 @@ def saveTripLeg(request):
     return HttpResponse(json, mimetype='application/json')
 
 
-#a view that will call all the methods for creating and persisting provenance graphs for each action
+#a view for AJAX call that will call all the methods for creating and persisting provenance graphs for each action
 @csrf_exempt
 def prov(request):
+    """
+        a view that will call all the methods for creating and persisting provenance graphs for each action
+    """
+    
     provManager = ProvManager()
     post = request.POST
     if post['actionPerformed'] == 'tripCreation':
         bundle = provManager.createTripCreationGraph(post['userName'], post['userEmail'], post['tripId'],\
                                                       simplejson.loads(post['tripLegIds']), post['startTime'], post['endTime'])
+        trip = models.Trip.objects.get(id=post['tripId'])
+        trip.provBundle = bundle
+        trip.save()
+        
     
+
+#calculates the carbon emissions of a trip leg
+@csrf_exempt
+def computeTripLegsEmissions(request):
+    startTime = datetime.datetime.now()
+    post = request.POST
+    transportMeanType = post['transportMeanType']
+    drivingDistance = Decimal(post['drivingDistance'])
+    tripLeg= models.TripLeg.objects.get(id=post['tripLegId'])
     
-    #save the graph
-    #save_bundle(bundle)
+    #get the transport mean used during this trip leg
+    transportMean = tripLeg.transportMean
+
+    if post['calculationMethod'] == 'tier1':
+        #get tier1 calculation method id
+        calculationMethod = models.C02CalculationMethod.objects.get(tier='1')
+        
+        if transportMeanType == 'generalCar':
+            #get emission factor corresponding to this general car
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.GeneralCar),\
+                                                                            transportMean_id=transportMean.id).emissionFactor
+            
+            ghgEmissions = drivingDistance * emissionFactor.directGHGEmissions
+            
+            #save the computed value
+            tripLegEmission = models.TripLegCarbonEmission.objects.create(tripLeg=tripLeg, method=calculationMethod,\
+                                                                          emissionFactor=emissionFactor, emissions=ghgEmissions)
+                                                                           
+            endTime = datetime.datetime.now()
+            #createProvenanceGraph
+            provManager = ProvManager()
+            bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
+                                                            emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
+                                                            tripLeg.endAddress.id, startTime, endTime)
+            tripLeg.provBundle = bundle
+            tripLeg.save()
+        
+        elif transportMeanType == 'car':
+            pass
+    elif post['calculationMethod'] == 'tier2':
+        pass
     
-    
-    
-    
-    
+

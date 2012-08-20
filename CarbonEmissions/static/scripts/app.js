@@ -41,9 +41,8 @@ App.CarModel = Em.Object.extend({
 });
 
 /*Model representing the data passed by the user for the creation of a new car*/
-App.NewCarModel = Em.Object.extend({
-	name : null,
-	engineCapacity : null,
+App.GeneralCarModel = Em.Object.extend({
+	description : null,
 	fuelType : null
 });
 
@@ -60,8 +59,8 @@ App.TripLeg = Em.Object.extend({
 	
 	//the specific model of car, if one was choses
 	carModel: null,
-	//...else the data for the nes car passed
-	newCarModel: null,
+	//...else the data of the general car that was selectes
+	generalCarModel: null,
 });
 
 /*************************************
@@ -191,6 +190,7 @@ App.TripLegView = Em.View.extend({
 	/*hides the map*/
 	hideMap: function(){
 		disablePopup(this.step);
+		disposeMap();
 	},
 	
 	
@@ -445,27 +445,49 @@ App.CarView = Em.View.extend({
 	showAddNewCarForm : function(event){
 		//get the App.TripLegTransportMeanContainer which is the parent view
 		var parentView = this.get('parentView');
-		parentView.removeChildView(event.view);
-		parentView.addChildView(App.NewCarView.create());
+		parentView.removeChildView(event.view); 
+		var generalCarView = App.GeneralCarView.create();
+		generalCarView.fetchCarDescriptions();
+		parentView.addChildView(generalCarView);
 	},
 	
 });
 
 
-App.NewCarView = Em.View.extend({
-	templateName: 'new-car-view',
+/*The view of the general described cars, not specific models that users can select as a car they used*/
+App.GeneralCarView = Em.View.extend({
+	templateName: 'general-car-view',
 	tagName: 'section',
 	
-	fuelType: null,
-	name: null,
-	engineCapacity: null,
+	/*car descriptions as they are stored in the database*/
+	descriptions: [],
 	
-	/*remove the newCar view and add the add Carview*/
+	fuelType: null,
+	description: null,
+	
+	/*remove the generalCar view and add the add Carview*/
 	showCarListForm: function(event){
 		var parentView = this.get('parentView');
 		parentView.removeChildView(event.view);
 		parentView.addChildView(App.CarView.create());	
-	}
+	},
+	
+	/*retrieves  the descriptions from the database based on fuel type*/
+	fetchCarDescriptions: function(fuelType){
+		var self = this;
+		var url  = '/get-general-car-descriptions/?fuelType=' + this.fuelType;
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});
+	}.observes('fuelType'),
+	
 });
 
 /*************************************
@@ -487,6 +509,10 @@ App.tripManagerController = Em.Object.create({
 	userEmail: '',
 	startTime: '',
 	endTime: '',
+	//the carbon emission calculation metdo e.g. tier1, which depends on the data that are provided to the calculation method
+	calculationMethod: '',
+	//the tripLegModel that is currently processed. Usefull, because we have several async function invokations
+	currentTripLegModel: null,
 	
 	/*a function that will collect the input data*/
 	collateUserInput: function(){
@@ -503,13 +529,13 @@ App.tripManagerController = Em.Object.create({
 				endAddrVisibility: tripLegViews[i].get('endAddrVisibility'), 
 			});
 			
-			//get the transportMean suv-view of this trip leg view
+			//get the transportMean sub-view of this trip leg view
 			var transportMeanView = tripLegViews[i].tripLegTransportMeanContainer.get('childViews')[0];
 			
 			//check the type of the transport mean used
 			switch(tripLegViews[i].transportMeanType){
 				case 'Car':
-					//check if a new car was added or an existing one was selected
+					//check if a general car was selecrted or an existing one was selected
 					if( transportMeanView instanceof App.CarView ){
 						var carModel = App.CarModel.create({
 							manufacturer: transportMeanView.get('manufacturer'),
@@ -523,14 +549,13 @@ App.tripManagerController = Em.Object.create({
 						tripLegModel.set('transportMeanType', 'Car');
 						tripLegModel.set('carModel', carModel);
 					} else{
-						var newCarModel = App.NewCarModel.create({
-							name: transportMeanView.get('name'),
-							engineCapacity: transportMeanView.get('engineCapacity'),
+						var generalCarModel = App.GeneralCarModel.create({
+							description: transportMeanView.get('description'),
 							fuelType: transportMeanView.get('fuelType'),
 						});
 						
-						tripLegModel.set('transportMeanType', 'Car');
-						tripLegModel.set('newCarModel', newCarModel);
+						tripLegModel.set('transportMeanType', 'generalCar');
+						tripLegModel.set('generalCarModel', generalCarModel);
 					}
 					break;
 			}
@@ -582,40 +607,52 @@ App.tripManagerController = Em.Object.create({
 		
 		//iterate over the content (array of trip leg models) of the controller
 		for( var i = 0; i < this.content.length; i++ ){
+			this.currentTripLegModel = this.content[i];
 			var tripLegModel = this.content[i],
 							   url = null;
 			
 			//get the transport mean id, except for the case when user has added an new car!
 			switch(tripLegModel.get('transportMeanType')){
 				case 'Car':
-					//check if a new car was added or one from the list was selected
-					if( tripLegModel.get('carModel') ){
-						var carModel = tripLegModel.get('carModel');
-						var url = '/get-transportMeanId/?type=Car'  
-												   + '&model=' + encodeURIComponent(carModel.get('model'))
-												   + '&description=' + encodeURIComponent(carModel.get('description'))
-												   + '&engineCapacity=' + carModel.get('engineCapacity') 
-												   + '&fuelType=' + carModel.get('fuelType') 
-												   + '&transmission=' + carModel.get('transmission');	
-						//find the car id
-						$.ajax({
-							type: 'GET',
-							url: url,
-							async: false,
-							success: function(data){
-								self.saveTripLeg(tripLegModel, data.transportMeanId, '', 0, '', tripId);
-							}
-				
-						});
-					} else{
-						//get the new car data
-					    var newCarName = tripLegModel.get('newCarModel').get('name');
-					    var newCarEngineCapacity = tripLegModel.get('newCarModel').get('engineCapacity');
-					    var newCarFuelType = tripLegModel.get('newCarModel').get('fuelType');
-					    
-					    self.saveTripLeg(tripLegModel, '', newCarName, newCarEngineCapacity, newCarFuelType, tripId);
-					}
-												   
+					//the car models emission factor puts the calculation metdod into tier2
+					this.calculationMethod = 'tier2';
+					
+					var carModel = tripLegModel.get('carModel');
+					var url = '/get-transportMeanId/?type=car'  
+											   + '&model=' + encodeURIComponent(carModel.get('model'))
+											   + '&description=' + encodeURIComponent(carModel.get('description'))
+											   + '&engineCapacity=' + carModel.get('engineCapacity') 
+											   + '&fuelType=' + carModel.get('fuelType') 
+											   + '&transmission=' + carModel.get('transmission');	
+					//find the car id
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					}); 
+					
+					break;
+				case 'generalCar':
+					this.calculationMethod = 'tier1';
+						
+					var generalCarModel = tripLegModel.get('generalCarModel');
+					var url = '/get-transportMeanId/?type=generalCar'  
+											   + '&fuelType=' + encodeURIComponent(generalCarModel.get('fuelType'))
+											   + '&description=' + encodeURIComponent(generalCarModel.get('description'));
+					//find the general car id
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});					   
+					
+					break
 			}
 		}
 		
@@ -624,18 +661,18 @@ App.tripManagerController = Em.Object.create({
 		self.endTime = this.xsdDateTime( new Date() );
 		
 		//invoke method on the server-side to create provenance graphs. 
-		self.createProvenanceGraph('tripCreation');
-
-		
-		
+		self.createProvenanceGraph('tripCreation');	
 	},
 	
 	/*a function that save individual trip leg into the database*/
-	saveTripLeg: function(tripLegModel, transportMeanId, newCarName, newCarEngineCapacity, newCarFuelType, tripId){
+	saveTripLeg: function(tripLegModel, transportMeanId, tripId){
 		var url = '/save-trip-leg/';
 		var self = this;
 		
 		var data = {
+			//the type of tranposrt mean used for this trip leg
+			transportMeanType: tripLegModel.get('transportMeanType'),
+			
 			//the id of the trip that these trip legs belong to 
 			tripId: tripId,
 				
@@ -668,10 +705,7 @@ App.tripManagerController = Em.Object.create({
 				
 			//the id of the transport mean that is already stored in the database
 			transportMeanId: transportMeanId,
-			//will have value only if users adds a new car. ONLY THEN, otherwise the values will be null
-			carName: newCarName,
-			engineCapacity: newCarEngineCapacity,
-			fuelType: newCarFuelType,
+
 		};
 			
 		//save the trip leg
@@ -685,7 +719,43 @@ App.tripManagerController = Em.Object.create({
 				self.tripLegIds.push(data.tripLegId);
 			}
 		});	
+		
+		//call Bing REST service to find the driving distance between the two addresses
+		this.computeDrivingDistance( tripLegModel.get('startAddress'), tripLegModel.get('endAddress') );
 	},
+	
+	
+	/*invokes bing REST service for calculating the driving distance between two points*/
+	computeDrivingDistance: function( startingAddress, endAddress ){
+		getMapForDrivingDistance( startingAddress, endAddress );
+	},
+	
+	/*calls a service on server side to calculate the carbon footprints of this trip leg. The function is invoked in the routeCallback
+	 *in the bingMaps.js*/
+	computeTripLegsCarbonEmissions: function(route){
+		var travelDuration = route.resourceSets[0].resources[0].travelDuration;
+		
+		var data = {
+			//get the last added trip leg
+			tripLegId: this.tripLegIds[this.tripLegIds.length-1],
+			drivingDistance: route.resourceSets[0].resources[0].travelDistance,
+			transportMeanType: this.currentTripLegModel.get('transportMeanType'),
+			//the calculation method tier
+			calculationMethod: this.calculationMethod
+		};
+		
+		var self = this;
+		$.ajax({
+			type: 'POST',
+			url: '/compute-trip-leg-emissions/',
+			data: data,
+			async: false,
+			success: function(data){
+				//some stuff here
+			}
+		});
+	},
+	
 	
 	/*invoked the provenance-related actions on the back-end*/
 	createProvenanceGraph: function(actionPerformed){
@@ -743,3 +813,6 @@ App.addressVisibilityOptions = ['Visible', 'Not-Visible'];
 
 /*Transport mean options*/
 App.transportMeanOptions = ['Car', 'Bus'];
+
+/*Fuel type option*/
+App.fuelTypes = ['petrol', 'diesel', 'alternative'];

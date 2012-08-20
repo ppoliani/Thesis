@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from prov.server.models import PDBundle
 
 #################### Address model ############################# 
 class Address(models.Model):
@@ -125,20 +126,21 @@ class EmissionFactor(models.Model):
     class Meta:
         """Inline class for specifying various model-specific options"""
         abstract = True
-         
+
+#################### Car Model Emission Factors  #############################
+class CarModelEmissionFactor(EmissionFactor):
+    """Emission factor relation, for specific car models"""
+    pass
 
 #################### Car Emission Factors  #############################
 class CarEmissionFactor(EmissionFactor):
     """Emission factor relation, for cars"""
     
     #the fuel type used by the car
-    fuelType = models.CharField(max_length=10)
+    fuelType = models.CharField(max_length=15, choices=(('petrol', 'petrol'), ('diesel', 'diesel'), ('alternative', 'alternative')))
     
-    #the minimum (Lower limit) engine capacity of the car 
-    minEngineCapacity = models.PositiveSmallIntegerField()
-    
-    #the maximum (Upper limit) engine capacity of the car
-    maxEngineCapacity = models.PositiveSmallIntegerField()
+    #the type of the car specified by its engine size
+    carType = models.TextField()
     
 #################### Bus Emission Factors #############################
 class BusEmissionFactor(EmissionFactor):
@@ -200,11 +202,11 @@ class TransportMean(models.Model):
     description = models.TextField(null=True)
     
     #Greenhouse gas(kg/km).The sum of CO2, CO4 and N2O emitted by the specific transport (tier 2 method) mean per km
-    directGHGEmissions = models.DecimalField(max_digits=6, decimal_places=4, null=True)
+    #directGHGEmissions = models.DecimalField(max_digits=6, decimal_places=4, null=True)
     
     def __unicode__(self):
         """unicode string representation of the model"""
-        return u'%s %s' % (self.manufacturer, self.model,)
+        return u'%s' % (self.description)
     
     class Meta:
         """Inline class for specifying various model-specific options"""
@@ -218,7 +220,7 @@ class TransportMeanEmissionFactor(models.Model):
     #because django doesn't allow to add foreign key to an abstract class, we use a generic relations
     # read https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1
     transportMean_content_type = models.ForeignKey(ContentType, related_name='transportMean')  
-    transportMean__id = models.PositiveIntegerField()
+    transportMean_id = models.PositiveIntegerField()
     transportMean = generic.GenericForeignKey('transportMean_content_type', 'transportMean__id')
     
     #generic emission factor foreign key
@@ -243,6 +245,9 @@ class Trip(models.Model):
     #the date of the trip
     date = models.DateField()
     
+    #the id of the provenace bundle that stores the provenance graph of the trip creation
+    provBundle =  models.ForeignKey(PDBundle, null=True)
+    
     def __unicode__(self):
         """unicode string representation of the model"""
         return self.name
@@ -252,7 +257,7 @@ class Trip(models.Model):
         ordering = ['name']
 
 
-#################### Car model #################################
+#################### Specific Car model #################################
 class Car(TransportMean):
     """Represents a car relation"""
     
@@ -280,7 +285,21 @@ class Car(TransportMean):
     #    """Inline class for specifying various model-specific options"""
     #    ordering = ['manufacturer']   
     
+
+#################### General Car model #################################
+class GeneralCar(TransportMean):
+    """A relation representing car that are described with general terms, such as range of engine capacity"""
+    #the type of fuel that is used by the cat
+    fuelType = models.CharField(max_length=15, choices=(('petrol', 'petrol'), ('diesel', 'diesel'), ('alternative', 'alternative')))
     
+    #the lower limit of the range of engine capacity 
+    minEngineCapacity = models.PositiveSmallIntegerField(null=True)
+    
+    #the upper limit of the range of the engine capacity
+    maxEngineCapacity = models.PositiveSmallIntegerField(null=True)
+    
+    
+
 #################### Group model #################################
 class Group(models.Model):
     """Any group that contains a number of people, such as a research group, an academic unit or the whole university."""
@@ -332,6 +351,9 @@ class TripLeg(models.Model):
     
     #the time of the trip was made
     time = models.TimeField()
+    
+    #the id of the provenace bundle that stores the provenance graph of the trip creation
+    provBundle =  models.ForeignKey(PDBundle, null=True)
     
     
     def __unicode__(self):
@@ -398,4 +420,56 @@ class TransportMeansOwnedByGroups(models.Model):
         return u'%s %s' % (self.transportMean.manufacturer, self.transportMean.model,)
     
     
+
+#################### Abstact Method model #############################
+class Method(models.Model):
+    """
+        an abstract model representing any kind of methods
+    """
+    
+    #method's name
+    name = models.CharField(max_length=50)
+    
+    #a short description what the method is about
+    description = models.TextField()
+    
+    def __unicode__(self):
+        """unicode string representation of the model"""
+        return self.name
+    
+    class Meta:
+        """Inline class for specifying various model-specific options"""
+        abstract = True
+        
+#################### CO2 calculation Method model #############################
+class C02CalculationMethod(Method):
+    """
+        model which represent the co2 calculation methods
+    """
+    
+    #the method tier which defferantiate the co2 calculations methods
+    tier = models.CharField(max_length=3, choices=(('1', '1'), ('2', '2'), ('3', '3')))
+    
+
+#################### Trip legs's carbon emission model #############################
+class TripLegCarbonEmission(models.Model):
+    """
+        A ralation holding the GHG emissions produced by each trip leg
+    """
+    
+    #the trip leg
+    tripLeg = models.ForeignKey(TripLeg)
+    
+    #the method that was used to calculate the GHG
+    method_content_type = models.ForeignKey(ContentType, related_name='calculatioMethod')
+    method_object_id = models.PositiveIntegerField()
+    method = generic.GenericForeignKey('method_content_type', 'method_object_id') 
+    
+    #the decimal value representing carbon emission
+    emissions = models.DecimalField(max_digits=10, decimal_places=8)
+    
+    #the emission factor that was used for the calculation of this value
+    emissionFactor_content_type = models.ForeignKey(ContentType, related_name='emissionFactorUsed')
+    emissionfactor_object_id = models.PositiveIntegerField()
+    emissionFactor = generic.GenericForeignKey('emissionFactor_content_type', 'emissionfactor_object_id')
     

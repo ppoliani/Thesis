@@ -1,7 +1,11 @@
 
-
 var map = null;
+var directionsManager = null;
 var query;
+
+
+var start = null;
+var end = null;
 
 //store the reference of the trip leg view that invoked the findLocation
 var tripLeg = null;
@@ -12,9 +16,16 @@ function getMap(tripLeg) {
 	var elementId = "#popupContact-" + tripLeg;
 	//get the DOM element
 	var element = $(elementId).find('.map')[0];
-	map = new Microsoft.Maps.Map(element, {
-		credentials : 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'
+	map = new Microsoft.Maps.Map(element, 
+		{credentials : 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'
 	});
+}
+
+
+/*dispose the map*/
+function disposeMap(){
+	map.dispose();
+	map = null; 
 }
 
 function findLocation(location, object) {
@@ -30,6 +41,7 @@ function callSearchService(credentials) {
 	mapscript.src = searchRequest;
 	document.getElementById('bing-script').appendChild(mapscript)
 }
+
 
 function searchServiceCallback(result) {
 	tripLeg.setBingMapsResult(result);
@@ -65,4 +77,35 @@ function searchServiceCallback(result) {
 	}
 	
 }
+
+/*creates an instance of bing map inorder to calculate the driving distance between two directions*/
+function getMapForDrivingDistance(startingPoint, endPoint){
+	start = startingPoint;
+	end = endPoint;
+
+	map = new Microsoft.Maps.Map(document.getElementById('tempMap'), 
+		{credentials: 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'});
+	
+	map.getCredentials(callRouteService); 
+}
+
+
+/*call the routine service inorder to get the driving distance between to positions*/
+function callRouteService(credentials) { 
+		var startingPoint = start.latitude + ',' + start.longitude;
+		var endPoint = end.latitude + ',' + end.longitude;       
+        var routeRequest = 'http://dev.virtualearth.net/REST/v1/Routes?wp.0=' + startingPoint + '&wp.1=' + endPoint + '&routePathOutput=Points&output=json&jsonp=routeCallback&key=' + credentials;
+        var mapscript = document.createElement('script');           
+        mapscript.type = 'text/javascript';           
+        mapscript.src = routeRequest;
+        document.getElementById('tempMap').appendChild(mapscript);
+ }
+
+
+function routeCallback(result){
+ 	App.tripManagerController.computeTripLegsCarbonEmissions(result);
+
+ 	disposeMap();
+ } 
+
 
