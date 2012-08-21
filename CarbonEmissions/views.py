@@ -293,26 +293,30 @@ def computeTripLegsEmissions(request):
         if transportMeanType == 'generalCar':
             #get emission factor corresponding to this general car
             emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.GeneralCar),\
-                                                                            transportMean_id=transportMean.id).emissionFactor
+                                                                            transportMean_id=transportMean.id).emissionFactor            
+        elif transportMeanType == 'car':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Car),\
+                                                                            transportMean_id=transportMean.id).emissionFactor  
+        
+        ghgEmissions = drivingDistance * emissionFactor.directGHGEmissions
             
-            ghgEmissions = drivingDistance * emissionFactor.directGHGEmissions
-            
-            #save the computed value
-            tripLegEmission = models.TripLegCarbonEmission.objects.create(tripLeg=tripLeg, method=calculationMethod,\
+        #save the computed value
+        tripLegEmission = models.TripLegCarbonEmission.objects.create(tripLeg=tripLeg, method=calculationMethod,\
                                                                           emissionFactor=emissionFactor, emissions=ghgEmissions)
                                                                            
-            endTime = datetime.datetime.now()
-            #createProvenanceGraph
-            provManager = ProvManager()
-            bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
-                                                            emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
-                                                            tripLeg.endAddress.id, startTime, endTime)
-            tripLeg.provBundle = bundle
-            tripLeg.save()
-        
-        elif transportMeanType == 'car':
-            pass
+        endTime = datetime.datetime.now()
+        #createProvenanceGraph
+        provManager = ProvManager()
+        #bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
+                                                            #emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
+                                                            #tripLeg.endAddress.id, startTime, endTime)
+        #tripLeg.provBundle = bundle
+        #tripLeg.save()
+
     elif post['calculationMethod'] == 'tier2':
         pass
     
+    json = simplejson.dumps( {'status': 'OK'} )
+    
+    return HttpResponse(json, mimetype='application/json')
 

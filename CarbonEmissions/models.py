@@ -221,7 +221,7 @@ class TransportMeanEmissionFactor(models.Model):
     # read https://docs.djangoproject.com/en/dev/ref/contrib/contenttypes/#id1
     transportMean_content_type = models.ForeignKey(ContentType, related_name='transportMean')  
     transportMean_id = models.PositiveIntegerField()
-    transportMean = generic.GenericForeignKey('transportMean_content_type', 'transportMean__id')
+    transportMean = generic.GenericForeignKey('transportMean_content_type', 'transportMean_id')
     
     #generic emission factor foreign key
     emissionFactor_content_type = models.ForeignKey(ContentType, related_name='emissionFactor')
