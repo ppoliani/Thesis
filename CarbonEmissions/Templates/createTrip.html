@@ -4,8 +4,12 @@
 
 {% block additionalScripts %}
 {% load staticfiles %}
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.common.min.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.default.min.css" %}" type="text/css"/>
+    
     <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
-    <script src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
     <script src="{% static "scripts/bingMaps.js" %}"></script>
     <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
 {% endblock %}
@@ -34,29 +38,38 @@
     <div>
         <span class="form-field-label">What is the name of the trip: </span>
         <!--render the child view template which is declared below-->
-        {{view Em.TextField valueBinding="App.tripManagerController.name"
+        {{view App.CustomTextField valueBinding="App.tripManagerController.name" 
         }}
     </div>
     <div>
         <span class="form-field-label">What is the type of the trip: </span>
         <!--render the child view template which is declared below-->
-        {{view Em.Select contentBinding="App.tripTypeOptions"
+        {{view App.CustomSelect  contentBinding="App.tripTypeOptions"
                     selectionBinding="App.tripManagerController.type"
                     prompt="Please Select"
+                    class="comboBox"
+        }}
+    </div>
+     <div>
+        <span class="form-field-label">Date: </span>
+        <!--render the child view template which is declared below-->
+        {{view App.CustomTextField valueBinding="App.tripManagerController.date" name="tripDate" elementId="dateTimePicker"
         }}
     </div>
     <div>
         <span class="form-field-label">How many trip legs does the trip has: </span>
         <!--render the child view template which is declared below-->
-        {{view Em.Select contentBinding="App.numOfTripLegOptions"
+        {{view App.CustomSelect contentBinding="App.numOfTripLegOptions"
                     selectionBinding="App.addTripView.selectedValue"
                     prompt="Please Select"
+                    class="comboBox"
         }}
         
         <hr />
     </div>
     
     <div id="trip-legs"></div>
+
 </script>
 
 <!--Template containing the form elements of each trip leg. Child of App.AddTripView--->
@@ -75,7 +88,7 @@
     <h2>Addresses</h2>
     <div>
     	<span class="form-field-label">Source: </span>
-        {{view App.AddressTextField  class="startAddress" valueBinding="startAddress.street"
+        {{view App.AddressTextField  class="startAddress" valueBinding="startAddress.street" 
     	}}
     </div>
     <div>
@@ -87,7 +100,7 @@
     </div>
     <div>
         <span class="form-field-label">Destination: </span>
-        {{view App.AddressTextField class="endAddress" valueBinding="endAddress.street"
+        {{view App.AddressTextField class="endAddress" valueBinding="endAddress.street" 
         }}
     </div>
     <!--<div>
@@ -102,7 +115,6 @@
                     prompt="Please Select"
         }}
     </div>
-    
     <h2>Transport Mean</h2>
     <div>
         <span class="form-field-label">Type: </span>
@@ -194,7 +206,81 @@
     </div>
 </script>
 
+<script type="text/x-handlebars" data-template-name="bus-view">
+	<div>
+		<label>Bus Type:</label>
+		{{view Em.Select contentBinding="descriptions"
+		                 selectionBinding="description"
+		                 prompt="Please Select"
+		}}
+	</div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="taxi-view">
+    <div>
+        <label>Taxi Type:</label>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
+        }}
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="motorcycle-view">
+    <div>
+        <label>Motorcycle Type:</label>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
+        }}
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="ferry-view">
+    <div>
+        <label>Ferry Type:</label>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
+        }}
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="rail-view">
+    <div>
+        <label>Rail Type:</label>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
+        }}
+    </div>
+</script>
+
+<script type="text/x-handlebars" data-template-name="aviation-view">
+    <div>
+        <label>Flight Type:</label>
+        {{view Em.Select contentBinding="descriptions"
+                         selectionBinding="description"
+                         prompt="Please Select"
+        }}
+    </div>  
+    <div>
+        <label>Cabin Class:</label>
+        {{view Em.Select contentBinding="cabinClasses"
+                         selectionBinding="cabinClass"
+                         prompt="Please Select"
+        }}
+    </div>
+</script>
+
 <!--Map used to get the driving distance. It is not viisble to users-->
 <div id="tempMap" style="display:none;"></div>
+<!--The gif and message container, informing users about the actions that take place-->
+<div id="msg-container">
+	<img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+	<div id="redirection-alert">
+		You will be redirected in <span id="secs"></span> sec to the home page
+	</div>
+</div>
 
 {% endblock %}

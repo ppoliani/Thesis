@@ -10,7 +10,6 @@ App = Em.Application.create({
 
 	ready : function() {
 		App.addTripView.tripLegsContainer.appendTo('#trip-legs');
-		//alert('Ember App started');
 	},
 });
 
@@ -40,11 +39,43 @@ App.CarModel = Em.Object.extend({
 	fuelType : null
 });
 
-/*Model representing the data passed by the user for the creation of a new car*/
+/*Model representing a car*/
 App.GeneralCarModel = Em.Object.extend({
 	description : null,
 	fuelType : null
 });
+
+/*Model representing buses*/
+App.BusModel = Em.Object.extend({
+	description: null
+});
+
+/*Model representing taxis*/
+App.TaxiModel = Em.Object.extend({
+	description: null
+});
+
+/*Model representing motorcycles*/
+App.MotorcycleModel = Em.Object.extend({
+	description: null
+});
+
+/*Model representing ferries*/
+App.FerryModel = Em.Object.extend({
+	description: null
+});
+
+/*Model representing rail transport means*/
+App.RailModel = Em.Object.extend({
+	description: null
+});
+
+/*Model representing airplanes*/
+App.AviationModel = Em.Object.extend({
+	description: null,
+	cabinClass: null
+});
+
 
 /*The model that represent the information of a trip leg that users insert*/
 App.TripLeg = Em.Object.extend({
@@ -56,11 +87,18 @@ App.TripLeg = Em.Object.extend({
 	startAddrVisibility: null,
 	endAddrVisibility: null,
 	transportMeanType: null,
+	calculationMethod: null,
 	
 	//the specific model of car, if one was choses
 	carModel: null,
 	//...else the data of the general car that was selectes
 	generalCarModel: null,
+	busModel: null,
+	taxiModel: null,
+	motorcycleModel: null,
+	ferryModel: null,
+	railModel: null,
+	aviationModel: null,
 });
 
 /*************************************
@@ -71,6 +109,18 @@ App.LocationQueryTextField = Em.TextField.extend({
 	insertNewline: function(){
 		this.get('parentView').findLocation();
 	}
+});
+
+/*Custom select view. We do that so as to add additional attributes through view attribute bindings.*/
+App.CustomSelect = Em.Select.extend({
+	attributeBindings: ['name'],
+	
+});
+
+/*Custom text field view. We do that so as to add additional attributes through view attribute bindings.*/
+App.CustomTextField = Em.TextField.extend({
+	attributeBindings: ['name'],
+	
 });
 
 /*overiding existing form element views. Address text field*/
@@ -90,6 +140,12 @@ App.AddTripView = Em.View.extend({
 	
 	//containerView which holds the trip legs
 	tripLegsContainer:  null,
+	
+	didInsertElement: function(){
+		$("#dateTimePicker").kendoDatePicker({
+        	format: 'yyyy-MM-dd'
+        });
+    }
 
 });
 
@@ -116,7 +172,7 @@ App.TripLegTransportMeanContainer = Em.ContainerView.extend({
 	addChildView: function(view){
 		var childView = this.createChildView(view);
 		this.get('childViews').pushObject(view);
-	}
+	},
 });
 
 
@@ -149,39 +205,91 @@ App.TripLegView = Em.View.extend({
 	
 	//the result returned by Bing maps
 	bingMapsResult: null,
-
+	
+	/*execute when the view inserted into the DOM*/
+	didInsertElement: function(){
+		try{
+			this.tripLegTransportMeanContainer.appendTo('#' + this.transportMeanContainerId);
+		} catch(error){
+			//do nothing
+		}	
+	},
+	
 	/*add observer when the value of the transportMeanType property changes*/
 	transportMeanTypeChanged: function  () {
 		var carView = null;
-
+		var tripLegTransportMeanContainer = this.tripLegTransportMeanContainer;
+		
+		//remove the  all the other transport mean views of this trip leg (e.g. car)
+		try{
+			var view = tripLegTransportMeanContainer.get('childViews').toArray()[0];
+			view.removeFromParent();
+		} catch(error){
+			//do nothing
+		}
+		
 		switch(this.transportMeanType){
-			case 'Car':
-			    //add the carView as child to the tripLegTransportMeanContainer
-			    var tripLegTransportMeanContainer = this.tripLegTransportMeanContainer;
+			case 'Car':				
+				//add the carView as child to the tripLegTransportMeanContainer
 				var carView = App.CarView.create(); 
 				tripLegTransportMeanContainer.addChildView(carView);
-			
-				tripLegTransportMeanContainer.appendTo('#' + this.transportMeanContainerId)
 				
 				//load car manufacturers
 				carView.loadCarManufacturerData();
 				
-				break;
+				break
 			case 'Bus':
-				var tripLegTransportMeanContainer = this.tripLegTransportMeanContainer;
-				//remove the  all the other transport mean views of this trip leg (e.g. car)
-				//MAYBE in the future i will need to remove all the childs!!!!
-				var view = tripLegTransportMeanContainer.get('childViews').toArray()[0];
-				view.removeFromParent();//this.carView.remove();
+				var busView = App.BusView.create();
+				tripLegTransportMeanContainer.addChildView(busView);
 				
-				//add a busView
+				//load bus description
+				busView.fetchBusDescriptions();
+				
+				break
+			case 'Taxi':
+				var taxiView = App.TaxiView.create();
+				tripLegTransportMeanContainer.addChildView(taxiView);
+				
+				taxiView.fetchTaxiDescriptions();
+				
+				break
+			case 'Motorcycle':
+				var motorcycleView = App.MotorcycleView.create();
+				tripLegTransportMeanContainer.addChildView(motorcycleView);
+				
+				motorcycleView.fetchMotorcycleDescriptions();
+				
+				break
+			case 'Ferry':
+				var ferryView = App.FerryView.create();
+				tripLegTransportMeanContainer.addChildView(ferryView);
+				
+				ferryView.fetchFerryDescriptions();
+				
+				break
+			case 'Rail':
+				var railView = App.RailView.create();
+				tripLegTransportMeanContainer.addChildView(railView);
+				
+				railView.fetchRailDescriptions();
+				
+				break
+			case 'Airplane':
+				var aviationView = App.AviationView.create();
+				tripLegTransportMeanContainer.addChildView(aviationView);
+				
+				aviationView.fetchAirplaneDescriptions();
+				
+				break
 		}
 	}.observes('transportMeanType'),
 	
 	/*displays the map*/
 	showMap: function(elementId){
 		//in popUpEffects.js
-		loadPopup(this.step);
+		//the element id based on the trip leg for which we are adding the addresses. Each trip leg has its own popup div
+		var element = "#popupContact-" + this.step 
+		loadPopup(element, 600, 600, '400px', '550px');
 		//in bingMaps.js
 		getMap(this.step);
 		this.set('startOrEndAddress', elementId);
@@ -189,7 +297,9 @@ App.TripLegView = Em.View.extend({
 	
 	/*hides the map*/
 	hideMap: function(){
-		disablePopup(this.step);
+		//the element id based on the trip leg for which we adding the addresses
+		var elementId = "#popupContact-" + this.step
+		disablePopup(elementId);
 		disposeMap();
 	},
 	
@@ -245,7 +355,8 @@ App.TripLegView = Em.View.extend({
 				break;
 		}
 		//in popUpEffects.js
-		disablePopup(this.step);
+		var elementId = "#popupContact-" + this.step
+		disablePopup(elementId);
 	},
 	
 	/*will be invoked by the json be callback funntion. In essence it will pass the result (addresses) from Bing maps*/
@@ -281,7 +392,7 @@ App.addTripView = App.AddTripView.create({
 			for (var i = 0; i < end; i++) {
 				tripLegView = App.TripLegView.create({
 					step: len + 1,
-					transportMeanContainerId: "car-list-" + (len + 1),
+					transportMeanContainerId: "transport-mean-container-" + (len + 1),
 					popupContactId: "popupContact-" + (len + 1),
 					tripLegTransportMeanContainer: App.TripLegTransportMeanContainer.create(),
 				});
@@ -324,25 +435,7 @@ App.CarView = Em.View.extend({
 	engineCapacities: [],
 	transmissions: [],
 	fuelTypes: [],
-	
-	
-	/**auxiliary function that removes duplicates from arrays*/
-	removeDuplicatesFromArray: function(arr){
-		var i,
-      		len=arr.length,
-      		out=[],
-      		obj={};
-
-  		for (i=0;i<len;i++) {
-    		obj[arr[i]]=0;
-  		}
-  
-  		for (i in obj) {
-    		out.push(i);
-  		}
-  		
-  		return out;
-	},
+	util: new Util(),
 	
 	/*make AJAX call to get the car manufactures in JSON*/
 	loadCarManufacturerData: function  () {
@@ -384,10 +477,10 @@ App.CarView = Em.View.extend({
 			});
 			
 			//remove duplicate values
-			self.set('descriptions', self.removeDuplicatesFromArray(self.descriptions));
-			self.set('engineCapacities', self.removeDuplicatesFromArray(self.engineCapacities));
-			self.set('transmissions', self.removeDuplicatesFromArray(self.transmissions));
-			self.set('fuelTypes', self.removeDuplicatesFromArray(self.fuelTypes));
+			self.set('descriptions', self.util.removeDuplicatesFromArray(self.descriptions));
+			self.set('engineCapacities', self.util.removeDuplicatesFromArray(self.engineCapacities));
+			self.set('transmissions', self.util.removeDuplicatesFromArray(self.transmissions));
+			self.set('fuelTypes', self.util.removeDuplicatesFromArray(self.fuelTypes));
 		});
 	},
 	
@@ -407,7 +500,7 @@ App.CarView = Em.View.extend({
 			});
 			
 			//remove duplicate values
-			self.set('models', self.removeDuplicatesFromArray(self.models));
+			self.set('models', self.util.removeDuplicatesFromArray(self.models));
 		});
 	}.observes('manufacturer'),
 	
@@ -490,6 +583,186 @@ App.GeneralCarView = Em.View.extend({
 	
 });
 
+
+/*A view for the bus selection*/
+App.BusView = Em.View.extend({
+	templateName: 'bus-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	//the selected option
+	description: null,
+	
+	/*retrieves buses types from the database*/
+	fetchBusDescriptions: function(){
+		var self = this;
+		var url  = '/get-bus-descriptions/';
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});		
+	}
+});
+
+/*A view for the taxi selection*/
+App.TaxiView = Em.View.extend({
+	templateName: 'taxi-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	//the selected option
+	description: null,
+	
+	/*retrieves the descriptions of all taxis from the database*/
+	fetchTaxiDescriptions: function(){
+		var self = this;
+		var url  = '/get-taxi-descriptions/';
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});		
+	}
+});
+
+/*A view for the motorcycle selection*/
+App.MotorcycleView = Em.View.extend({
+	templateName: 'motorcycle-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	//the selected option
+	description: null,
+	
+	/*retrieves motorcycles types from the database*/
+	fetchMotorcycleDescriptions: function(){
+		var self = this;
+		var url  = '/get-motorcycle-descriptions/';
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});		
+	}
+});
+
+/*A view for the ferries selection*/
+App.FerryView = Em.View.extend({
+	templateName: 'ferry-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	//the selected option
+	description: null,
+	
+	/*retrieves ferry types from the database*/
+	fetchFerryDescriptions: function(){
+		var self = this;
+		var url  = '/get-ferry-descriptions/';
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});		
+	}
+});
+
+/*A view for the rail selection*/
+App.RailView = Em.View.extend({
+	templateName: 'rail-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	//the selected option
+	description: null,
+	
+	/*retrieves rail types from the database*/
+	fetchRailDescriptions: function(){
+		var self = this;
+		var url  = '/get-rail-descriptions/';
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+					
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+		});		
+	}
+});
+
+/*A view for the aviation selection*/
+App.AviationView = Em.View.extend({
+	templateName: 'aviation-view',
+	tagName: 'section',
+	
+	descriptions: [],
+	cabinClasses: [],
+	
+	//the selected option
+	description: null,
+	cabinClass: null,
+	
+	util: new Util(),
+	
+	/*retrieves flight types from the database*/
+	fetchAirplaneDescriptions: function(){
+		var self = this;
+		var url  = '/get-aviation-descriptions/?description=' + this.description;
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the descriptios
+			self.set('descriptions', []);
+			$(data).each(function(index, value){
+				self.descriptions.pushObject(value.description);
+			});
+			
+			self.set('descriptions', self.util.removeDuplicatesFromArray(self.descriptions));
+		});		
+	},
+	
+	/*bring the cabin classes for the chosen flight type*/
+	descriptionChanged: function(){
+		var self = this;
+		var url  = '/get-aviation-descriptions/?description=' + this.description;
+		
+		//Get json and populate the above fields
+		$.getJSON(url, function (data){
+			//empty the content
+			self.set('cabinClasses', []);
+					
+			$(data).each(function(index, value){
+				self.cabinClasses.pushObject(value.cabinClass);
+			});
+
+		});			
+	}.observes('description'),
+	
+});
 /*************************************
  * Controllers
  *************************************/
@@ -513,9 +786,12 @@ App.tripManagerController = Em.Object.create({
 	calculationMethod: '',
 	//the tripLegModel that is currently processed. Usefull, because we have several async function invokations
 	currentTripLegModel: null,
+	util: new Util(),
 	
 	/*a function that will collect the input data*/
-	collateUserInput: function(){
+	collateUserInput: function(){				
+		loadPopup('#msg-container',220, 19, '220px', '19px');
+		
 		var tripView = App.addTripView;
 		var tripLegViews = tripView.tripLegsContainer.get('childViews');
 
@@ -535,7 +811,7 @@ App.tripManagerController = Em.Object.create({
 			//check the type of the transport mean used
 			switch(tripLegViews[i].transportMeanType){
 				case 'Car':
-					//check if a general car was selecrted or an existing one was selected
+					//check if a general car was selected or an existing one was selected
 					if( transportMeanView instanceof App.CarView ){
 						var carModel = App.CarModel.create({
 							manufacturer: transportMeanView.get('manufacturer'),
@@ -557,7 +833,60 @@ App.tripManagerController = Em.Object.create({
 						tripLegModel.set('transportMeanType', 'generalCar');
 						tripLegModel.set('generalCarModel', generalCarModel);
 					}
-					break;
+					
+					break
+					
+				case 'Bus':
+					var busModel = App.BusModel.create({
+						description: transportMeanView.get('description')
+					});
+					
+					tripLegModel.set('transportMeanType', 'bus');
+					tripLegModel.set('busModel', busModel);
+					
+					break
+				case 'Taxi':
+					var taxiModel = App.TaxiModel.create({
+						description: transportMeanView.get('description')
+					});
+					tripLegModel.set('transportMeanType', 'taxi');
+					tripLegModel.set('taxiModel', taxiModel);
+					
+					break
+				case 'Motorcycle':
+					var motorcycleModel = App.MotorcycleModel.create({
+						description: transportMeanView.get('description')
+					});
+					tripLegModel.set('transportMeanType', 'motorcycle');
+					tripLegModel.set('motorcycleModel', motorcycleModel);
+					
+					break
+					
+				case 'Ferry':
+					var ferryModel = App.FerryModel.create({
+						description: transportMeanView.get('description')
+					});
+					tripLegModel.set('transportMeanType', 'ferry');
+					tripLegModel.set('ferryModel', ferryModel);
+					
+					break
+				case 'Rail':
+					var railModel = App.RailModel.create({
+						description: transportMeanView.get('description')
+					});
+					tripLegModel.set('transportMeanType', 'rail');
+					tripLegModel.set('railModel', railModel);
+					
+					break
+				case 'Airplane':
+					var aviationModel = App.AviationModel.create({
+						description: transportMeanView.get('description'),
+						cabinClass: transportMeanView.get('cabinClass'),
+					});
+					tripLegModel.set('transportMeanType', 'airplane');
+					tripLegModel.set('aviationModel', aviationModel);
+					
+					break
 			}
 			
 			
@@ -566,6 +895,13 @@ App.tripManagerController = Em.Object.create({
 		
 		//persist data
 		this.persistData();
+		
+		replaceGifWithMsg();
+		//redirect to home page
+		var interv = setInterval(function(){
+						window.location.replace('/home/');
+						clearInterval(interv);	
+					 }, 5000);
 	},
 	
 	/*a function that will send (i.e. Ajax call) our models (used data) into a database*/
@@ -578,7 +914,7 @@ App.tripManagerController = Em.Object.create({
 			type: this.type,
 			tripName: this.name,
 			//add a dummy date. To be changed when calendar widget will be implemented
-			date: '2012-10-01',//this.date
+			date: this.date,
 		};
 		var self= this;
 		
@@ -604,18 +940,20 @@ App.tripManagerController = Em.Object.create({
 	/*saves all the trip legs of the trip*/
 	saveTripLegs: function(tripId){
 		var self = this;
+		//load the map for calculating driving distances
+		loadMap();
 		
 		//iterate over the content (array of trip leg models) of the controller
 		for( var i = 0; i < this.content.length; i++ ){
+			//store the curren tripLegModel that is processed
 			this.currentTripLegModel = this.content[i];
 			var tripLegModel = this.content[i],
 							   url = null;
-			
 			//get the transport mean id, except for the case when user has added an new car!
 			switch(tripLegModel.get('transportMeanType')){
 				case 'Car':
 					//the car models emission factor puts the calculation metdod into tier2
-					this.calculationMethod = 'tier2';
+					tripLegModel.set('calculationMethod', 'tier2');
 					
 					var carModel = tripLegModel.get('carModel');
 					var url = '/get-transportMeanId/?type=car'  
@@ -634,9 +972,9 @@ App.tripManagerController = Em.Object.create({
 						}
 					}); 
 					
-					break;
+					break
 				case 'generalCar':
-					this.calculationMethod = 'tier1';
+					tripLegModel.set('calculationMethod', 'tier1');
 						
 					var generalCarModel = tripLegModel.get('generalCarModel');
 					var url = '/get-transportMeanId/?type=generalCar'  
@@ -653,6 +991,98 @@ App.tripManagerController = Em.Object.create({
 					});					   
 					
 					break
+				case 'bus':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var busModel = tripLegModel.get('busModel');
+					var url = '/get-transportMeanId/?type=bus'  
+											   + '&description=' + encodeURIComponent(busModel.get('description'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
+				case 'taxi':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var taxiModel = tripLegModel.get('taxiModel');
+					var url = '/get-transportMeanId/?type=taxi'  
+											   + '&description=' + encodeURIComponent(taxiModel.get('description'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
+				case 'motorcycle':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var motorcycleModel = tripLegModel.get('motorcycleModel');
+					var url = '/get-transportMeanId/?type=motorcycle'  
+											   + '&description=' + encodeURIComponent(motorcycleModel.get('description'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
+					
+				case 'ferry':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var ferryModel = tripLegModel.get('ferryModel');
+					var url = '/get-transportMeanId/?type=ferry'  
+											   + '&description=' + encodeURIComponent(ferryModel.get('description'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
+				case 'rail':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var railModel = tripLegModel.get('railModel');
+					var url = '/get-transportMeanId/?type=rail'  
+											   + '&description=' + encodeURIComponent(railModel.get('description'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
+				case 'airplane':
+					tripLegModel.set('calculationMethod', 'tier1');
+					var aviationModel = tripLegModel.get('aviationModel');
+					var url = '/get-transportMeanId/?type=airplane'  
+											   + '&description=' + encodeURIComponent(aviationModel.get('description'))
+											   + '&cabinClass=' + encodeURIComponent(aviationModel.get('cabinClass'));
+					$.ajax({
+						type: 'GET',
+						url: url,
+						async: false,
+						success: function(data){
+							self.saveTripLeg(tripLegModel, data.transportMeanId, tripId);
+						}
+					});			
+					
+					break
 			}
 		}
 		
@@ -662,6 +1092,9 @@ App.tripManagerController = Em.Object.create({
 		
 		//invoke method on the server-side to create provenance graphs. 
 		self.createProvenanceGraph('tripCreation');	
+		
+		//compute ghg emisisons and create provenance graphs for trip legs
+		self.computeTripLegsCarbonEmissions();
 	},
 	
 	/*a function that save individual trip leg into the database*/
@@ -705,6 +1138,7 @@ App.tripManagerController = Em.Object.create({
 				
 			//the id of the transport mean that is already stored in the database
 			transportMeanId: transportMeanId,
+			calculationMethod: this.calculationMethod,
 
 		};
 			
@@ -719,41 +1153,37 @@ App.tripManagerController = Em.Object.create({
 				self.tripLegIds.push(data.tripLegId);
 			}
 		});	
-		
-		//call Bing REST service to find the driving distance between the two addresses
-		this.computeDrivingDistance( tripLegModel.get('startAddress'), tripLegModel.get('endAddress') );
 	},
 	
 	
-	/*invokes bing REST service for calculating the driving distance between two points*/
-	computeDrivingDistance: function( startingAddress, endAddress ){
-		getMapForDrivingDistance( startingAddress, endAddress );
-	},
-	
-	/*calls a service on server side to calculate the carbon footprints of this trip leg. The function is invoked in the routeCallback
-	 *in the bingMaps.js*/
-	computeTripLegsCarbonEmissions: function(route){
-		var travelDuration = route.resourceSets[0].resources[0].travelDuration;
+	/*calls a service on server side to calculate the carbon footprints of this trip leg and create the provenance graph foe that calculation*/
+	computeTripLegsCarbonEmissions: function(){
+		for(var i = 0; i < this.content.length; i++){
+			var tripLegModel = this.content[i];
+			startLatLong =  [tripLegModel.get('startAddress').get('latitude'), tripLegModel.get('startAddress').get('longitude')];
+			endLatLong =  [tripLegModel.get('endAddress').get('latitude'), tripLegModel.get('endAddress').get('longitude')]
+			var data = {
+				//get the last added trip leg
+				tripLegId: this.tripLegIds[i],
+				startLatLong: JSON.stringify(startLatLong),
+				endLatLong: JSON.stringify(endLatLong),
+				transportMeanType: tripLegModel.get('transportMeanType'),
+				//the calculation method tier
+				calculationMethod: tripLegModel.get('calculationMethod'),
+			};
 		
-		var data = {
-			//get the last added trip leg
-			tripLegId: this.tripLegIds[this.tripLegIds.length-1],
-			drivingDistance: route.resourceSets[0].resources[0].travelDistance,
-			transportMeanType: this.currentTripLegModel.get('transportMeanType'),
-			//the calculation method tier
-			calculationMethod: this.calculationMethod
-		};
-		
-		var self = this;
-		$.ajax({
-			type: 'POST',
-			url: '/compute-trip-leg-emissions/',
-			data: data,
-			async: false,
-			success: function(data){
-				//some stuff here
-			}
-		});
+			var self = this;
+				$.ajax({
+				type: 'POST',
+				url: '/compute-trip-leg-emissions/',
+				data: data,
+				async: false,
+				success: function(data){
+					//some stuff here
+				}
+			});
+			
+		}
 	},
 	
 	
@@ -812,7 +1242,7 @@ App.numOfTripLegOptions = [1, 2, 3, 4];
 App.addressVisibilityOptions = ['Visible', 'Not-Visible'];
 
 /*Transport mean options*/
-App.transportMeanOptions = ['Car', 'Bus'];
+App.transportMeanOptions = ['Car', 'Bus', 'Taxi', 'Rail', 'Airplane', 'Ferry', 'Motorcycle'];
 
 /*Fuel type option*/
 App.fuelTypes = ['petrol', 'diesel', 'alternative'];

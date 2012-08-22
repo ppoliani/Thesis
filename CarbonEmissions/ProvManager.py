@@ -56,6 +56,9 @@ class ProvManager:
         g.wasAssociatedWith('cf:tripCreation', 'cf:' + userName)
         g.wasAttributedTo('cf:trip-' + tripId, 'cf:' + userName)
         
+        #save the graph
+        pdBundle = save_bundle(g)
+        
         #visualize the graph
         path = tempfile.mkdtemp()
         filepath = os.path.join(path, 'dot-test.png')
@@ -64,16 +67,13 @@ class ProvManager:
         dot = graph.prov_to_dot(g)
         dot.set_dpi(120)
         # Write it to a temporary PNG file
-        dot.write_png(filepath)
+        #dot.write_png(filepath)
     
         # Display it using matplotlib
-        img = mpimg.imread(filepath)
-        imgplot = plt.imshow(img)
-        plt.show()
-        os.remove(filepath)
-        
-        #save the graph
-        pdBundle = save_bundle(g)
+        #img = mpimg.imread(filepath)
+        ##imgplot = plt.imshow(img)
+        #plt.show()
+        #os.remove(filepath)
 
         return pdBundle
     
@@ -86,7 +86,7 @@ class ProvManager:
         
         #define the entity, activity and agent identifiers
         tripLegEmission = cf['tripLegEmission-' + str(tripLegEmissionId)]
-        transportMean = cf['transportMean-' + str(transportMeanId)]
+        transportMean = cf['transportMean-' + transportMeanType + '-' + str(transportMeanId)]
         emissionFactor = cf['emissionFactor-' + str(emissionFactorId)]
         emissionFactorSource = cf['emissionFactorSource-' + str(emissionFactorSourceId)]
         tripLeg = cf['tripLeg-' + str(tripLegId)]
@@ -94,10 +94,7 @@ class ProvManager:
         tripLegStartAddress = cf['tripLegStartAddress-' + str(startAddressId)]
         tripLegEndAddress = cf['tripLegEndAddress-' + str(endAddressId)]
         calculationMethod = cf['calculationMetdod-' + str(methodId)]
-        
-        #the id of the trip leg as it is stored in the PDRecord models
-        rec_id = cf.get_uri() +'tripLeg-' + str(tripLegId)
-        
+
         # load the bundle that contains this trip leg. The one that has the trip creation graph
         pdBundle = TripLeg.objects.get(id=tripLegId).trip.provBundle
         # pdBundle = PDBundle.objects.get(id=284) #PDRecord.objects.get(bundle_id=60).bundle
@@ -152,20 +149,20 @@ class ProvManager:
         #g.hadPrimarySource(emissionFactor, emissionFactorSource)
         
         #visualize the graph
-        path = tempfile.mkdtemp()
-        filepath = os.path.join(path, 'dot-test.png')
+        #path = tempfile.mkdtemp()
+        #filepath = os.path.join(path, 'dot-test.png')
     
         # Convert it to DOT
-        dot = graph.prov_to_dot(g)
-        dot.set_dpi(120)
+        #dot = graph.prov_to_dot(g)
+        #dot.set_dpi(120)
         # Write it to a temporary PNG file
-        dot.write_png(filepath)
+        #dot.write_png(filepath)
     
         # Display it using matplotlib
-        img = mpimg.imread(filepath)
-        imgplot = plt.imshow(img)
-        plt.show()
-        os.remove(filepath)
+        #img = mpimg.imread(filepath)
+        #imgplot = plt.imshow(img)
+        #plt.show()
+        #os.remove(filepath)
         
         #small demo of how to encode the bundle into a dictionary and ultimately into json 
         json = g._encode_JSON_container()

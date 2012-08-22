@@ -298,6 +298,37 @@ class GeneralCar(TransportMean):
     #the upper limit of the range of the engine capacity
     maxEngineCapacity = models.PositiveSmallIntegerField(null=True)
     
+#################### Bus model #################################
+class Bus(TransportMean):
+    """A model representing busses"""
+    pass
+
+#################### Taxi model #################################
+class Taxi(TransportMean):
+    """A model representing busses"""
+    pass
+
+#################### Motorcycle model #################################
+class Motorcycle(TransportMean):
+    """A model representing motorcycles"""
+    pass
+    
+#################### Ferry model #################################
+class Ferry(TransportMean):
+    """A model representing ferries"""
+    pass
+
+#################### Rail model #################################
+class Rail(TransportMean):
+    """A model representing rail transport means e.g. train, underground"""
+    pass
+
+#################### Rail model #################################
+class Airplane(TransportMean):
+    """A model representing aviation transport means e.g. airplane"""
+    #The cabin class of the users ticket
+    cabinClass = models.CharField(max_length=50)
+    
     
 
 #################### Group model #################################

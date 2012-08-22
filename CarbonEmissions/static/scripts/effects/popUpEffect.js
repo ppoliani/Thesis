@@ -28,11 +28,10 @@ $(document).ready(function () {
 var popupStatus = 0;
 
 
-/*loading popup with jQuery animate effect!*/
-function loadPopup(tripLeg) {
-    var popupWidth = 600,
-        popupHeight = 600;
-	
+/* loading popup with jQuery animate effect!
+ * @trilLeg = the id of the trip leg view where the popup container lies
+ */
+function loadPopup(elementId, popupWidth, popupHeight, elementWidth, elementHeight) {
     //loads popup only if it is disabled
     if (popupStatus == 0) {
         /*set initial position to the position of the click point*/
@@ -47,23 +46,16 @@ function loadPopup(tripLeg) {
         var top = windowHeight / 2 - popupHeight / 2,
             left = windowWidth / 2 - popupWidth / 2;
 		
-		//the element id based on the trip leg for which we adding the addresses. Each trip leg has its own popup div
-		var elementId = "#popupContact-" + tripLeg
-        
-        $("#backgroundPopup").css({
-            "opacity": "0.9"
-        });
 
         $(elementId).css({
             "display": "block"
         });
-
-        $("#backgroundPopup").fadeIn("slow");
-        //$("#popupContact").fadeIn("slow");
+        
+        loadBackgroundPopup();
         
         $(elementId).animate({
-            width: "400px",
-            height: "550px",
+            width: elementWidth,
+            height: elementHeight,
             opacity: 1,
             position: "absolute",
             top: top,
@@ -80,13 +72,11 @@ function loadPopup(tripLeg) {
 
 
 /*disabling popup*/
-function disablePopup(tripLeg) {
+function disablePopup(elementId) {
     //disables popup only if it is enabled
     if (popupStatus == 1) {
-    	//the element id based on the trip leg for which we adding the addresses
-		var elementId = "#popupContact-" + tripLeg
-		
-        $("#backgroundPopup").fadeOut("slow");
+		disableBackgroundPopup()
+        
         $(elementId).animate({
             width: "0px",
             height: "0px",
@@ -101,4 +91,39 @@ function disablePopup(tripLeg) {
 
         popupStatus = 0;
     }
+}
+
+/*displays the backgroundPopup container that covers the whole screen*/
+function loadBackgroundPopup(){
+	$("#backgroundPopup").css({
+		"opacity": "0.9"
+		});
+
+   	$("#backgroundPopup").fadeIn("slow");
+}
+
+/*disable the backgroundPopup container that covers the whole screen*/
+function disableBackgroundPopup(){
+	$("#backgroundPopup").fadeOut("slow");	
+}
+
+
+/*replaces the gid preloader with a text message*/
+function replaceGifWithMsg(){
+	$('#ajax-preloader').css({
+		'display': 'none'
+	});
+	
+	$("#redirection-alert").css({
+		'display': 'block'
+	});
+	var secs = 6;
+	var interv = setInterval(function(){
+		$('#secs').html(--secs);
+	}, 1000);
+	
+	//when it gets negative
+	if(secs == -1){
+		clearInterval(interv);
+	}
 }

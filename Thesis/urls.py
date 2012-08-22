@@ -3,7 +3,8 @@ from django.contrib import admin
 from django.contrib.auth.views import login, logout
 from CarbonEmissions.views import parseCarCsv, createTrip, getCarManufacturers, getCarModels, \
                                 getCarModelData, getTransportMeanId, saveTrip, saveTripLeg, prov, getGeneralCarDescription, \
-                                computeTripLegsEmissions
+                                computeTripLegsEmissions, getBusDescriptions, getTaxiDescriptions, getMotorcycleDescriptions, \
+                                getFerryDescriptions, getRailDescriptions, getAviationDescriptions, graph
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -24,6 +25,12 @@ urlpatterns = patterns('',
     (r'^parse/$', parseCarCsv),
     (r'^add-trip/$', createTrip),
     (r'^get-general-car-descriptions/$', getGeneralCarDescription),
+    (r'^get-bus-descriptions/$', getBusDescriptions),
+    (r'^get-taxi-descriptions/$', getTaxiDescriptions),
+    (r'^get-motorcycle-descriptions/$', getMotorcycleDescriptions),
+    (r'^get-ferry-descriptions/$', getFerryDescriptions),
+    (r'^get-rail-descriptions/$', getRailDescriptions),
+    (r'^get-aviation-descriptions/$', getAviationDescriptions),
     (r'^get-manufacturers/$', getCarManufacturers),
     (r'^get-car-models/$', getCarModels),
     (r'^get-car-model-data/$', getCarModelData),
@@ -32,7 +39,9 @@ urlpatterns = patterns('',
     (r'^save-trip/$', saveTrip),
     (r'^save-trip-leg/$', saveTripLeg),
     (r'^compute-trip-leg-emissions/$', computeTripLegsEmissions),
-    (r'^prov/$', prov)
+    (r'^prov/$', prov),
+    
+    (r'^graph/$', graph),
 )
 
     

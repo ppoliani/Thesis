@@ -11,11 +11,18 @@ from CarbonEmissions.ProvManager import ProvManager
 from django.contrib.contenttypes.models import ContentType
 from decimal import Decimal
 import datetime
+from googlemaps import GoogleMaps
 
 from django.utils import simplejson
 
+#constants
+GOOGLE_MAPS_API_KEY = 'AIzaSyDY0dYuWgX47mvEyJoiRjky76pLBTZTlfQ'
+
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
+
+def graph(request):
+    return render_to_response('graph.html')
 
 def parseCarCsv(request):
     """populate the car table with csv files taken from http://carfueldata.direct.gov.uk/downloads/default.aspx"""
@@ -69,6 +76,71 @@ def getGeneralCarDescription(request):
         descriptions = list(models.GeneralCar.objects.values('description')) 
     else:
         descriptions = list(models.GeneralCar.objects.values('description').filter(fuelType=fuelType))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+#returns the flight types and the cabin classes for each flight type
+def getAviationDescriptions(request):
+    """
+      returns the flight types and the cabin classes for each flight type
+    """
+    
+    description = request.GET['description']
+    
+    if description == 'null':
+        descriptions = list(models.Airplane.objects.values('description', 'cabinClass'))  
+    else:
+        descriptions = list(models.Airplane.objects.values('description', 'cabinClass').filter(description=description))
+        
+    return HttpResponse(json.dumps(descriptions), mimetype="application/json")
+
+#return the bus type stored in the database
+def getBusDescriptions(request):
+    """
+        return the desscriptions of the buses stored in the database
+    """
+    
+    descriptions = list(models.Bus.objects.values('description'))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+#return taxi types stored in the database
+def getTaxiDescriptions(request):
+    """
+        return the desscriptions of the taxis stored in the database
+    """
+    
+    descriptions = list(models.Taxi.objects.values('description'))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+#return  motorcycle types stored in the database
+def getMotorcycleDescriptions(request):
+    """
+        return the desscriptions of the motorcycles stored in the database
+    """
+    
+    descriptions = list(models.Motorcycle.objects.values('description'))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+#return the ferry types stored in the database
+def getFerryDescriptions(request):
+    """
+        return the desscriptions of the ferries stored in the database
+    """
+    
+    descriptions = list(models.Ferry.objects.values('description'))
+    
+    return HttpResponse(json.dumps(descriptions), mimetype='application/json')
+
+#return the rail tranport means types stored in the database
+def getRailDescriptions(request):
+    """
+        return the desscriptions of the rail transport mean stored in the database
+    """
+    
+    descriptions = list(models.Rail.objects.values('description'))
     
     return HttpResponse(json.dumps(descriptions), mimetype='application/json')
 
@@ -130,7 +202,7 @@ def getTransportMeanId(request):
     """
         view for AJAX Calls. returns the id of a transport mean
     """
-    
+    description = request.GET['description']
     if request.GET['type'] == 'car':
         model = request.GET['model']
         description = str(request.GET['description'])
@@ -144,11 +216,27 @@ def getTransportMeanId(request):
         json = simplejson.dumps( {'transportMeanId': car.id})
     elif request.GET['type'] == 'generalCar':
         fuelType = request.GET['fuelType']
-        description = str(request.GET['description'])
-        
         generalCar = models.GeneralCar.objects.get(fuelType=fuelType, description=description)
         
-        json = simplejson.dumps( {'transportMeanId': generalCar.id})
+        json = simplejson.dumps( {'transportMeanId': generalCar.id} )
+    elif request.GET['type'] == 'bus':
+        bus = models.Bus.objects.get(description=description)
+        json = simplejson.dumps( {'transportMeanId': bus.id} )
+    elif request.GET['type'] == 'taxi':
+        taxi = models.Taxi.objects.get(description=description)
+        json = simplejson.dumps( {'transportMeanId': taxi.id} )
+    elif request.GET['type'] == 'motorcycle':
+        motorcycle = models.Motorcycle.objects.get(description=description)
+        json = simplejson.dumps( {'transportMeanId': motorcycle.id} )
+    elif request.GET['type'] == 'ferry':
+        ferry = models.Ferry.objects.get(description=description)
+        json = simplejson.dumps( {'transportMeanId': ferry.id} )
+    elif request.GET['type'] == 'rail':
+        rail = models.Rail.objects.get(description=description)
+        json = simplejson.dumps( {'transportMeanId': rail.id} )
+    elif request.GET['type'] == 'airplane':
+        airplane = models.Airplane.objects.get(description=description, cabinClass=request.GET['cabinClass'])
+        json = simplejson.dumps( {'transportMeanId': airplane.id} )
         
     return HttpResponse(json,  mimetype='application/json')
 
@@ -222,7 +310,18 @@ def saveTripLeg(request):
         
     elif request.POST.getlist('transportMeanType')[0] == 'generalCar':
         transportMean = models.GeneralCar.objects.get(id=request.POST.getlist('transportMeanId')[0]) 
-        
+    elif request.POST.getlist('transportMeanType')[0] == 'bus':
+        transportMean = models.Bus.objects.get(id=request.POST.getlist('transportMeanId')[0])
+    elif request.POST.getlist('transportMeanType')[0] == 'taxi':
+        transportMean = models.Taxi.objects.get(id=request.POST.getlist('transportMeanId')[0])
+    elif request.POST.getlist('transportMeanType')[0] == 'motorcycle':
+        transportMean = models.Motorcycle.objects.get(id=request.POST.getlist('transportMeanId')[0])
+    elif request.POST.getlist('transportMeanType')[0] == 'ferry':
+        transportMean = models.Ferry.objects.get(id=request.POST.getlist('transportMeanId')[0])
+    elif request.POST.getlist('transportMeanType')[0] == 'rail':
+        transportMean = models.Rail.objects.get(id=request.POST.getlist('transportMeanId')[0])
+    elif request.POST.getlist('transportMeanType')[0] == 'airplane':
+        transportMean = models.Airplane.objects.get(id=request.POST.getlist('transportMeanId')[0])
     #save the trip leg
     tripLeg = models.TripLeg.objects.create(trip=trip, startAddress=startAddress, endAddress=endAddress, transportMean=transportMean, \
                                             step=tripLegStep, time=tripLegTime)
@@ -272,15 +371,23 @@ def prov(request):
         trip.provBundle = bundle
         trip.save()
         
+    json = simplejson.dumps( {'status': 'OK'} )
     
-
+    return HttpResponse(json, mimetype='application/json')
+        
 #calculates the carbon emissions of a trip leg
 @csrf_exempt
 def computeTripLegsEmissions(request):
     startTime = datetime.datetime.now()
     post = request.POST
     transportMeanType = post['transportMeanType']
-    drivingDistance = Decimal(post['drivingDistance'])
+    gmaps = GoogleMaps(GOOGLE_MAPS_API_KEY)
+    startLatLong = simplejson.loads(post['startLatLong'])
+    endLatLong = simplejson.loads(post['endLatLong'])
+    
+    directions = gmaps.directions(gmaps.latlng_to_address(startLatLong[0], startLatLong[1]), \
+                                  gmaps.latlng_to_address(endLatLong[0], endLatLong[1]) )
+    drivingDistance = Decimal(directions['Directions']['Distance']['meters']) / 1000
     tripLeg= models.TripLeg.objects.get(id=post['tripLegId'])
     
     #get the transport mean used during this trip leg
@@ -294,10 +401,24 @@ def computeTripLegsEmissions(request):
             #get emission factor corresponding to this general car
             emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.GeneralCar),\
                                                                             transportMean_id=transportMean.id).emissionFactor            
-        elif transportMeanType == 'car':
-            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Car),\
-                                                                            transportMean_id=transportMean.id).emissionFactor  
-        
+        elif transportMeanType == 'bus':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Bus),\
+                                                                            transportMean_id=transportMean.id).emissionFactor 
+        elif transportMeanType == 'taxi':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Taxi),\
+                                                                            transportMean_id=transportMean.id).emissionFactor 
+        elif transportMeanType == 'motorcycle':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Motorcycle),\
+                                                                            transportMean_id=transportMean.id).emissionFactor 
+        elif transportMeanType == 'ferry':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Ferry),\
+                                                                            transportMean_id=transportMean.id).emissionFactor 
+        elif transportMeanType == 'rail':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Rail),\
+                                                                            transportMean_id=transportMean.id).emissionFactor 
+        elif transportMeanType == 'airplane':
+            emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Airplane),\
+                                                                            transportMean_id=transportMean.id).emissionFactor                                                              
         ghgEmissions = drivingDistance * emissionFactor.directGHGEmissions
             
         #save the computed value
@@ -307,11 +428,11 @@ def computeTripLegsEmissions(request):
         endTime = datetime.datetime.now()
         #createProvenanceGraph
         provManager = ProvManager()
-        #bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
-                                                            #emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
-                                                            #tripLeg.endAddress.id, startTime, endTime)
-        #tripLeg.provBundle = bundle
-        #tripLeg.save()
+        bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
+                                                            emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
+                                                            tripLeg.endAddress.id, startTime, endTime)
+        tripLeg.provBundle = bundle
+        tripLeg.save()
 
     elif post['calculationMethod'] == 'tier2':
         pass
@@ -320,3 +441,6 @@ def computeTripLegsEmissions(request):
     
     return HttpResponse(json, mimetype='application/json')
 
+
+def _computeTripLegsEmissions(tripLeg, transportMean, transportMeanType, calculationMethod):
+    pass

@@ -1,0 +1,35 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}Graphs {%endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+<script src="{% static "scripts/visualization/Jit/jit-yc.js" %}"></script>
+<script src="{% static "scripts/testGraph.js" %}"></script>
+
+<style type="text/css">
+	#infovis {
+		position: relative;
+		width: 600px;
+		height: 600px;
+		margin: auto;
+		overflow: hidden;
+	}
+
+	#center-container {
+		width: 600px;
+		left: 200px;
+		background-color: #1A1A1A;
+		color: #CCC;
+	}
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="center-container">
+    <div id="infovis"></div>
+</div>
+<div id="log"></div>
+<div id="right-container"></div>
+<div id="inner-details"></div>
+{% endblock %}

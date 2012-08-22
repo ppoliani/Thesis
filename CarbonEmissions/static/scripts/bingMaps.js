@@ -1,8 +1,6 @@
-
 var map = null;
 var directionsManager = null;
 var query;
-
 
 var start = null;
 var end = null;
@@ -16,16 +14,15 @@ function getMap(tripLeg) {
 	var elementId = "#popupContact-" + tripLeg;
 	//get the DOM element
 	var element = $(elementId).find('.map')[0];
-	map = new Microsoft.Maps.Map(element, 
-		{credentials : 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'
+	map = new Microsoft.Maps.Map(element, {
+		credentials : 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'
 	});
 }
 
-
 /*dispose the map*/
-function disposeMap(){
+function disposeMap() {
 	map.dispose();
-	map = null; 
+	map = null;
 }
 
 function findLocation(location, object) {
@@ -42,10 +39,9 @@ function callSearchService(credentials) {
 	document.getElementById('bing-script').appendChild(mapscript)
 }
 
-
 function searchServiceCallback(result) {
 	tripLeg.setBingMapsResult(result);
-	
+
 	var output = document.getElementById("output");
 	if (output) {
 		while (output.hasChildNodes()) {
@@ -75,37 +71,61 @@ function searchServiceCallback(result) {
 
 		}
 	}
+
+}
+
+/*Bing ajax 6.3 api*/
+function loadMap(){
+	map = new VEMap('tempMap');
+	map.LoadMap();
 	
 }
 
-/*creates an instance of bing map inorder to calculate the driving distance between two directions*/
-function getMapForDrivingDistance(startingPoint, endPoint){
+function getMapForDrivingDistance(start, end) {
+	var startingPoint = new VELatLong( start.latitude, start.longitude);
+	var endPoint = new VELatLong(end.latitude, end.longitude);
+
+	var options = new VERouteOptions();
+	options.DistanceUnit = VERouteDistanceUnit.Kilometer;
+	options.RouteCallback = onGotRoute;
+	map.GetDirections([startingPoint, endPoint], options);
+}
+
+
+function onGotRoute(route) {
+	App.tripManagerController.computeTripLegsCarbonEmissions(route);
+}
+
+
+
+/* BING REST API
+creates an instance of bing map inorder to calculate the driving distance between two directions
+function getMapForDrivingDistance(startingPoint, endPoint) {
 	start = startingPoint;
 	end = endPoint;
 
-	map = new Microsoft.Maps.Map(document.getElementById('tempMap'), 
-		{credentials: 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'});
-	
-	map.getCredentials(callRouteService); 
+	map = new Microsoft.Maps.Map(document.getElementById('tempMap'), {
+		credentials : 'AkfwYAUV1wedc2qX9NFTfUMAYmrknBNzuj67mO0yk1fTc8pZF7yezrdGzMpJtjW5'
+	});
+
+	map.getCredentials(callRouteService);
 }
 
+call the routine service inorder to get the driving distance between to positions
+function callRouteService(credentials) {
+	var startingPoint = start.latitude + ',' + start.longitude;
+	var endPoint = end.latitude + ',' + end.longitude;
+	var routeRequest = 'http://dev.virtualearth.net/REST/v1/Routes?wp.0=' + startingPoint + '&wp.1=' + endPoint + '&routePathOutput=Points&output=json&jsonp=routeCallback&key=' + credentials;
+	var mapscript = document.createElement('script');
+	mapscript.type = 'text/javascript';
+	mapscript.src = routeRequest;
+	document.getElementById('tempMap').appendChild(mapscript);
+}
 
-/*call the routine service inorder to get the driving distance between to positions*/
-function callRouteService(credentials) { 
-		var startingPoint = start.latitude + ',' + start.longitude;
-		var endPoint = end.latitude + ',' + end.longitude;       
-        var routeRequest = 'http://dev.virtualearth.net/REST/v1/Routes?wp.0=' + startingPoint + '&wp.1=' + endPoint + '&routePathOutput=Points&output=json&jsonp=routeCallback&key=' + credentials;
-        var mapscript = document.createElement('script');           
-        mapscript.type = 'text/javascript';           
-        mapscript.src = routeRequest;
-        document.getElementById('tempMap').appendChild(mapscript);
- }
+function routeCallback(result) {
+	App.tripManagerController.computeTripLegsCarbonEmissions(result);
+	disposeMap();
+}
 
-
-function routeCallback(result){
- 	App.tripManagerController.computeTripLegsCarbonEmissions(result);
-
- 	disposeMap();
- } 
-
+*/
 
