@@ -106,9 +106,11 @@ App.TripLeg = Em.Object.extend({
  *************************************/
 /*location query text field*/
 App.LocationQueryTextField = Em.TextField.extend({
+	attributeBindings: ['autofocus'],
 	insertNewline: function(){
 		this.get('parentView').findLocation();
-	}
+	},
+	autofocus: true,
 });
 
 /*Custom select view. We do that so as to add additional attributes through view attribute bindings.*/
@@ -758,7 +760,6 @@ App.AviationView = Em.View.extend({
 			$(data).each(function(index, value){
 				self.cabinClasses.pushObject(value.cabinClass);
 			});
-
 		});			
 	}.observes('description'),
 	
@@ -822,7 +823,7 @@ App.tripManagerController = Em.Object.create({
 							fuelType: transportMeanView.get('fuelType'),
 						});
 						
-						tripLegModel.set('transportMeanType', 'Car');
+						tripLegModel.set('transportMeanType', 'car');
 						tripLegModel.set('carModel', carModel);
 					} else{
 						var generalCarModel = App.GeneralCarModel.create({
@@ -893,15 +894,14 @@ App.tripManagerController = Em.Object.create({
 			this.content.pushObject(tripLegModel);
 		}
 		
-		//persist data
+		//persist input data
 		this.persistData();
 		
-		replaceGifWithMsg();
 		//redirect to home page
 		var interv = setInterval(function(){
-						window.location.replace('/home/');
+						replaceGifWithMsg();
 						clearInterval(interv);	
-					 }, 5000);
+					 }, 2000);
 	},
 	
 	/*a function that will send (i.e. Ajax call) our models (used data) into a database*/
@@ -940,8 +940,6 @@ App.tripManagerController = Em.Object.create({
 	/*saves all the trip legs of the trip*/
 	saveTripLegs: function(tripId){
 		var self = this;
-		//load the map for calculating driving distances
-		loadMap();
 		
 		//iterate over the content (array of trip leg models) of the controller
 		for( var i = 0; i < this.content.length; i++ ){
@@ -951,7 +949,7 @@ App.tripManagerController = Em.Object.create({
 							   url = null;
 			//get the transport mean id, except for the case when user has added an new car!
 			switch(tripLegModel.get('transportMeanType')){
-				case 'Car':
+				case 'car':
 					//the car models emission factor puts the calculation metdod into tier2
 					tripLegModel.set('calculationMethod', 'tier2');
 					

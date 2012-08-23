@@ -120,10 +120,10 @@ function replaceGifWithMsg(){
 	var secs = 6;
 	var interv = setInterval(function(){
 		$('#secs').html(--secs);
+		if(secs == 0){
+			window.location.replace('/home/');
+		}
 	}, 1000);
 	
 	//when it gets negative
-	if(secs == -1){
-		clearInterval(interv);
-	}
 }

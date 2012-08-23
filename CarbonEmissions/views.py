@@ -7,6 +7,8 @@ import codecs
 import json
 from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.core.serializers.json import DjangoJSONEncoder
 from CarbonEmissions.ProvManager import ProvManager
 from django.contrib.contenttypes.models import ContentType
 from decimal import Decimal
@@ -51,7 +53,7 @@ def parseCarCsv(request):
             models.TransportMeanEmissionFactor(transportMean=carModel, emissionFactor=carModelEmissionFactor).save()
                        
     
-
+@login_required
 def createTrip(request):
     """view for persisting the data submitted by users when creating new trips"""
     
@@ -334,7 +336,8 @@ def saveTripLeg(request):
     #to  see why get_or_create was not used and to http://stackoverflow.com/questions/11960422/django-how-do-i-query-based-on-genericforeignkeys-fields
     #to see the solution that we did not used here (although we could have)
     try:
-        models.TransportMeansUsedByUsers.objects.get(userProfile=userProfile, object_id=transportMean.id)
+        models.TransportMeansUsedByUsers.objects.get(userProfile=userProfile, content_type=ContentType.objects.get_for_model(transportMean.__class__),
+                                                     object_id=transportMean.id)
     except models.TransportMeansUsedByUsers.DoesNotExist:
         models.TransportMeansUsedByUsers.objects.create(userProfile=userProfile, transportMean=transportMean)
         
@@ -424,23 +427,62 @@ def computeTripLegsEmissions(request):
         #save the computed value
         tripLegEmission = models.TripLegCarbonEmission.objects.create(tripLeg=tripLeg, method=calculationMethod,\
                                                                           emissionFactor=emissionFactor, emissions=ghgEmissions)
-                                                                           
-        endTime = datetime.datetime.now()
-        #createProvenanceGraph
-        provManager = ProvManager()
-        bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
+    elif post['calculationMethod'] == 'tier2':
+        #get tier2 calculation method id
+        calculationMethod = models.C02CalculationMethod.objects.get(tier='2')
+        #get emission factor corresponding to the specific car model
+        emissionFactor = models.TransportMeanEmissionFactor.objects.get(transportMean_content_type=ContentType.objects.get_for_model(models.Car),\
+                                                                            transportMean_id=transportMean.id).emissionFactor            
+        ghgEmissions = drivingDistance * emissionFactor.directGHGEmissions
+            
+        #save the computed value
+        tripLegEmission = models.TripLegCarbonEmission.objects.create(tripLeg=tripLeg, method=calculationMethod,\
+                                                                          emissionFactor=emissionFactor, emissions=ghgEmissions)
+    endTime = datetime.datetime.now()
+    #createProvenanceGraph
+    provManager = ProvManager()
+    bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
                                                             emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
                                                             tripLeg.endAddress.id, startTime, endTime)
-        tripLeg.provBundle = bundle
-        tripLeg.save()
+    tripLeg.provBundle = bundle
+    tripLeg.save()
 
-    elif post['calculationMethod'] == 'tier2':
-        pass
     
     json = simplejson.dumps( {'status': 'OK'} )
     
     return HttpResponse(json, mimetype='application/json')
 
+#return the carbon footprint report template
+def report(request):
+    return render_to_response('report.html')
 
-def _computeTripLegsEmissions(tripLeg, transportMean, transportMeanType, calculationMethod):
-    pass
+#return the trip leg information that is needed for the charts that took place during the time period specified by the parameters
+def getTripInfo(request):
+    #create python dates from input strings
+    fromDate = request.GET['from'].split('-')
+    untilDate = request.GET['until'] .split('-')
+    
+    startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
+    endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+                                             
+    tripValues = list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate)))
+    
+    ghgEmissions = index = 0
+    for trip in trips:
+        #get all trip legs of this trip
+        tripLegs = trip.tripleg_set.all()
+        
+        #get all the emissions foe r this trip leg
+        for tripLeg in tripLegs:
+            tripLegCarbonEmissions = tripLeg.triplegcarbonemission_set.all()
+            #sum up the carbon emissions of all the trip legs
+            for emission in tripLegCarbonEmissions:
+                ghgEmissions += emission.emissions
+        
+        tripValues[index]['emissions'] = ghgEmissions
+        index += 1
+        ghgEmissions = 0
+        
+    
+    return HttpResponse(json.dumps(tripValues,  cls=DjangoJSONEncoder), mimetype="application/json")

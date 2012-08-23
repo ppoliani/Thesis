@@ -36,5 +36,31 @@ Util.prototype = {
 		var validator = $(formId).validate(options);
 
 		return validator.form();
+	},
+	
+	/* gets array of dates between 2 dates. refer to
+	 * http://stackoverflow.com/questions/4413590/javascript-get-array-of-dates-between-2-dates*/
+	dateRange: function(from, to){
+		var tempFrom = from.clone();
+		var tempTo = to.clone();
+		
+    	var DA= [tempFrom.toLocaleDateString()], 
+    		incr=tempFrom.getDate();
+    	while(tempFrom< to){
+        	from=new Date(tempFrom.setDate(++incr));
+        	DA.push(tempFrom.toLocaleDateString());
+    	}
+    	return DA;
+	},
+
+	 daydiff: function(first, second) {
+    	return (second-first)/(1000*60*60*24)
+	},
+	
+	/*inializes an array with 0*/
+	initalizeArray: function(arr, length){
+		for( var i = 0; i < length; i++ ){
+			arr[i] = 0;
+		}
 	}
 }

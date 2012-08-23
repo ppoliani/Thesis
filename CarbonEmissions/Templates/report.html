@@ -1,0 +1,43 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}Carbon Footprint Report{% endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static "css/base.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.common.min.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.default.min.css" %}" type="text/css"/>
+    
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    
+    <!-- Additional files for the Highslide popup effect -->
+    <script type="text/javascript" src="http://www.highcharts.com/highslide/highslide-full.min.js"></script>
+    <script type="text/javascript" src="http://www.highcharts.com/highslide/highslide.config.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/highslide/highslide.css" />
+
+    
+    <script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
+    <script src="{% static "scripts/visualization/chart.js" %}"></script>
+    <script src="{% static "scripts/utils/date.js" %}"></script>
+    <script src="{% static "scripts/utils/util.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    <section id="chartContainer"></section>
+
+    <script type="text/x-handlebars" data-template-name="ghg-per-trip">
+    	<div>
+            <label for="from">From: </label>
+            {{view App.CustomTextField valueBinding="from" name="fromDate" elementId="fromDate" class="inline"
+            }}
+        
+            <label for="until">Until: </label>
+            {{view App.CustomTextField valueBinding="until" name="untilDate" elementId="untilDate" class="inline"
+            }}
+        </div>
+    
+        <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+    </script>
+
+{% endblock %}
