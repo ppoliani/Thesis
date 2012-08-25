@@ -25,19 +25,53 @@
 
 {% block content %}
     <section id="chartContainer"></section>
-
-    <script type="text/x-handlebars" data-template-name="ghg-per-trip">
-    	<div>
+    
+     <script type="text/x-handlebars" data-template-name="ghg-per-trip-leg">
+        <div>
             <label for="from">From: </label>
-            {{view App.CustomTextField valueBinding="from" name="fromDate" elementId="fromDate" class="inline"
+            {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
             }}
         
             <label for="until">Until: </label>
-            {{view App.CustomTextField valueBinding="until" name="untilDate" elementId="untilDate" class="inline"
+            {{view App.CustomTextField valueBinding="until"  class="inline untilDate"
             }}
         </div>
     
-        <div id="container" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+        <div id="tripLegChart" style="min-width: 400px; height: 400px; margin: 0 auto">
+            <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+        </div>
+    </script>
+    
+     <script type="text/x-handlebars" data-template-name="ghg-per-trip">
+        <div>
+            <label for="from">From: </label>
+            {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
+            }}
+        
+            <label for="until">Until: </label>
+            {{view App.CustomTextField valueBinding="until" class="inline untilDate"
+            }}
+        </div>
+    
+        <div id="tripChart" style="min-width: 400px; height: 400px; margin: 0 auto">
+            <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+        </div>
+    </script>
+    
+    <script type="text/x-handlebars" data-template-name="ghg-per-tranpsport-mean">
+        <div>
+            <label for="from">From: </label>
+            {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
+            }}
+        
+            <label for="until">Until: </label>
+            {{view App.CustomTextField valueBinding="until" class="inline untilDate"
+            }}
+        </div>
+    
+        <div id="transportMeanChart" style="min-width: 400px; height: 400px; margin: 0 auto">
+            <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+        </div>
     </script>
 
 {% endblock %}

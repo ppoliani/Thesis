@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Sum
 from CarbonEmissions.ProvManager import ProvManager
 from django.contrib.contenttypes.models import ContentType
 from decimal import Decimal
@@ -456,33 +457,138 @@ def computeTripLegsEmissions(request):
 def report(request):
     return render_to_response('report.html')
 
-#return the trip leg information that is needed for the charts that took place during the time period specified by the parameters
+#return the trip  information that is needed for the charts and that took place during the time period specified by the parameters
 def getTripInfo(request):
+    """
+        returns the trip  information that is needed for the charts and that took place during the time period specified by the parameters
+    """
+    #create python dates from input strings
+    fromDate =  request.GET['from'].split('-')
+    untilDate = request.GET['until'].split('-')
+    
+    startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
+    endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    #trips that took place during the specified time period
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+                                             
+    tripValues = list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate)))
+    
+    ghgEmissions = 0
+    index = 0
+    totalEmissions = 0
+    numOfTripLegs = 0
+    
+    for trip in trips:
+        #get all trip legs of this trip
+        tripLegs = trip.tripleg_set.all()
+        
+        #get all the emissions for this trip leg
+        for tripLeg in tripLegs:
+            numOfTripLegs += 1
+            #since each trip leg might have several emissions based on the emission factors used, in the futures specify the 
+            #source of emissions factors.
+            ghgEmissions += models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg).emissions
+            totalEmissions += ghgEmissions
+        
+        #add the computed emissions for that trip in the appropriate place in the dictionary
+        tripValues[index]['emissions'] = ghgEmissions
+        index += 1
+        ghgEmissions = 0
+    
+    if( numOfTripLegs > 0 ):    
+        tripValues.append({'avg': float(totalEmissions/numOfTripLegs)}) 
+    return HttpResponse(json.dumps(tripValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
+#return the trip leg information that is needed for the charts and that took place during the time period specified by the parameters
+def getTripLegInfo(request):
     #create python dates from input strings
     fromDate = request.GET['from'].split('-')
     untilDate = request.GET['until'] .split('-')
     
     startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
     endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    #trips that took place during the specified time period
     trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
-                                             
-    tripValues = list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate)))
+    tripLegValues = [] 
+    index = 0
+    totalEmissions = 0
+    numOfTripLegs = 0
+    for trip in trips:
+        #get all trip legs of this trip
+        tripLegs = trip.tripleg_set.all()
+        numOfTripLegs += len(tripLegs)
+        
+        #get all the emissions for this trip leg
+        for tripLeg in tripLegs:
+            tripLegValues.append({'name': trip.name, 'date': trip.date})
+            tripLegEmission = models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg)
+            totalEmissions += tripLegEmission.emissions
+            tripLegValues[index]['emissions'] = tripLegEmission.emissions
+            tripLegValues[index]['startAddress'] = tripLeg.startAddress.street
+            tripLegValues[index]['endAddress'] = tripLeg.endAddress.street
+            tripLegValues[index]['method'] = tripLegEmission.method.tier
+            index += 1
+            
+    if( numOfTripLegs > 0 ):
+        tripLegValues.append({'avg': float(totalEmissions/numOfTripLegs)})  
+    return HttpResponse(json.dumps(tripLegValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
+#return transport means information for trips that is needed for the charts and that took place during the time period specified 
+#by the parameters
+def getTransportMeanReport(request):
+    #create python dates from input strings
+    fromDate = request.GET['from'].split('-')
+    untilDate = request.GET['until'] .split('-')
     
-    ghgEmissions = index = 0
+    startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
+    endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    #trips that took place during the specified time period
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+    returnValues = []
+    
+    carModelEmissions = 0
+    carEmissions = 0
+    busEmissions = 0
+    taxiEmissions = 0
+    ferryEmissions = 0
+    motorcycleEmissions = 0
+    airplaneEmissions = 0
+    railEmissions = 0
+    
     for trip in trips:
         #get all trip legs of this trip
         tripLegs = trip.tripleg_set.all()
         
-        #get all the emissions foe r this trip leg
+        #get all the emissions for this trip leg
         for tripLeg in tripLegs:
-            tripLegCarbonEmissions = tripLeg.triplegcarbonemission_set.all()
-            #sum up the carbon emissions of all the trip legs
-            for emission in tripLegCarbonEmissions:
-                ghgEmissions += emission.emissions
-        
-        tripValues[index]['emissions'] = ghgEmissions
-        index += 1
-        ghgEmissions = 0
-        
+            transportMean = tripLeg.transportMean
+            tripLegEmission = models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg)
+            
+            if isinstance(transportMean, models.Car):
+                carModelEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.GeneralCar):
+                carEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Bus):
+                busEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Taxi):
+                taxiEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Ferry):
+                ferryEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Motorcycle):
+                motorcycleEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Airplane):
+                airplaneEmissions += tripLegEmission.emissions
+            elif isinstance(transportMean, models.Rail):
+                railEmissions += tripLegEmission.emissions
     
-    return HttpResponse(json.dumps(tripValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+    returnValues.append({'carModel': carModelEmissions,
+                        'car': carEmissions,
+                        'bus': busEmissions,
+                        'taxi': taxiEmissions,
+                        'ferry': ferryEmissions,
+                        'motocycle': motorcycleEmissions,
+                        'airplane': airplaneEmissions,
+                        'rail': railEmissions}) 
+    
+    return HttpResponse(json.dumps(returnValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+    

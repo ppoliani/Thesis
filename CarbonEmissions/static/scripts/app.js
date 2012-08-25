@@ -122,7 +122,6 @@ App.CustomSelect = Em.Select.extend({
 /*Custom text field view. We do that so as to add additional attributes through view attribute bindings.*/
 App.CustomTextField = Em.TextField.extend({
 	attributeBindings: ['name'],
-	
 });
 
 /*overiding existing form element views. Address text field*/

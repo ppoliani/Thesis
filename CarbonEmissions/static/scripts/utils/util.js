@@ -9,7 +9,10 @@ Util.prototype = {
 
 	/**auxiliary function that removes duplicates from arrays*/
 	removeDuplicatesFromArray : function(arr) {
-		var i, len = arr.length, out = [], obj = {};
+		var i, 
+			len = arr.length, 
+			out = [], 
+			obj = {};
 
 		for ( i = 0; i < len; i++) {
 			obj[arr[i]] = 0;
@@ -29,6 +32,21 @@ Util.prototype = {
 				break;
 			}
 		}
+	},
+	
+	/*returns the maximum occurance of the same element within an array*/
+	getMaxOccurance: function(arr){
+		var obj = {};
+		var freq = 1;
+		
+		for ( i = 0; i < arr.length; i++) {
+			if( arr[i] in obj ){
+				freq++;
+			}
+			obj[arr[i]] = 0;
+		}	
+
+		return freq;
 	},
 
 	/*performs a form validation*/

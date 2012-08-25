@@ -5,7 +5,7 @@ from CarbonEmissions.views import parseCarCsv, createTrip, getCarManufacturers, 
                                 getCarModelData, getTransportMeanId, saveTrip, saveTripLeg, prov, getGeneralCarDescription, \
                                 computeTripLegsEmissions, getBusDescriptions, getTaxiDescriptions, getMotorcycleDescriptions, \
                                 getFerryDescriptions, getRailDescriptions, getAviationDescriptions, graph, getTripInfo, \
-                                report
+                                report, getTripLegInfo, getTransportMeanReport
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -44,6 +44,8 @@ urlpatterns = patterns('',
     
     (r'^report/$', report),
     (r'^get-trip-info/$', getTripInfo),
+    (r'^get-trip-leg-info/$', getTripLegInfo),
+    (r'^get-tranpsport-mean-report/$', getTransportMeanReport),
     
     (r'^graph/$', graph),
 )
