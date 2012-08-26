@@ -115,13 +115,13 @@ App.LocationQueryTextField = Em.TextField.extend({
 
 /*Custom select view. We do that so as to add additional attributes through view attribute bindings.*/
 App.CustomSelect = Em.Select.extend({
-	attributeBindings: ['name'],
+	attributeBindings: ['name', 'required'],
 	
 });
 
 /*Custom text field view. We do that so as to add additional attributes through view attribute bindings.*/
 App.CustomTextField = Em.TextField.extend({
-	attributeBindings: ['name'],
+	attributeBindings: ['name', 'required'],
 });
 
 /*overiding existing form element views. Address text field*/
@@ -789,7 +789,7 @@ App.tripManagerController = Em.Object.create({
 	util: new Util(),
 	
 	/*a function that will collect the input data*/
-	collateUserInput: function(){				
+	collateUserInput: function(){		
 		loadPopup('#msg-container',220, 19, '220px', '19px');
 		
 		var tripView = App.addTripView;

@@ -322,7 +322,7 @@ App.lineChartController = Em.Object.create({
                 	point: {
                     	events: {
                         	click: function() {
-                            	alert ('Category: '+ this.category +', value: '+ this.y);
+                            	//alert ('Category: '+ this.category +', value: '+ this.y);
                         	}
                     	}
                 }
@@ -358,7 +358,8 @@ App.lineChartController = Em.Object.create({
 						emissions: parseFloat(data[i].emissions),
 						startAddress: data[i].startAddress,
 						endAddress: data[i].endAddress,
-						method: data[i].method
+						method: data[i].method,
+						provBundleId: data[i].provBundleId
 					});
 			} catch(error){
 				trips[data[i].name] = [];
@@ -366,7 +367,8 @@ App.lineChartController = Em.Object.create({
 						emissions: parseFloat(data[i].emissions),
 						startAddress: data[i].startAddress,
 						endAddress: data[i].endAddress,
-						method: data[i].method
+						method: data[i].method,
+						provBundleId: data[i].provBundleId
 					});
 			}
 		}
@@ -382,7 +384,8 @@ App.lineChartController = Em.Object.create({
 							y: trips[item][i].emissions,
 							from: trips[item][i].startAddress,
 							to: trips[item][i].endAddress,
-							method: trips[item][i].method
+							method: trips[item][i].method,
+							provBundleId: trips[item][i].provBundleId
 						});
 				}
 			}
@@ -439,7 +442,16 @@ App.lineChartController = Em.Object.create({
                 	point: {
                     	events: {
                         	click: function() {
-                            	alert ('Category: '+ this.category +', value: '+ this.y);
+                        		//delete the previous graph if exist
+                        		try{
+                        			$('#infovis').html('');
+                        		} catch(error){
+                        			//do nothing
+                        		}
+                        		
+                            	openJQueryWindow('#prov-graph-container');                      
+                            	App.provGraphManager = App.ProvGraphManager.create();
+                            	App.provGraphManager.loadProvBundle(this.provBundleId);
                         	}
                     	}
                 }

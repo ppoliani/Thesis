@@ -6,13 +6,13 @@
     {{view App.LocationQueryTextField valueBinding="locationQuery" placeholder="address"
     }}
     <div>
-        <button class="btn" {{action "findLocation"
+        <button class="btn" onclick="return false;" {{action "findLocation"
         }}>Locate</button>
     
-        <button class="btn" {{action "addAddress"
+        <button class="btn" onclick="return false;" {{action "addAddress"
         }}>Add Address</button>
         
-         <button class="btn" {{action "hideMap"
+         <button class="btn"  onclick="return false;" {{action "hideMap"
         }}>Cancel</button>
     </div>
 </div>

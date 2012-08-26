@@ -1,7 +1,7 @@
 
 from prov.model import ProvBundle, Namespace, Literal, PROV, XSD, Identifier 
 from prov.server.models import save_bundle, PDBundle, PDRecord
-from CarbonEmissions.models import Trip, TripLeg
+from CarbonEmissions.models import Trip, TripLeg, TripLegCarbonEmission
 
 import datetime 
 from prov.model import graph
@@ -170,6 +170,36 @@ class ProvManager:
     
         #save the graph (bundle)
         return save_bundle(g)
+    
+    # returns the specified prov bunsle in json format
+    # @bundleId: the id of the stored prov bundle
+    def getProvBundleInJson(self, bundleId):
+        """
+            returns the specified prov bunsle in json format
+        """
         
+        pdBundle = TripLegCarbonEmission.objects.get(provBundle = bundleId).provBundle
+        g = pdBundle.get_prov_bundle()
+        
+        return g._encode_JSON_container()
+        
+    #returns information about a node of a provenance graph
+    def getProvNodeInfo(self, nodeId):
+        components = nodeId.split('-')
+        data = {}
+        if components[0] == 'cf:tripLegEmission':
+            data = {'emissions': TripLegCarbonEmission.objects.get(id=components[1]).emissions}
+        elif components[0] == 'cf:tripLeg':
+            data = {'startAddress': TripLeg.objects.get(id=components[1]).startAddress.street,
+                    'endAddress': TripLeg.objects.get(id=components[1]).endAddress.street,
+                    'transportMean': TripLeg.objects.get(id=components[1]).transportMean.description
+                    }
+        elif components[0] == 'cf:trip':
+            data = {'Name': Trip.objects.get(id=components[1]).name,
+                    'Date': Trip.objects.get(id=components[1]).date,
+                    'Type': Trip.objects.get(id=components[1]).type
+                    }
+        
+        return data
         
         

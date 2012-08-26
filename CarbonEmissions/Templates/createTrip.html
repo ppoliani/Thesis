@@ -12,6 +12,7 @@
     <script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
     <script src="{% static "scripts/bingMaps.js" %}"></script>
     <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
+    <script src="{% static "scripts/utils/jquery.validate.min.js" %}"></script>
 {% endblock %}
 
 
@@ -29,7 +30,7 @@
         {{view App.AddTripView 
         }}
         <button {{action "collateUserInput" target="App.tripManagerController" 
-    }} class="btn btn-inverse">Store trip</button>
+    }} class="btn btn-inverse" onclick="return false;">Store trip</button>
     </script>
 </div>
 
@@ -38,7 +39,7 @@
     <div>
         <span class="form-field-label">What is the name of the trip: </span>
         <!--render the child view template which is declared below-->
-        {{view App.CustomTextField valueBinding="App.tripManagerController.name" 
+        {{view App.CustomTextField valueBinding="App.tripManagerController.name" required="required"
         }}
     </div>
     <div>
@@ -47,7 +48,7 @@
         {{view App.CustomSelect  contentBinding="App.tripTypeOptions"
                     selectionBinding="App.tripManagerController.type"
                     prompt="Please Select"
-                    class="comboBox"
+                    required="required"
         }}
     </div>
      <div>
@@ -69,7 +70,6 @@
     </div>
     
     <div id="trip-legs"></div>
-
 </script>
 
 <!--Template containing the form elements of each trip leg. Child of App.AddTripView--->

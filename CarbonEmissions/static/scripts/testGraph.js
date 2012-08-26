@@ -1,6 +1,6 @@
 var labelType, useGradients, nativeTextSupport, animate;
 $(document).ready(function() {
-	init();
+	//init();
 });
 (function() {
 	var ua = navigator.userAgent, iStuff = ua.match(/iPhone/i) || ua.match(/iPad/i), typeOfCanvas = typeof HTMLCanvasElement, nativeCanvasSupport = (typeOfCanvas == 'object' || typeOfCanvas == 'function'), textSupport = nativeCanvasSupport && ( typeof document.createElement('canvas').getContext('2d').fillText == 'function');
@@ -40,7 +40,7 @@ function init() {
 		}],
 		"data" : {
 			"$color" : "#83548B",
-			"$type" : "ellipse",
+			"$type" : "customNode",
 			"$dim" : 10
 		}
 	},

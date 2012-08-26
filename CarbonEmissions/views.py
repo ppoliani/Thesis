@@ -445,8 +445,8 @@ def computeTripLegsEmissions(request):
     bundle = provManager.createTripLegEmissionGraph(tripLegEmission.id, calculationMethod.id, transportMean.id, transportMeanType,\
                                                             emissionFactor.id, emissionFactor.source.id, drivingDistance, tripLeg.id, tripLeg.startAddress.id,\
                                                             tripLeg.endAddress.id, startTime, endTime)
-    tripLeg.provBundle = bundle
-    tripLeg.save()
+    tripLegEmission.provBundle = bundle
+    tripLegEmission.save()
 
     
     json = simplejson.dumps( {'status': 'OK'} )
@@ -527,6 +527,7 @@ def getTripLegInfo(request):
             tripLegValues[index]['startAddress'] = tripLeg.startAddress.street
             tripLegValues[index]['endAddress'] = tripLeg.endAddress.street
             tripLegValues[index]['method'] = tripLegEmission.method.tier
+            tripLegValues[index]['provBundleId'] = tripLegEmission.provBundle.id
             index += 1
             
     if( numOfTripLegs > 0 ):
@@ -591,4 +592,17 @@ def getTransportMeanReport(request):
                         'rail': railEmissions}) 
     
     return HttpResponse(json.dumps(returnValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
+#return the provenance graph with the id passed as a GET parameter
+def getProvGraph(request):
+    provManager = ProvManager() 
+    returnValues = provManager.getProvBundleInJson(request.GET['provBundleId'])
     
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#return information about a prov graph node (i.e agent, activity or entity)
+def getProvNodeInfo(request):
+    provManager = ProvManager()
+    returnValues = provManager.getProvNodeInfo(request.GET['id'])
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")

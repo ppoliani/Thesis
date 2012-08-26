@@ -8,19 +8,25 @@
     <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.common.min.css" %}" type="text/css"/>
     <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.default.min.css" %}" type="text/css"/>
     
-    <script src="http://code.highcharts.com/highcharts.js"></script>
-    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="{% static "scripts/visualization/highcharts/highcharts.js" %}"></script>
+    <script src="{% static "scripts/visualization/highcharts/modules/exporting.js" %}"></script>
     
     <!-- Additional files for the Highslide popup effect -->
-    <script type="text/javascript" src="http://www.highcharts.com/highslide/highslide-full.min.js"></script>
-    <script type="text/javascript" src="http://www.highcharts.com/highslide/highslide.config.js" charset="utf-8"></script>
-    <link rel="stylesheet" type="text/css" href="http://www.highcharts.com/highslide/highslide.css" />
-
+    <script type="text/javascript" src="{% static "scripts/visualization/highslide/highslide-full.min.js" %}"></script>
+    <!--<script type="text/javascript" src="http://www.highcharts.com/highslide/highslide.config.js" charset="utf-8"></script>-->
+    <link rel="stylesheet" type="text/css" href="{% static "scripts/visualization/highslide/highslide.css" %}" />
+    <link rel="stylesheet" type="text/css" href="{% static "scripts/effects/jqueryUi/css/ui-lightness/jquery-ui-1.8.23.custom.css" %}" />
     
     <script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
+    <script src="{% static "scripts/effects/jqueryUi/js/jquery-ui-1.8.23.custom.min.js" %}"></script>
+     
     <script src="{% static "scripts/visualization/chart.js" %}"></script>
+    <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
     <script src="{% static "scripts/utils/date.js" %}"></script>
     <script src="{% static "scripts/utils/util.js" %}"></script>
+    
+    <script src="{% static "scripts/visualization/Jit/jit-yc.js" %}"></script>
+    <script src="{% static "scripts/visualization/provGraphs.js" %}"></script>
 {% endblock %}
 
 {% block content %}
@@ -73,5 +79,16 @@
             <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
         </div>
     </script>
+    
+    <div id="prov-graph-container">
+        <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+        <div id="center-container">
+            <div id="infovis"></div>
+        </div>
+        <div id="log"></div>
+        <div id="right-container"></div>
+        <div id="inner-details"></div>
+   </div>
+    <div id="backgroundPopup"></div>
 
 {% endblock %}

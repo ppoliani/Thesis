@@ -383,10 +383,6 @@ class TripLeg(models.Model):
     #the time of the trip was made
     time = models.TimeField()
     
-    #the id of the provenace bundle that stores the provenance graph of the trip creation
-    provBundle =  models.ForeignKey(PDBundle, null=True)
-    
-    
     def __unicode__(self):
         """unicode string representation of the model"""
         return u'%s %s' % (self.startAddress, self.endAddress,)
@@ -503,4 +499,7 @@ class TripLegCarbonEmission(models.Model):
     emissionFactor_content_type = models.ForeignKey(ContentType, related_name='emissionFactorUsed')
     emissionfactor_object_id = models.PositiveIntegerField()
     emissionFactor = generic.GenericForeignKey('emissionFactor_content_type', 'emissionfactor_object_id')
+    
+    #the id of the provenace bundle that stores the provenance graph of the trip leg emissions calculation
+    provBundle =  models.ForeignKey(PDBundle, null=True)
     
