@@ -1,0 +1,20 @@
+
+<div class="pagination">
+  <ul>
+  	 {{#view App.PaginatationView pageInfoBinding="App.tripInfoController.pageInfo"
+  	 }}
+        <li>
+        	<a class="paginatio-item" {{action "prevPageClicked" 
+    	   }}>Prev</a>
+    	</li>
+        <span class="paginatio-item">Page {{pageInfo.currentPage
+        	}} of {{pageInfo.totalItems
+        		}}</span>
+    <li>
+        <a class="paginatio-item" {{action "nextPageClicked" 
+           }}>Next</a>
+    </li>
+    {{/view
+    	}}
+  </ul>
+</div>

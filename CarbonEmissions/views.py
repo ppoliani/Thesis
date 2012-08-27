@@ -6,10 +6,10 @@ from CarbonEmissions.forms import TripForm
 import codecs
 import json
 from django.contrib.auth.models import User
+from django.forms import model_to_dict
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.decorators import login_required
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Sum
 from CarbonEmissions.ProvManager import ProvManager
 from django.contrib.contenttypes.models import ContentType
 from decimal import Decimal
@@ -604,5 +604,175 @@ def getProvGraph(request):
 def getProvNodeInfo(request):
     provManager = ProvManager()
     returnValues = provManager.getProvNodeInfo(request.GET['id'])
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+
+#returns the user trip page. (without any trips this is done asynchronously with AJAX) 
+def getUserTrips(request):
+    """
+        returns all the trips that user has made along with information about each trip
+    """
+    userProfile = User.get_profile(request.user)
+
+    return render_to_response('trips.html', {'name': request.user.first_name, 
+                                             'surname': request.user.last_name})
+
+#returns the trips made by user, where the transport mean was a specific car model
+def getTripsWithCarModel(request):
+    """
+        returns the trips made by user, where the transport mean was a specific car model
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Car, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a bus
+def getTripsWithBus(request):
+    """
+        returns the trips made by user, where the transport mean was a bus
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Bus, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a car
+def getTripsWithCar(request):
+    """
+        returns the trips made by user, where the transport mean was a car
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.GeneralCar, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a taxi
+def getTripsWithTaxi(request):
+    """
+        returns the trips made by user, where the transport mean was a taxi
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Taxi, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a rail
+def getTripsWithRail(request):
+    """
+        returns the trips made by user, where the transport mean was a rail
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Rail, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+        
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a motorcycle
+def getTripsWithMotorcycle(request):
+    """
+        returns the trips made by user, where the transport mean was a motorcycle
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+     
+    trips, totalItems = _getUserTripInfo(userProfile, models.Motorcycle, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a ferry
+def getTripsWithFerry(request):
+    """
+        returns the trips made by user, where the transport mean was a ferry
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Ferry, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#returns the trips made by user, where the transport mean was a ferry
+def getTripsWithAirplane(request):
+    """
+        returns the trips made by user, where the transport mean was a ferry
+    """
+    userProfile = User.get_profile(request.user)
+    page = request.GET.get('page')
+    
+    trips, totalItems = _getUserTripInfo(userProfile, models.Airplane, page)
+    returnValues = {'trips': trips, 'totalItems': totalItems}
+    
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+def _getUserTripInfo(userProfile, model, page):
+    pageSize = 2
+    trips = []
+    page = int(page)
+    skip = (page - 1) * pageSize
+    object_list = models.Trip.objects.filter(userProfile=userProfile) #[skip:pageSize]    
+   
+    for trip in object_list:
+        #get all trip legs for this trip and the specified transport mean 
+        tripLegs = trip.tripleg_set.filter(content_type=ContentType.objects.get_for_model(model))
+        
+        #if there are trip which trip legs have specified transport mean then add it to the list.
+        #additionally add the details of all the trip legs of that trip, regardsless of the transport mean used by the
+        #rest trip legs
+        if len(tripLegs) > 0:
+            tripLegs = trip.tripleg_set.all()
+            trips.append({'id': trip.id, 'name': trip.name, 'date': trip.date, 'tripLegs': []})
+            for tripLeg in tripLegs:
+                tripLegEmission = models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg)
+                trips[len(trips)-1]['tripLegs'].append({'from': tripLeg.startAddress.street,
+                                                        'to': tripLeg.endAddress.street,
+                                                        'emissions': tripLegEmission.emissions })
+    
+    return (trips[skip:pageSize], len(trips))   
+    
+
+#return the edit trip page
+def editTrip(request, tripId):
+    """
+        return the edit trip page
+    """
+    
+    #store the trip id in a cookie
+    response = render_to_response('tripEdit.html')
+    response.set_cookie('tripToEdit', tripId)
+    
+    return response
+
+#return information about the specified trip
+def getTrip(request):
+    tripId = request.GET['tripId']
+    trip = models.Trip.objects.get(id=tripId)
+    tripValues = models.Trip.objects.values('name', 'type', 'date').get(id=tripId)
+    tripLegValues = []   
+    tripLegs = trip.tripleg_set.all()
+    
+    for tripLeg in tripLegs:
+        tripLegData = {'startAddress': model_to_dict(tripLeg.startAddress),
+                       'endAddress': model_to_dict(tripLeg.endAddress)}
+        tripLegValues.append(tripLegData)
+    
+    returnValues = {'trip': tripValues, 'tripLegs': tripLegValues} 
     
     return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")

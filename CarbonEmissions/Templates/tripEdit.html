@@ -1,0 +1,25 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}Edit Trip{% endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.common.min.css" %}" type="text/css"/>
+    <link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.default.min.css" %}" type="text/css"/>
+    
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.2"></script>
+    <script type="text/javascript" src="http://ecn.dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=7.0"></script>
+    <script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
+    <script src="{% static "scripts/bingMaps.js" %}"></script>
+    <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
+    <script src="{% static "scripts/utils/jquery.validate.min.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+    <script>
+        $(document).ready(function(){
+            App.tripManagerController.loadTripInformation();
+        });
+    </script>
+    {% include 'shared/includes/tripForm.html' %}
+{% endblock %}

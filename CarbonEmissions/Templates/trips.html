@@ -1,0 +1,138 @@
+{% extends 'shared/base.html' %}
+
+{% block title %}Trips made by {{name}} {{surname}}{% endblock %}
+
+{% block additionalScripts %}
+    {% load staticfiles %}
+
+	<link rel="stylesheet" href="{% static "css/base.css" %}" type="text/css"/>
+	<link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.common.min.css" %}" type="text/css"/>
+	<link rel="stylesheet" href="{% static "scripts/kendoUi/styles/kendo.default.min.css" %}" type="text/css"/>
+	
+	<script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
+	<script src="{% static "scripts/utils/pagination.js" %}"></script>
+{% endblock %}
+
+{% block content %}
+<div id="forecast">
+    <div id="tabstrip">
+        <ul>
+            <li class="k-state-active">Car Model</li>
+            <li>Car</li>
+            <li>Bus</li>
+            <li>Taxi</li>
+            <li>Rail</li>
+            <li>Motorcycle</li>
+            <li>Ferry</li>
+            <li>Aviation</li>
+        </ul>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a specific car model</h2> 
+                <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+              
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a car</h2>
+                 <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a bus</h2>
+                 <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a taxi</h2>
+                <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a train</h2>
+                <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a motorcycle</h2>
+                <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with a ferry</h2>
+                <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+        <div>
+            <div class="tab">
+                <h2>Trips made with an airplane</h2>
+		        <script type="text/x-handlebars">
+                    {{view App.TripInfoView class="tripInfo"
+                    }}
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/x-handlebars" data-template-name="tripInfoView">
+    <dl>
+    	{{#each App.tripInfoController.pageInfo.trips
+    	}}
+    	   <dt>{{name
+    	   	}} - {{date
+    	   		}}</dt>
+    	   <dd><ul>{{#each tripLegs
+    	   	    }}   
+    	   	   <li>From: {{from
+    	   	   	}}<li/> 
+    	   	   	<li>To: {{to
+    	   	   		}}<li/>
+    	   	   	<li>Emissions: {{emissions
+    	   	   		}}<li/>  
+    	   	   {{/each
+    	   	   }}
+    	   	   	</ul>
+    	   	   
+    	   	   	   <a {{bindAttr id="id"
+                    }} {{action "edit"
+                    }} class="btn btn-primary">Edit</a>
+                
+                    <a {{bindAttr id="id"
+                    }} {{action "deleteTrip"
+                    }} class="btn btn-danger">Delete</a>
+    	   	   	
+    	   	</dd>
+    	{{/each
+    	}}
+    	{% include 'shared/includes/pagination.html' %}
+    </dl>
+</script>
+{% endblock %}
+

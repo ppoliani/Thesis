@@ -1221,10 +1221,49 @@ App.tripManagerController = Em.Object.create({
 
      
      	return yyyy +'-' +mm1 +'-' +dd +'T' +hh +':' +mm2 +':' +ss + '.' + ms;
+	},
+	
+	
+	/*load information about a stored trip and populates the form appropriatle for trip alteration*/
+	loadTripInformation: function(){
+		var tripId = this.util.readCookie('tripToEdit');
+		var url = '/get-trip/?tripId='+ tripId;
+		var self = this;
+		
+		$.getJSON(url, function(data){
+			self.set('name', data.trip.name);
+			self.set('type', data.trip.type);
+			self.set('date', data.trip.date);
+			
+			//fill trip legs
+			App.addTripView.set('selectedValue', data.tripLegs.length);	
+			var tripLegsContainer = App.addTripView.get('tripLegsContainer');
+			var tripLegViews = tripLegsContainer.get('childViews');
+			
+			$.each(data.tripLegs, function(index, value){
+				var tripLegView = tripLegViews[index];
+				tripLegView.set('startAddress',App.Address.create({
+					country: value.startAddress.country,
+					city: value.startAddress.city,
+					postalCode: value.startAddress.postalCode,
+					street: value.startAddress.street,
+					latitude: value.startAddress.latitude,
+					longitude: value.startAddress.longitude,	
+				}));	
+				
+				tripLegView.set('endAddress',App.Address.create({
+					country: value.endAddress.country,
+					city: value.endAddress.city,
+					postalCode: value.endAddress.postalCode,
+					street: value.endAddress.street,
+					latitude: value.endAddress.latitude,
+					longitude: value.endAddress.longitude,	
+				}));
+			})
+		});
 	}
 	
 });
-
 
 /*************************************
  * Select field options

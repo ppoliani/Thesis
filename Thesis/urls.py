@@ -5,7 +5,9 @@ from CarbonEmissions.views import parseCarCsv, createTrip, getCarManufacturers, 
                                 getCarModelData, getTransportMeanId, saveTrip, saveTripLeg, prov, getGeneralCarDescription, \
                                 computeTripLegsEmissions, getBusDescriptions, getTaxiDescriptions, getMotorcycleDescriptions, \
                                 getFerryDescriptions, getRailDescriptions, getAviationDescriptions, graph, getTripInfo, \
-                                report, getTripLegInfo, getTransportMeanReport, getProvGraph, getProvNodeInfo
+                                report, getTripLegInfo, getTransportMeanReport, getProvGraph, getProvNodeInfo, getUserTrips, \
+                                getTripsWithCarModel, getTripsWithBus, getTripsWithCar, getTripsWithTaxi, getTripsWithRail, \
+                                getTripsWithMotorcycle, getTripsWithFerry, getTripsWithAirplane, editTrip, getTrip
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -25,6 +27,8 @@ urlpatterns = patterns('',
     (r'accounts/logout/$', logout),
     (r'^parse/$', parseCarCsv),
     (r'^add-trip/$', createTrip),
+    (r'^edit-trip/$', createTrip),
+    (r'^get-trip/$', getTrip),
     (r'^get-general-car-descriptions/$', getGeneralCarDescription),
     (r'^get-bus-descriptions/$', getBusDescriptions),
     (r'^get-taxi-descriptions/$', getTaxiDescriptions),
@@ -50,6 +54,18 @@ urlpatterns = patterns('',
     (r'^graph/$', graph),
     (r'^get-prov-graph/$', getProvGraph),
     (r'^get-prov-node-info/$', getProvNodeInfo),
+    (r'^trips/$', getUserTrips),
+    
+    (r'^get-trips-with-car-model/$', getTripsWithCarModel),
+    (r'^get-trips-with-car/$', getTripsWithCar),
+    (r'^get-trips-with-bus/$', getTripsWithBus),
+    (r'^get-trips-with-taxi/$', getTripsWithTaxi),
+    (r'^get-trips-with-rail/$', getTripsWithRail),
+    (r'^get-trips-with-motorcycle/$', getTripsWithMotorcycle),
+    (r'^get-trips-with-ferry/$', getTripsWithFerry),
+    (r'^get-trips-with-airplane/$', getTripsWithAirplane),
+    
+    (r'^edit-trip/(\d{1,2})/$', editTrip),
 )
 
     
