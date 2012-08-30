@@ -137,10 +137,23 @@ function openJQueryWindow(elementId) {
 	$( elementId ).dialog({
    		close: function(event, ui) {
    			disableBackgroundPopup();	
+   			deleteTempProvGraphImg();
+   			$( "#static-prov-graph" ).toggleClass( "invisible", 100 );
+			$( "#center-container" ).toggleClass( "invisible", 100 );
    		},
    		
    		minWidth: 970
 	});
 
 	
+}
+
+
+function deleteTempProvGraphImg(){
+	var url = '/delete-temp-prov-img/';
+	
+	$.ajax({
+		type: 'GET',
+		url: url
+	});
 }

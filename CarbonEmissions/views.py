@@ -17,6 +17,7 @@ import datetime
 from googlemaps import GoogleMaps
 
 from django.utils import simplejson
+from numpy.ma.core import logical_and
 
 #constants
 GOOGLE_MAPS_API_KEY = 'AIzaSyDY0dYuWgX47mvEyJoiRjky76pLBTZTlfQ'
@@ -454,8 +455,68 @@ def computeTripLegsEmissions(request):
     return HttpResponse(json, mimetype='application/json')
 
 #return the carbon footprint report template
+@login_required
 def report(request):
-    return render_to_response('report.html')
+    stats = {}
+    stats['individual'] = getIndividualStats(User.get_profile(request.user))
+    stats['group'] = getGroupStats(User.get_profile(request.user))
+    
+    return render_to_response('report.html', {'stats': stats})
+
+#returns some individual stats concerning ghg emissions
+def getIndividualStats(userProfile):
+    trips = models.Trip.objects.all().filter(userProfile=userProfile)
+    stats = {}
+    emissions = []
+    
+    for trip in trips:
+        #get all trip legs of this trip
+        tripLegs = trip.tripleg_set.all()
+        
+        #get all the emissions for this trip leg
+        for tripLeg in tripLegs:
+            emissions.append( models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg).emissions)
+
+    stats['total'] = sum(emissions)
+    stats['min'] = min(emissions)
+    stats['max'] = max(emissions)
+    stats['avg'] = sum(emissions) / len(emissions)
+    stats['numOfTrips'] = len(trips)
+
+    return stats
+
+#returns some individual stats concerning ghg emissions
+def getGroupStats(userProfile):
+    stats = {}
+    emissions = []
+    numOfTrips = 0
+    userGroups = userProfile.group_set.all()
+    
+    #iterate over all the groups that user is member of 
+    for group in userGroups:
+        #find the trips of all the members of the group
+        groupUsers = group.users.all()
+        
+        for user in groupUsers:
+            trips = models.Trip.objects.all().filter(userProfile=user)
+            numOfTrips += len(trips)
+            for trip in trips:
+                #get all trip legs of this trip
+                tripLegs = trip.tripleg_set.all()
+                
+                #get all the emissions for this trip
+                for tripLeg in tripLegs:
+                    emissions.append( models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg).emissions)
+
+    stats['total'] = sum(emissions)
+    stats['min'] = min(emissions)
+    stats['max'] = max(emissions)
+    stats['avg'] = sum(emissions) / len(emissions)
+    stats['numOfTrips'] = numOfTrips
+    
+    return stats
+
+
 
 #return the trip  information that is needed for the charts and that took place during the time period specified by the parameters
 def getTripInfo(request):
@@ -468,10 +529,11 @@ def getTripInfo(request):
     
     startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
     endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    userProfile = User.get_profile(request.user)
     #trips that took place during the specified time period
-    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate), userProfile=userProfile)
                                              
-    tripValues = list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate)))
+    tripValues = list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate), userProfile=userProfile))
     
     ghgEmissions = 0
     index = 0
@@ -497,7 +559,67 @@ def getTripInfo(request):
     
     if( numOfTripLegs > 0 ):    
         tripValues.append({'avg': float(totalEmissions/numOfTripLegs)}) 
+    else:
+        tripValues.append({'avg': 0}) 
     return HttpResponse(json.dumps(tripValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
+
+
+#returns emission information about groups
+def getGroupEmissionInfo(request):
+    #create python dates from input strings
+    fromDate = request.GET['from'].split('-')
+    untilDate = request.GET['until'] .split('-')
+    
+    startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
+    endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    
+    userProfile = User.get_profile(request.user)
+    userGroups = userProfile.group_set.all()
+    numOfTripLegs = 0
+    groupValues = {}
+    
+    #iterate over all gorups
+    for group in userGroups:
+        #find the trips of all the members of the group
+        groupUsers = group.users.all()
+        tripValues = []
+        index = 0
+        
+        for user in groupUsers:
+            #trips that took place during the specified time period
+            trips = models.Trip.objects.all().filter(date__range=(startDate, endDate), userProfile=user)                                            
+            tripValues += list(models.Trip.objects.values('type','name','date').filter(date__range=(startDate, endDate), userProfile=user))         
+            ghgEmissions = 0
+            totalEmissions = 0
+            
+            for trip in trips:
+                #get all trip legs of this trip
+                tripLegs = trip.tripleg_set.all()
+                
+                #get all the emissions for this trip leg
+                for tripLeg in tripLegs:
+                    numOfTripLegs += 1
+                    #since each trip leg might have several emissions based on the emission factors used, in the futures specify the 
+                    #source of emissions factors.
+                    ghgEmissions += models.TripLegCarbonEmission.objects.get(tripLeg=tripLeg).emissions
+                    totalEmissions += ghgEmissions
+                
+                #add the computed emissions for that trip in the appropriate place in the dictionary
+                tripValues[index]['emissions'] = ghgEmissions
+                index += 1
+                ghgEmissions = 0
+                
+        if( numOfTripLegs > 0 ):    
+            tripValues.append({'avg': float(totalEmissions/numOfTripLegs)})
+        else:
+            tripValues.append({'avg': 0})        
+        
+        groupValues[group.name] = tripValues
+
+        
+    return HttpResponse(json.dumps(groupValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
 
 #return the trip leg information that is needed for the charts and that took place during the time period specified by the parameters
 def getTripLegInfo(request):
@@ -507,12 +629,14 @@ def getTripLegInfo(request):
     
     startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
     endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    userProfile = User.get_profile(request.user)
     #trips that took place during the specified time period
-    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate), userProfile=userProfile)
     tripLegValues = [] 
     index = 0
     totalEmissions = 0
     numOfTripLegs = 0
+     
     for trip in trips:
         #get all trip legs of this trip
         tripLegs = trip.tripleg_set.all()
@@ -532,7 +656,10 @@ def getTripLegInfo(request):
             
     if( numOfTripLegs > 0 ):
         tripLegValues.append({'avg': float(totalEmissions/numOfTripLegs)})  
+    else:
+        tripLegValues.append({'avg': 0}) 
     return HttpResponse(json.dumps(tripLegValues,  cls=DjangoJSONEncoder), mimetype="application/json")
+
 
 #return transport means information for trips that is needed for the charts and that took place during the time period specified 
 #by the parameters
@@ -543,8 +670,9 @@ def getTransportMeanReport(request):
     
     startDate = datetime.date(int(fromDate[0]), int(fromDate[1]), int(fromDate[2]))
     endDate = datetime.date(int(untilDate[0]), int(untilDate[1]), int(untilDate[2]))
+    userProfile = User.get_profile(request.user)
     #trips that took place during the specified time period
-    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate))
+    trips = models.Trip.objects.all().filter(date__range=(startDate, endDate), userProfile=userProfile)
     returnValues = []
     
     carModelEmissions = 0
@@ -597,8 +725,20 @@ def getTransportMeanReport(request):
 def getProvGraph(request):
     provManager = ProvManager() 
     returnValues = provManager.getProvBundleInJson(request.GET['provBundleId'])
+
+    return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#crates a temporary static png image of the graph of a provenance graph
+def getStaticProvGraph(request):
+    provManager = ProvManager() 
+    returnValues = provManager.createTempProvGraphImage(request.GET['provBundleId'])
     
     return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+#deletes the temporary prov graph that was created earlier
+def deleteTempProvImg(request):
+    provManager = ProvManager()
+    provManager.deleteTempProvGraphImage()
 
 #return information about a prov graph node (i.e agent, activity or entity)
 def getProvNodeInfo(request):

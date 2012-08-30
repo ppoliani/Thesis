@@ -8,6 +8,7 @@
 	animate = !(iStuff || !nativeCanvasSupport);
 })();
 
+
 /*Prov graph managet*/
 App.ProvGraphManager = Em.Object.extend({
 	
@@ -93,6 +94,11 @@ App.ProvGraphManager = Em.Object.extend({
       			} 
     		} 
   		}); 
+	},
+	
+	/*displays a static png image of the provenance graph*/
+	showStaticProvGraph: function(imagePath){
+		$('#infovis').css('display', 'none');	
 	},
 	
 	/*Initialize graphs*/
@@ -236,6 +242,8 @@ App.ProvGraphManager = Em.Object.extend({
 				
 			}
 		});
+		
+		$( "#ajax-preloader" ).toggleClass( "invisible", 100 ); 
 		// end
 	},
 	
@@ -246,6 +254,7 @@ App.ProvGraphManager = Em.Object.extend({
 		
 		$.getJSON(url, function(data){
 			self.convertJson(data);	
+			$( "#static-prov-graph" ).attr( "src", '/static/images/provGraphs/dot-test.png' ); 
 		});
 	},
 	

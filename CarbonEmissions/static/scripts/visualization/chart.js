@@ -13,9 +13,15 @@ $(document).ready(function() {
         $(".untilDate").kendoDatePicker({
         	format: 'yyyy-MM-dd'
         });
+        
+        $( "#button" ).click(function() {
+			$( "#static-prov-graph" ).toggleClass( "invisible", 100 );
+			$( "#center-container" ).toggleClass( "invisible", 100 );
+			return false;
+		});
 	} );
 });
-
+            
 /*************************************
  * Models
  *************************************/
@@ -56,10 +62,12 @@ App.ChartView = Em.ContainerView.extend({
 		var ghgPerTripView = App.GhgPerTripView.create();
 		var ghgPerTripLegView = App.GhgPerTripLegView.create();
 		var ghgPerTransportMean = App.GhgPerTransportMeanView.create();
+		var groupGhg = App.GroupGhgView.create();
 		
 		this.addChildView(ghgPerTripLegView);
 		this.addChildView(ghgPerTripView);
 		this.addChildView(ghgPerTransportMean);
+		this.addChildView(groupGhg);
 	},
 	
 	/*shows the default graphs after the page is loaded*/
@@ -126,6 +134,41 @@ App.GhgPerTripView = Em.View.extend({
 		 App.lineChartController.fetchDataForCharts('trip', timePeriod, this.get('parentView'));
 	},
 });
+
+
+/*view diplaying the chart illustrating ghg emissions for all users groups*/
+App.GroupGhgView = Em.View.extend({
+	templateName: 'group-ghg',
+	tagName: 'section',
+	from: '2012-08-01',
+	until: '2012-08-30',
+	
+	initializeChart: function(){
+		this.showGroupGhg({
+			from : this.from,
+			until : this.until,
+		});		
+	},
+	
+	fromChanged: function(){
+		this.showGroupGhg({
+			from : this.from,
+			until : this.until,
+		});		
+	}.observes('from'),
+	
+	untilChanged: function(){
+		this.showGroupGhg({
+			from : this.from,
+			until : this.until,
+		});		
+	}.observes('until'),
+	
+	showGroupGhg : function(timePeriod) {
+		 App.lineChartController.fetchDataForCharts('group', timePeriod, this.get('parentView'));
+	},
+});
+
 
 /*View displaying chart illustrating ghg emissions pre trip leg*/
 App.GhgPerTripLegView = Em.View.extend({
@@ -223,6 +266,11 @@ App.lineChartController = Em.Object.create({
 				url = '/get-tranpsport-mean-report/?from=' + timePeriod.from 
 											  + '&until=' + timePeriod.until;
 				break
+			
+			case 'group':
+				url = '/get-group-info/?from=' + timePeriod.from 
+											  + '&until=' + timePeriod.until;
+				break
 		}
 		var self = this;
 		
@@ -234,19 +282,130 @@ App.lineChartController = Em.Object.create({
 					
 					break
 				case 'trip':
-					callBack.showChart(self.populateLineChart(data, timePeriod, 'tripChart'));
+					callBack.showChart(self.populateLineChart(data, timePeriod, 'tripChart', 'GHG Emissions Per Trip'));
 					
 					break
 				case 'transportMean':
 					callBack.showChart(self.populateHorizontalBarChart(data, 'transportMeanChart'));
 					
 					break
+				case 'group':
+					callBack.showChart(self.populateMultipleLineChart(data,timePeriod, 'groupChart', 'Group Emissions'));
+					
+					break
 			}
 		});	
 	},
 	
+	populateMultipleLineChart: function(data, timePeriod, renderTo, title){
+		var self = this;
+				
+		//populate appropratly the chart
+		//fing the xAxis categories. This depends on the time period passed as a parameter
+		var fromDate = new Date(Date.parse((timePeriod.from).replace(/-/g, " ")));
+		var untilDate = new Date(Date.parse((timePeriod.until).replace(/-/g, " ")));
+		var xAxisCategories = this.util.dateRange(fromDate, untilDate);
+		
+		var seriesData = [];
+		//this.util.initalizeArray(seriesData, this.util.daydiff(fromDate, untilDate));
+		
+		var tripNames = [];
+		this.util.initalizeArray(tripNames, this.util.daydiff(fromDate, untilDate));
+		var index = 0;
+		
+		for (value in data){
+			var dataArray = [];
+			this.util.initalizeArray(dataArray, this.util.daydiff(fromDate, untilDate));
+			seriesData.push({
+					name: value,	
+					data: dataArray
+			});
+			
+			var groupTrips = data[value];
+			
+			for(var i = 0; i < groupTrips.length - 1; i++){
+				try{
+					//days passed between the time period.from and the value.date (the date of the trip)
+					var dayDiff = self.util.daydiff(fromDate, new Date(Date.parse((groupTrips[i].date).replace(/-/g, " "))));
+				}catch(error){
+					//do nothing
+				}
+				//add the emissions to the apropriate position, so that i matches the day on the xAxis
+				seriesData[index].data[dayDiff] = parseFloat(groupTrips[i].emissions);
+				
+				//seriesData[dayDiff] = 
+			}
+			index++;
+		}
+		
+		/*data needed for the line chart to be drawn*/
+		var chartModel = App.ChartModel.create({
+			renderTo: renderTo,
+			type: 'line',
+			title: {
+				text : title,
+				x : -20 //center
+			},
+			subtitle: {
+				text : '',
+				x : -20
+			},		
+			xAxis: {
+				categories : xAxisCategories
+			},
+			yAxis: {
+				title : {
+					text : 'Kg CO2e'
+				},
+				plotLines : [{
+					value : 0,
+					width : 1,
+					color : '#808080'
+				}]
+			},
+			tooltip: {
+				formatter : function() {
+					return '<b>' + this.point.name + '</b><br/>' + this.x + ': ' + '<b>' + this.y + ' Kg CO2e</b>';
+				}
+			},
+			
+			legend: {
+				layout : 'vertical',
+				align : 'right',
+				verticalAlign : 'top',
+				x : -10,
+				y : 100,
+				borderWidth : 0
+			},
+			
+			plotOptions: {
+				line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                },
+               
+  			    series: {
+                	cursor: 'pointer',
+                	point: {
+                    	events: {
+                        	click: function() {
+                            	//alert ('Category: '+ this.category +', value: '+ this.y);
+                        	}
+                    	}
+                	}
+            	}
+        },
+			series: seriesData
+		});
+		
+		return chartModel;	
+	},
+	
+	
 	/*populates the chart with the retrieved data*/
-	populateLineChart: function(data, timePeriod, renderTo){
+	populateLineChart: function(data, timePeriod, renderTo, title){
 		var self = this;
 				
 		//populate appropratly the chart
@@ -281,7 +440,7 @@ App.lineChartController = Em.Object.create({
 			renderTo: renderTo,
 			type: 'line',
 			title: {
-				text : 'GHG Emissions Per Trip',
+				text : title,
 				x : -20 //center
 			},
 			subtitle: {
@@ -449,9 +608,12 @@ App.lineChartController = Em.Object.create({
                         			//do nothing
                         		}
                         		
-                            	openJQueryWindow('#prov-graph-container');                      
+                            	openJQueryWindow('#prov-graph-container');   
+                            	$( "#ajax-preloader" ).toggleClass( "invisible", 100 );
+                            	$( "#button" ).toggleClass( "invisible", 100 );               
                             	App.provGraphManager = App.ProvGraphManager.create();
                             	App.provGraphManager.loadProvBundle(this.provBundleId);
+                            	$( "#static-prov-graph" ).attr( "src", '/static/images/provGraphs/dot-test.png' ); 
                         	}
                     	}
                 }

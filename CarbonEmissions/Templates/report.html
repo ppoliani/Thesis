@@ -33,6 +33,16 @@
     <section id="chartContainer"></section>
     
      <script type="text/x-handlebars" data-template-name="ghg-per-trip-leg">
+     	<section class="stats">
+     		<h1>Individual Stats</h1>
+     		<ul>
+     			 <li>Number of trips made: {{stats.individual.numOfTrips}}</li>
+     		     <li>Total GHG emissions: {{stats.individual.total}} Kg CO2e</li>
+     		     <li>Min GHG emissions: {{stats.individual.min}} Kg CO2e</li>
+     		     <li>Max GHG emissions: {{stats.individual.max}}</li>
+     		     <li>Average GHG emissions per trip: {{stats.individual.avg}}</li>
+     		</ul>
+     	</section>
         <div>
             <label for="from">From: </label>
             {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
@@ -80,15 +90,46 @@
         </div>
     </script>
     
+     <script type="text/x-handlebars" data-template-name="group-ghg">
+     	<section class="stats">
+            <h1>Group Stats</h1>
+            <ul>
+            	 <li>Number of trips made: {{stats.group.numOfTrips}}</li>
+                 <li>Total GHG emissions: {{stats.group.total}}</li>
+                 <li>Min GHG emissions: {{stats.group.min}}</li>
+                 <li>Max GHG emissions: {{stats.group.max}}</li>
+                 <li>Average GHG emissions per trip: {{stats.group.avg}}</li>
+            </ul>
+        </section>
+        <div>
+            <label for="from">From: </label>
+            {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
+            }}
+        
+            <label for="until">Until: </label>
+            {{view App.CustomTextField valueBinding="until" class="inline untilDate"
+            }}
+        </div>
+    
+        <div id="groupChart" style="min-width: 400px; height: 400px; margin: 0 auto">
+            <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+        </div>
+    </script>
+    
     <div id="prov-graph-container">
-        <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
+    	<div id="controllers">
+	    	<a href="#" id="button" class="ui-state-default ui-corner-all invisible">View Alternative Graph</a>
+	        <img id="ajax-preloader" class="invisible" src="{% static "images/ajax-loader.gif" %}" />
+	        <img id="static-prov-graph" class="invisible" src="" />
+        </div>
+        
         <div id="center-container">
             <div id="infovis"></div>
         </div>
         <div id="log"></div>
         <div id="right-container"></div>
         <div id="inner-details"></div>
-   </div>
+    </div>
     <div id="backgroundPopup"></div>
 
 {% endblock %}

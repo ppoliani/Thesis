@@ -7,7 +7,8 @@ from CarbonEmissions.views import parseCarCsv, createTrip, getCarManufacturers, 
                                 getFerryDescriptions, getRailDescriptions, getAviationDescriptions, graph, getTripInfo, \
                                 report, getTripLegInfo, getTransportMeanReport, getProvGraph, getProvNodeInfo, getUserTrips, \
                                 getTripsWithCarModel, getTripsWithBus, getTripsWithCar, getTripsWithTaxi, getTripsWithRail, \
-                                getTripsWithMotorcycle, getTripsWithFerry, getTripsWithAirplane, editTrip, getTrip
+                                getTripsWithMotorcycle, getTripsWithFerry, getTripsWithAirplane, editTrip, getTrip, getGroupEmissionInfo, \
+                                deleteTempProvImg
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -53,6 +54,7 @@ urlpatterns = patterns('',
     
     (r'^graph/$', graph),
     (r'^get-prov-graph/$', getProvGraph),
+    (r'^delete-temp-prov-img/$', deleteTempProvImg),
     (r'^get-prov-node-info/$', getProvNodeInfo),
     (r'^trips/$', getUserTrips),
     
@@ -64,6 +66,7 @@ urlpatterns = patterns('',
     (r'^get-trips-with-motorcycle/$', getTripsWithMotorcycle),
     (r'^get-trips-with-ferry/$', getTripsWithFerry),
     (r'^get-trips-with-airplane/$', getTripsWithAirplane),
+    (r'^get-group-info/$', getGroupEmissionInfo),
     
     (r'^edit-trip/(\d{1,2})/$', editTrip),
 )

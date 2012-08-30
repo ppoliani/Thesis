@@ -12,6 +12,8 @@ import matplotlib.image as mpimg
  
 
 class ProvManager:
+    filepath = None
+    
     """
     Class responsible fror provenance-centered tasks 
     """
@@ -177,11 +179,33 @@ class ProvManager:
         """
             returns the specified prov bunsle in json format
         """
-        
+        self.createTempProvGraphImage(bundleId)
         pdBundle = TripLegCarbonEmission.objects.get(provBundle = bundleId).provBundle
         g = pdBundle.get_prov_bundle()
         
         return g._encode_JSON_container()
+    
+    #creates a temporary png image illustrating a provenance graph
+    def createTempProvGraphImage(self, bundleId):
+        """
+            creates a temporary png image illustrating a provenance graph
+        """
+        pdBundle = TripLegCarbonEmission.objects.get(provBundle = bundleId).provBundle
+        g = pdBundle.get_prov_bundle()
+        
+        #visualize the graph
+        path = "C:\\Users\\Boliev\\My Documents\\Aptana Studio 3 Workspace\\Thesis\\CarbonEmissions\\static\\images\\provGraphs\\"
+        self.__class__.filepath = os.path.join(path, 'dot-test.png')
+        
+        # Convert it to DOT
+        dot = graph.prov_to_dot(g)
+        dot.set_dpi(120)
+        # Write it to a temporary PNG file
+        dot.write_png(self.__class__.filepath)
+    
+    #deletes a temporary png image that was created earlier and illustrates a provenance graph 
+    def deleteTempProvGraphImage(self):
+        os.remove(self.__class__.filepath)
         
     #returns information about a node of a provenance graph
     def getProvNodeInfo(self, nodeId):
