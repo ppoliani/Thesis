@@ -22,6 +22,9 @@ from numpy.ma.core import logical_and
 #constants
 GOOGLE_MAPS_API_KEY = 'AIzaSyDY0dYuWgX47mvEyJoiRjky76pLBTZTlfQ'
 
+def home(request):
+    return render_to_response('home.html')
+
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
 

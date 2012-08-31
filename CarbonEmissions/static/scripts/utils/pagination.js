@@ -140,6 +140,7 @@ App.tripInfoController = Em.ArrayController.create({
 				transportMean: transportMean,
 				totalItems: data.totalItems,
 				pageSize: 2,
+				numOfPages: Math.ceil(data.totalItems / 2)
 			});
 		
 			self.set('pageInfo', pageInfo);	

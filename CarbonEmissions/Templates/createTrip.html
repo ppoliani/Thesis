@@ -15,6 +15,41 @@
     <script src="{% static "scripts/utils/jquery.validate.min.js" %}"></script>
 {% endblock %}
 
+{% block menu %}
+        <div class="navbar">
+            <div class="navbar-inner">
+                <nav class="container">
+                    <a class="brand pull-right" href="/"> Carbon Emissions </a>
+                    <ul class="nav">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li class="active">
+                            <a href="">Add Trip</a>
+                        </li>
+                        <li>
+                            <a href="/trips/">View Trips</a>
+                        </li>
+                        <li>
+                            <a href="/report/">Carbon Footprints Report</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+{% endblock %}
+        
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Home</a><span class="divider">/</span>
+        </li>
+        <li class="active">
+            <a href="/">Add Trip</a><span class="divider">/</span>
+        </li>
+    </ul>
+{% endblock %}
 
 {% block content %}
 
@@ -30,20 +65,20 @@
         {{view App.AddTripView 
         }}
         <button {{action "collateUserInput" target="App.tripManagerController" 
-    }} class="btn btn-inverse" onclick="return false;">Store trip</button>
+    }} class="btn btn-inverse form-btn"  data-loading-text="Storing..." onclick="return false;">Store trip</button>
     </script>
 </div>
 
 <!--The template of the main add trip view (App.AddTripView)-->
 <script type="text/x-handlebars" data-template-name="add-trip-view">
-    <div>
-        <span class="form-field-label">What is the name of the trip: </span>
+    <div class="form-element">
+        <label class="form-field-label">What is the name of the trip: </label>
         <!--render the child view template which is declared below-->
         {{view App.CustomTextField valueBinding="App.tripManagerController.name" required="required"
         }}
     </div>
-    <div>
-        <span class="form-field-label">What is the type of the trip: </span>
+    <div class="form-element">
+        <label class="form-field-label">What is the type of the trip: </label>
         <!--render the child view template which is declared below-->
         {{view App.CustomSelect  contentBinding="App.tripTypeOptions"
                     selectionBinding="App.tripManagerController.type"
@@ -51,24 +86,22 @@
                     required="required"
         }}
     </div>
-     <div>
-        <span class="form-field-label">Date: </span>
+     <div class="form-element">
+        <label class="form-field-label">Date: </label>
         <!--render the child view template which is declared below-->
         {{view App.CustomTextField valueBinding="App.tripManagerController.date" name="tripDate" elementId="dateTimePicker"
         }}
     </div>
-    <div>
-        <span class="form-field-label">How many trip legs does the trip has: </span>
+    <div class="form-element">
+        <label class="form-field-label">How many trip legs does the trip has: </label>
         <!--render the child view template which is declared below-->
         {{view App.CustomSelect contentBinding="App.numOfTripLegOptions"
                     selectionBinding="App.addTripView.selectedValue"
                     prompt="Please Select"
                     class="comboBox"
         }}
-        
-        <hr />
     </div>
-    
+    <hr class="clear"/>
     <div id="trip-legs"></div>
 </script>
 
@@ -86,20 +119,20 @@
     <div id="backgroundPopup"></div>
     
     <h2>Addresses</h2>
-    <div>
-    	<span class="form-field-label">Source: </span>
+    <div class="form-element">
+    	<label class="form-field-label">Source: </label>
         {{view App.AddressTextField  class="startAddress" valueBinding="startAddress.street" 
     	}}
     </div>
-    <div>
-        <span class="form-field-label">Visibility: </span>
+    <div class="form-element">
+        <label class="form-field-label">Visibility: </label>
         {{view Em.Select contentBinding="App.addressVisibilityOptions"
                     selectionBinding="startAddrVisibility"
                     prompt="Please Select"
         }}
     </div>
-    <div>
-        <span class="form-field-label">Destination: </span>
+    <div class="form-element">
+        <label class="form-field-label">Destination: </label>
         {{view App.AddressTextField class="endAddress" valueBinding="endAddress.street" 
         }}
     </div>
@@ -108,16 +141,16 @@
         {{view Em.TextField valueBinding="addressName"
         }}
     </div>-->
-    <div>
-        <span class="form-field-label">Visibility: </span>
+    <div class="form-element">
+        <label class="form-field-label">Visibility: </label>
         {{view Em.Select contentBinding="App.addressVisibilityOptions"
                     selectionBinding="endAddrVisibility"
                     prompt="Please Select"
         }}
     </div>
     <h2>Transport Mean</h2>
-    <div>
-        <span class="form-field-label">Type: </span>
+    <div class="form-element">
+        <label class="form-field-label">Type: </label>
         <!--Bind selection value to the type property of this App.addTripView instance. That's why we use temp and not App.AddTripView.temo
         	because bindings to class property does not work!-->
         {{view Em.Select contentBinding="App.transportMeanOptions"
@@ -128,87 +161,88 @@
     
     <div {{bindAttr id="transportMeanContainerId" 
     }}></div>
-
+    
+    <hr />
 </script>
 
 <!--Template containing the form elements populated by car data from data base. Child of App.TripLegView -->
 <script type="text/x-handlebars" data-template-name="car-view">
-    <div>
-        <span class="form-field-label">manufacturer: </span>
+    <div class="form-element">
+        <label class="form-field-label">manufacturer: </label>
         {{view Em.Select contentBinding="manufacturers"
                     selectionBinding="manufacturer"
                     prompt="Please Select"
         }}
     </div>
-     <div>
-        <span class="form-field-label">Model: </span>
+     <div class="form-element">
+        <label class="form-field-label">Model: </label>
         {{view Em.Select contentBinding="models"
                     selectionBinding="model"
                     prompt="Please Select"
         }}
     </div>
-     <div>
-        <span class="form-field-label">Description: </span>
+     <div class="form-element">
+        <label class="form-field-label">Description: </label>
         {{view Em.Select contentBinding="descriptions"
                     selectionBinding="description"
                     prompt="Please Select"
         }}
     </div>
-    <div>
-        <span class="form-field-label">Engine Capacity: </span>
+    <div class="form-element">
+        <label class="form-field-label">Engine Capacity: </label>
         {{view Em.Select contentBinding="engineCapacities"
                     selectionBinding="engineCapacity"
                     prompt="Please Select"
         }}
     </div>
-    <div>
-        <span class="form-field-label">Transmission: </span>
+    <div class="form-element">
+        <label class="form-field-label">Transmission: </label>
         {{view Em.Select contentBinding="transmissions"
                     selectionBinding="transmission"
                     prompt="Please Select"
         }}
     </div>
-    <div>
-        <span class="form-field-label">Fuel Type: </span>
+    <div class="form-element"> 
+        <label class="form-field-label">Fuel Type: </label>
         {{view Em.Select contentBinding="fuelTypes"
                     selectionBinding="fuelType"
                     prompt="Please Select"
         }}
         
     </div>
-    <div>
-        <span class="clarification-msg">If you can't find a car from the list above, add a new one</span>
-        <button class="inline-to-block btn" {{action "showAddNewCarForm"
+    <div class="form-element">
+        <span class="label label-warning">If you can't find a specific car model select a general description</span>
+        <button class="inline-to-block btn btn-danger form-btn" {{action "showAddNewCarForm"
         }}>Select a general car</button>
     </div>
 </script>
 
 <!--Template containing the form elements for adding a new car. Child of App.TripLegView -->
 <script type="text/x-handlebars" data-template-name="general-car-view">
-	<div>
-        <span class="form-field-label">Fuel Type: </span>
+	<div class="form-element">
+        <label class="form-field-label">Fuel Type: </label>
         {{view Em.Select contentBinding="App.fuelTypes"
                          selectionBinding="fuelType"
                          prompt="Please Select"
         }}
     </div>
-	 <div>
-        <span class="form-field-label">description: </span>
+	 <div class="form-element">
+        <label class="form-field-label">description: </label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
         }}
    </div>
-    <div>
-        <span class="clarification-msg">Select a car from the list:</span>
-        <button class="inline-to-block btn" {{action "showCarListForm"
+    <div class="form-element">
+        <label class="label label-warning">Select a specific car model:</label>
+        <button class="inline-to-block btn btn-danger form-btn" {{action "showCarListForm"
         }}>Select from list</button>
     </div>
 </script>
 
 <script type="text/x-handlebars" data-template-name="bus-view">
-	<div>
-		<label>Bus Type:</label>
+	<div class="form-element">
+		<label class="form-field-label">Bus Type:</label>
 		{{view Em.Select contentBinding="descriptions"
 		                 selectionBinding="description"
 		                 prompt="Please Select"
@@ -217,8 +251,8 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="taxi-view">
-    <div>
-        <label>Taxi Type:</label>
+    <div class="form-element">
+        <label class="form-field-label">Taxi Type:</label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
@@ -227,8 +261,8 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="motorcycle-view">
-    <div>
-        <label>Motorcycle Type:</label>
+    <div class="form-element">
+        <label class="form-field-label">Motorcycle Type:</label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
@@ -237,8 +271,8 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="ferry-view">
-    <div>
-        <label>Ferry Type:</label>
+    <div class="form-element">
+        <label class="form-field-label">Ferry Type:</label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
@@ -247,8 +281,8 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="rail-view">
-    <div>
-        <label>Rail Type:</label>
+    <div class="form-element">
+        <label class="form-field-label">Rail Type:</label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
@@ -257,15 +291,15 @@
 </script>
 
 <script type="text/x-handlebars" data-template-name="aviation-view">
-    <div>
-        <label>Flight Type:</label>
+    <div class="form-element">
+        <label class="form-field-label">Flight Type:</label>
         {{view Em.Select contentBinding="descriptions"
                          selectionBinding="description"
                          prompt="Please Select"
         }}
     </div>  
-    <div>
-        <label>Cabin Class:</label>
+    <div class="form-element">
+        <label class="form-field-label">Cabin Class:</label>
         {{view Em.Select contentBinding="cabinClasses"
                          selectionBinding="cabinClass"
                          prompt="Please Select"

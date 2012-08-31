@@ -1,0 +1,20 @@
+
+{% extends 'shared/base.html' %}
+
+{% block title %}Carbon emissions{% endblock %}
+
+{% load staticfiles %}
+
+{% block additionalScripts %}
+    <script src="{% static 'scripts/effects/wtRotator/preview.js' %}"></script>   
+    <link rel="stylesheet" type="text/css" href="{% static 'scripts/effects/wtRotator/wt-rotator.css' %}" /> 
+    <script src="{% static 'scripts/effects/wtRotator/jquery.wt-rotator.min.js' %}"></script>    
+{% endblock %}
+
+{% block header %}
+    {% include 'shared/includes/banner.html' %}
+{% endblock %}
+
+{% block content %}
+    
+{% endblock %}

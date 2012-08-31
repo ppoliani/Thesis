@@ -125,7 +125,7 @@ function replaceGifWithMsg() {
 	var interv = setInterval(function() {
 		$('#secs').html(--secs);
 		if (secs == 0) {
-			window.location.replace('/home/');
+			window.location.replace('/');
 		}
 	}, 1000);
 

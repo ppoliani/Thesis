@@ -2,12 +2,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                
         <title>{% block title %}Base Template{% endblock %}</title>
         
         {% load staticfiles %}
-
+        
         <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap/css/bootstrap.min.css" %}"/>
+        <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap/css/bootstrap-responsive.min.css" %}"/>
         <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "scripts/rss/example_ticker.css" %}" />
+        <link rel="stylesheet" type="text/css" href="{% static "scripts/rss/weatherFeed/example_jquerytools.css" %}" />
         
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
         <!--<script src="http://cloud.github.com/downloads/emberjs/ember.js/ember-0.9.6.min.js"></script>-->
@@ -16,43 +21,59 @@
         <script src="{% static "scripts/utils/util.js" %}"></script>
         <script src="{% static "scripts/app.js" %}"></script>
         
+        <script src="{% static "scripts/rss/jquery.zrssfeed.min.js" %}"></script>
+        <script src="{% static "scripts/rss/jquery.vticker.js" %}"></script>
+        <script src="{% static "scripts/rss/weatherFeed/jquery.zweatherfeed.min.js" %}"></script>
+        <script src="{% static "scripts/rss/init.js" %}"></script>
+        
+        
         {% block additionalScripts %}{% endblock %}
     </head>
     <body>
+    	{% block menu %}
         <div class="navbar">
             <div class="navbar-inner">
                 <nav class="container">
-                	<a class="brand pull-right" href="#"> Carbon Emissions </a>
+                	<a class="brand pull-right" href="/"> Carbon Emissions </a>
                     <ul class="nav">
                         <li class="active">
-                            <a href="#">Home</a>
+                            <a href="">Home</a>
                         </li>
                         <li class="divider-vertical"></li>
                         <li>
-                            <a href="#">Add Trip</a>
+                            <a href="/add-trip/">Add Trip</a>
                         </li>
                         <li>
-                            <a href="#">Edit Trip</a>
+                            <a href="/trips/">View Trips</a>
                         </li>
                         <li>
-                            <a href="#">Carbon Footprints Report</a>
+                            <a href="/report/">Carbon Footprints Report</a>
                         </li>
                     </ul>
                 </nav>
             </div>
         </div>
+        {% endblock %}
+        {% block breadcrumb %}
         <ul class="breadcrumb">
             <li class="active">
-                <a href="#">Home</a><span class="divider">/</span>
+                <a href="/">Home</a><span class="divider">/</span>
             </li>
         </ul>
+        {% endblock %}
         <div class="container-fluid">
             <!-- Main Content -->
             <div class="row-fluid">
-                <div class="span2">
-                    <!--Sidebar content-->
+                <div class="span4">
+                    <div id="rss-feeds">
+                        <div class="scrollable vertical">
+                            <div id="weatherFeed"></div>
+                        </div>
+                        <div id="rss"></div>     
+                    </div>
                 </div>
-                <div class="span10">
+                <div class="span8">
+                	{% block header %}{% endblock %}
                     {% block content %}}{% endblock %}
                 </div>
                 <!-- Footer -->

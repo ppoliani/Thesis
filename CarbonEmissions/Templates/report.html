@@ -29,6 +29,41 @@
     <script src="{% static "scripts/visualization/provGraphs.js" %}"></script>
 {% endblock %}
 
+{% block menu %}
+        <div class="navbar">
+            <div class="navbar-inner">
+                <nav class="container">
+                    <a class="brand pull-right" href="/"> Carbon Emissions </a>
+                    <ul class="nav">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <a href="/add-trip/">Add Trip</a>
+                        </li>
+                        <li>
+                            <a href="/trips/">View Trips</a>
+                        </li>
+                        <li class="active">
+                            <a href="/report/">Carbon Footprints Report</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Home</a><span class="divider">/</span>
+        </li>
+        <li class="active">
+            <a href="/">Carbon Emissions Report</a><span class="divider">/</span>
+        </li>
+    </ul>
+{% endblock %}
 {% block content %}
     <section id="chartContainer"></section>
     
@@ -36,51 +71,58 @@
      	<section class="stats">
      		<h1>Individual Stats</h1>
      		<ul>
-     			 <li>Number of trips made: {{stats.individual.numOfTrips}}</li>
-     		     <li>Total GHG emissions: {{stats.individual.total}} Kg CO2e</li>
-     		     <li>Min GHG emissions: {{stats.individual.min}} Kg CO2e</li>
-     		     <li>Max GHG emissions: {{stats.individual.max}}</li>
-     		     <li>Average GHG emissions per trip: {{stats.individual.avg}}</li>
+     			 <li>Number of trips made: <span>{{stats.individual.numOfTrips}}</span></li>
+     		     <li>Total GHG emissions: <span>{{stats.individual.total}} Kg CO2e<span></li>
+     		     <li>Min GHG emissions: <span>{{stats.individual.min}} Kg CO2e</span></li>
+     		     <li>Max GHG emissions: <span>{{stats.individual.max}}</span></li>
+     		     <li>Average GHG emissions per trip: <span>{{stats.individual.avg}}</span></li>
      		</ul>
      	</section>
-        <div>
-            <label for="from">From: </label>
+        <div class="date-range-picker">
+            <label for="from" class="form-field-label">From: </label>
             {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
             }}
         
-            <label for="until">Until: </label>
+            <label for="until" class="form-field-label">Until: </label>
             {{view App.CustomTextField valueBinding="until"  class="inline untilDate"
             }}
         </div>
-    
+        
+        <br class="clear"/>
+        
         <div id="tripLegChart" style="min-width: 400px; height: 400px; margin: 0 auto">
             <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
         </div>
+        
+        <hr />
     </script>
     
      <script type="text/x-handlebars" data-template-name="ghg-per-trip">
-        <div>
-            <label for="from">From: </label>
+        <div class="date-range-picker">
+            <label for="from" class="form-field-label">From: </label>
             {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
             }}
         
-            <label for="until">Until: </label>
+            <label for="until" class="form-field-label">Until: </label>
             {{view App.CustomTextField valueBinding="until" class="inline untilDate"
             }}
         </div>
+        
+        <br class="clear"/>
     
         <div id="tripChart" style="min-width: 400px; height: 400px; margin: 0 auto">
             <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
         </div>
+        <hr />
     </script>
     
     <script type="text/x-handlebars" data-template-name="ghg-per-tranpsport-mean">
-        <div>
-            <label for="from">From: </label>
+        <div class="date-range-picker">
+            <label for="from" class="form-field-label">From: </label>
             {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
             }}
         
-            <label for="until">Until: </label>
+            <label for="until" class="form-field-label">Until: </label>
             {{view App.CustomTextField valueBinding="until" class="inline untilDate"
             }}
         </div>
@@ -88,25 +130,26 @@
         <div id="transportMeanChart" style="min-width: 400px; height: 400px; margin: 0 auto">
             <img id="ajax-preloader" src="{% static "images/ajax-loader.gif" %}" />
         </div>
+        <hr />
     </script>
     
      <script type="text/x-handlebars" data-template-name="group-ghg">
      	<section class="stats">
             <h1>Group Stats</h1>
             <ul>
-            	 <li>Number of trips made: {{stats.group.numOfTrips}}</li>
-                 <li>Total GHG emissions: {{stats.group.total}}</li>
-                 <li>Min GHG emissions: {{stats.group.min}}</li>
-                 <li>Max GHG emissions: {{stats.group.max}}</li>
-                 <li>Average GHG emissions per trip: {{stats.group.avg}}</li>
+            	 <li>Number of trips made: <span>{{stats.group.numOfTrips}}</span></li>
+                 <li>Total GHG emissions: <span>{{stats.group.total}} Kg CO2e</span></li>
+                 <li>Min GHG emissions: <span>{{stats.group.min}} Kg CO2e</span></li>
+                 <li>Max GHG emissions: <span>{{stats.group.max}} Kg CO2e</span></li>
+                 <li>Average GHG emissions per trip: <span>{{stats.group.avg}} Kg CO2e</span></li>
             </ul>
         </section>
-        <div>
-            <label for="from">From: </label>
+        <div class="date-range-picker">
+            <label for="from" class="form-field-label">From: </label>
             {{view App.CustomTextField valueBinding="from"  class="inline fromDate"
             }}
         
-            <label for="until">Until: </label>
+            <label for="until" class="form-field-label">Until: </label>
             {{view App.CustomTextField valueBinding="until" class="inline untilDate"
             }}
         </div>

@@ -13,6 +13,42 @@
 	<script src="{% static "scripts/utils/pagination.js" %}"></script>
 {% endblock %}
 
+{% block menu %}
+        <div class="navbar">
+            <div class="navbar-inner">
+                <nav class="container">
+                    <a class="brand pull-right" href="/"> Carbon Emissions </a>
+                    <ul class="nav">
+                        <li>
+                            <a href="/">Home</a>
+                        </li>
+                        <li class="divider-vertical"></li>
+                        <li>
+                            <a href="/add-trip/">Add Trip</a>
+                        </li>
+                        <li class="active">
+                            <a href="/trips/">View Trips</a>
+                        </li>
+                        <li>
+                            <a href="/report/">Carbon Footprints Report</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+{% endblock %}
+
+{% block breadcrumb %}
+    <ul class="breadcrumb">
+        <li>
+            <a href="/">Home</a><span class="divider">/</span>
+        </li>
+        <li class="active">
+            <a href="/">User Trips</a><span class="divider">/</span>
+        </li>
+    </ul>
+{% endblock %}
+
 {% block content %}
 <div id="forecast">
     <div id="tabstrip">
@@ -110,12 +146,12 @@
     	   		}}</dt>
     	   <dd><ul>{{#each tripLegs
     	   	    }}   
-    	   	   <li>From: {{from
-    	   	   	}}<li/> 
-    	   	   	<li>To: {{to
-    	   	   		}}<li/>
-    	   	   	<li>Emissions: {{emissions
-    	   	   		}}<li/>  
+    	   	   <li>From: <span>{{from
+    	   	   	}}</span><li/> 
+    	   	   	<li>To: <span>{{to
+    	   	   		}}</span><li/>
+    	   	   	<li>Emissions: <span>{{emissions
+    	   	   		}}</span><li/>  
     	   	   {{/each
     	   	   }}
     	   	   	</ul>
@@ -129,6 +165,7 @@
                     }} class="btn btn-danger">Delete</a>
     	   	   	
     	   	</dd>
+    	   	<hr />
     	{{/each
     	}}
     	{% include 'shared/includes/pagination.html' %}
