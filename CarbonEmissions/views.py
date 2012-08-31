@@ -18,12 +18,13 @@ from googlemaps import GoogleMaps
 
 from django.utils import simplejson
 from numpy.ma.core import logical_and
+from django.template.context import RequestContext
 
 #constants
 GOOGLE_MAPS_API_KEY = 'AIzaSyDY0dYuWgX47mvEyJoiRjky76pLBTZTlfQ'
 
 def home(request):
-    return render_to_response('home.html')
+    return render_to_response('home.html', {'user': request.user}, context_instance=RequestContext(request))
 
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
@@ -69,7 +70,7 @@ def createTrip(request):
     else:
         form = TripForm()
         
-    return render_to_response('createTrip.html', {'form': form})
+    return render_to_response('createTrip.html', {'form': form, 'user': request.user}, context_instance=RequestContext(request))
 
 #returns the description from the general cars table
 def getGeneralCarDescription(request):
@@ -464,7 +465,7 @@ def report(request):
     stats['individual'] = getIndividualStats(User.get_profile(request.user))
     stats['group'] = getGroupStats(User.get_profile(request.user))
     
-    return render_to_response('report.html', {'stats': stats})
+    return render_to_response('report.html', {'stats': stats, 'user': request.user}, context_instance=RequestContext(request))
 
 #returns some individual stats concerning ghg emissions
 def getIndividualStats(userProfile):
@@ -752,6 +753,7 @@ def getProvNodeInfo(request):
 
 
 #returns the user trip page. (without any trips this is done asynchronously with AJAX) 
+@login_required
 def getUserTrips(request):
     """
         returns all the trips that user has made along with information about each trip
@@ -759,7 +761,8 @@ def getUserTrips(request):
     userProfile = User.get_profile(request.user)
 
     return render_to_response('trips.html', {'name': request.user.first_name, 
-                                             'surname': request.user.last_name})
+                                             'surname': request.user.last_name,
+                                             'user': request.user}, context_instance=RequestContext(request))
 
 #returns the trips made by user, where the transport mean was a specific car model
 def getTripsWithCarModel(request):

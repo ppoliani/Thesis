@@ -35,6 +35,7 @@
             <div class="navbar-inner">
                 <nav class="container">
                 	<a class="brand pull-right" href="/"> Carbon Emissions </a>
+                	{% include 'shared/includes/loginControllers.html' %}
                     <ul class="nav">
                         <li class="active">
                             <a href="">Home</a>
@@ -54,6 +55,7 @@
             </div>
         </div>
         {% endblock %}
+        
         {% block breadcrumb %}
         <ul class="breadcrumb">
             <li class="active">
