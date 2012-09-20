@@ -8,7 +8,7 @@ from CarbonEmissions.views import parseCarCsv, createTrip, getCarManufacturers, 
                                 report, getTripLegInfo, getTransportMeanReport, getProvGraph, getProvNodeInfo, getUserTrips, \
                                 getTripsWithCarModel, getTripsWithBus, getTripsWithCar, getTripsWithTaxi, getTripsWithRail, \
                                 getTripsWithMotorcycle, getTripsWithFerry, getTripsWithAirplane, editTrip, getTrip, getGroupEmissionInfo, \
-                                deleteTempProvImg, home
+                                deleteTempProvImg, home, mobile, mobileLogin
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     (r'accounts/login/$', login, {'template_name': 'auth/login.html'}),
     (r'accounts/logout/$', logout),
+    (r'accounts/mobile-login/$', mobileLogin),
     url(r'^logout/(?P<next_page>.*)/$', 'django.contrib.auth.views.logout', name='auth_logout_next'),
     (r'^$', home),
     (r'^parse/$', parseCarCsv),
@@ -71,6 +72,7 @@ urlpatterns = patterns('',
     (r'^get-group-info/$', getGroupEmissionInfo),
     
     (r'^edit-trip/(\d{1,2})/$', editTrip),
+    (r'^mobile/$', mobile),
 )
 
     

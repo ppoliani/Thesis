@@ -1,4 +1,4 @@
-{% extends 'shared/base.html' %}
+{% extends base %}
 
 {% block title %}Trips made by {{name}} {{surname}}{% endblock %}
 
@@ -11,6 +11,11 @@
 	
 	<script src="{% static "scripts/kendoUi/js/kendo.web.min.js" %}"></script>
 	<script src="{% static "scripts/utils/pagination.js" %}"></script>
+	
+	{% if mobileDevice %}
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    {% endif %}
 {% endblock %}
 
 {% block menu %}
@@ -51,6 +56,19 @@
 {% endblock %}
 
 {% block content %}
+
+{% if mobileDevice %}
+<div data-role="page" id="addTrip">
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="/add-trip" data-role="button" rel="external"  data-icon="plus"  >Add Trips</a></li>
+                <li><a href="/trips" data-role="button" data-icon="search" rel="external" class="ui-btn-active ui-state-persist">Trips</a></li>
+                <li><a href="/report" data-role="button" data-icon="star" rel="external">Report</a></li>   
+            </ul>
+        </div>
+    </div>
+{% endif %}
 <div id="forecast">
     <div id="tabstrip">
         <ul>

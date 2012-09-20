@@ -1,4 +1,4 @@
-{% extends 'shared/base.html' %}
+{% extends base %}
 
 {% block title %}Add new trip{% endblock %}
 
@@ -13,6 +13,11 @@
     <script src="{% static "scripts/bingMaps.js" %}"></script>
     <script src="{% static "scripts/effects/popUpEffect.js" %}"></script>
     <script src="{% static "scripts/utils/jquery.validate.min.js" %}"></script>
+    
+    {% if mobileDevice %}
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    {% endif %}
 {% endblock %}
 
 {% block menu %}
@@ -60,6 +65,18 @@
 </p>
 {% endif %}
 
+{% if mobileDevice %}
+<div data-role="page" id="addTrip">
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="/add-trip" data-role="button" rel="external" data-icon="plus" class="ui-btn-active ui-state-persist">Add Trips</a></li>
+                <li><a href="/trips" data-role="button" data-icon="search" rel="external">Trips</a></li>
+                <li><a href="/report" data-role="button" data-icon="star" rel="external">Report</a></li>   
+            </ul>
+        </div>
+    </div>
+{% endif %}
 <div id="trip-creation-container">
     <h1>Add a new trip</h1>
     <script type="text/x-handlebars">
@@ -318,4 +335,7 @@
 	</div>
 </div>
 
+{% if mobileDevice %}
+</div>
+{% endif %}
 {% endblock %}

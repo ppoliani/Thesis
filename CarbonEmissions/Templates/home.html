@@ -1,5 +1,5 @@
+{% extends base %}
 
-{% extends 'shared/base.html' %}
 
 {% block title %}Carbon emissions{% endblock %}
 
@@ -12,7 +12,9 @@
 {% endblock %}
 
 {% block header %}
-    {% include 'shared/includes/banner.html' %}
+    {% if not request.mobile %}   
+        {% include 'shared/includes/banner.html' %}  
+    {% endif %}
 {% endblock %}
 
 {% block content %}

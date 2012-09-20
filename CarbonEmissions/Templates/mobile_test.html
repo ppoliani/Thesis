@@ -1,0 +1,54 @@
+{% extends 'shared/mobile_base.html' %}
+
+{% block title %}Mobile App{% endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+<script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+<script src="{% static 'scripts/mobile/mobile.js' %}"></script>
+
+{% endblock %}
+
+{% block content %}
+<div data-role="page" id="login">
+    <div data-role="header">
+        <h1>Login</h1>
+    </div>
+    <label for="userName">User Name:</label>
+    <input type="text" name="username" id="username"/>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password"/>
+    <br />
+    <button value="login" class="btn" id="loginBtn">
+        Login
+    </button>
+</div>
+
+<div data-role="page" id="home">
+    <div data-role="header" data-position="fixed">
+    	<div data-role="navbar">
+            <ul>
+                <li><a href="/add-trip" data-role="button" rel="external" data-icon="plus">Insert</a></li>
+                <li><a href="/trips" data-role="button" rel="external" data-icon="search">Trips</a></li>
+                <li><a href="/report" data-role="button"  rel="external" data-icon="star">Report</a></li>	
+            </ul>
+    	</div>
+    </div>
+    Welcome To our application!
+</div>
+
+<div data-role="page" id="addTrip">
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#addTrip" data-role="button" rel="external" class="ui-btn-active ui-state-persist">Insert</a></li>
+                <li><a href="/trips" data-role="button" rel="external">Trips</a></li>
+                <li><a href="#report" data-role="button">Report</a></li>   
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

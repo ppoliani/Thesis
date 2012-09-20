@@ -4,7 +4,6 @@
 /*************************************
  * Application
  *************************************/
-
 App = Em.Application.create({
 	name : 'carbon footprints',
 
@@ -16,6 +15,7 @@ App = Em.Application.create({
 /*************************************
  * Models
  *************************************/
+/**A Model representing an address*/
 App.Address = Em.Object.extend({
 	country: null,
 	county: null,
@@ -29,7 +29,7 @@ App.Address = Em.Object.extend({
 	visibility: null,	
 });
 
-/*Model representing the specific car model, chosen from the list of existing cars*/
+/**Model representing the specific car model, chosen from the list of existing cars*/
 App.CarModel = Em.Object.extend({
 	manufacturer : null,
 	model : null,
@@ -39,18 +39,18 @@ App.CarModel = Em.Object.extend({
 	fuelType : null
 });
 
-/*Model representing a car*/
+/**Model representing a car*/
 App.GeneralCarModel = Em.Object.extend({
 	description : null,
 	fuelType : null
 });
 
-/*Model representing buses*/
+/**Model representing buses*/
 App.BusModel = Em.Object.extend({
 	description: null
 });
 
-/*Model representing taxis*/
+/**Model representing taxis*/
 App.TaxiModel = Em.Object.extend({
 	description: null
 });

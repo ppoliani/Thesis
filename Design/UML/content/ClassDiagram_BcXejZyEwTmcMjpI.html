@@ -1,0 +1,343 @@
+<html>
+<head>
+	<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="report.css" type="text/css"/>
+	<title>Class Diagram - Visualization</title>
+	<script type="text/javascript" src="report.js"></script>
+	<script type="text/javascript" src="link_popup.js"></script>
+	<script type="text/javascript" src="tooltip.js"></script>
+</head>
+<body style="margin-left: 10px; margin-right: 10px; margin-top: 10px; margin-bottom: 10px;" onload="initPage();initDiagram();initGridDiagram();">
+	<div id="spotlight" style="position:absolute; width:100px; height:100px; z-index:2; visibility:hidden">
+		<table id="spotLightTable" onClick="updateCursorPos(event);adjustPopupPositionForSpotLightTable();clearSpotLight()" style="border-style:solid; border-width:3px; border-color:#FF0000" width="100%" cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td id="spotLightCell">
+				</td>
+			</tr>
+		</table>
+	</div>
+	<canvas id="spotlight_c" height="100" style="position:absolute; z-index:2; visibility:hidden" width="100">
+	</canvas>
+	<div id="spotLightResourcesTop" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="spotLightResourcesRight" style="position:absolute; width:100px; height:100px; z-index:1; visibility:hidden">
+		<table cellpadding="0" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<a href="#top">
+						<img style="border:none" src="../images/icons/BackToTop.gif" alt="Back to top"/></a>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<a href="javascript:clearSpotLightFromOpenSpecButton();">
+						<img style="border:none" src="../images/icons/OpenSpecification.gif" alt="Open specification"/></a>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="linkPopupMenuLayer" style="position:absolute;z-index:2;visibility:hidden">
+		<table id="linkPopupMenuTable" style="border-style:solid; border-width:1px; border-color:#000000; background:#FFFFFF; width:250px" width="100%" border="0">
+		</table>
+	</div>
+	<div id="referenceIconLayer" style="position:absolute; z-index:1; visibility:hidden; ">
+		<table style="font-size:1;" width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Ref.gif" style="border:none" onclick="movePopupPositionToReferenceIconPosition();resetPopupForReference();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="subdiagramIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Subdiagram.gif" style="border:none" onclick="movePopupPositionToSubdiagramIconPosition();resetPopupForSubdiagram();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="transitorIconLayer" style="position:absolute; z-index:1; visibility:hidden">
+		<table width="100%" cellpadding="3" border="0" cellspacing="0">
+			<tr>
+				<td>
+					<img src="../images/icons/Transitor.gif" style="border:none" onclick="movePopupPositionToTransitorIconPosition();resetPopupForTransitor();switchPopupShowHideStatus();" />				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="HeaderLine1">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine2">
+			</td>
+		</tr>
+		<tr>
+			<td class="HeaderLine3">
+			</td>
+		</tr>
+	</table>
+	<p>
+		<a target="_content_pane" class="PageParentTitle" href="Package_8f3ejZyEwTmcMjpQ.html">
+Visualization : Package</a>
+	</p>
+	<p class="PageTitle">
+		Class Diagram - Visualization	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+<span class="TableContent">Jump to:</span>				<select id="SelectShape" class="TableContent" onChange="scrollWin(this.value);showSpotLight(this.value)">
+<option value="">Please select a model element</option>
+<option value="shape|202.0|2.0|90.0|50.0|Class_n9sGjZyEwTmcMmG1.html|Class_n9sGjZyEwTmcMmG1.html|vMvejZyEwTmcMjpm" id="optionvMvejZyEwTmcMjpm">EmberView : Class</option>
+<option value="shape|212.0|132.0|90.0|40.0|Class_NlNmjZyEwTmcMmKi.html|Class_NlNmjZyEwTmcMmKi.html|osvejZyEwTmcMjp8" id="optionosvejZyEwTmcMjp8">PaginatationView : Class</option>
+<option value="shape|602.0|2.0|90.0|40.0|Class_p9DmjZyEwTmcMmN1.html|Class_p9DmjZyEwTmcMmN1.html|csvejZyEwTmcMjqS" id="optioncsvejZyEwTmcMjqS">EmberObject : Class</option>
+<option value="shape|2.0|232.0|110.0|40.0|Class_4wLmjZyEwTmcMmRJ.html|Class_4wLmjZyEwTmcMmRJ.html|6svejZyEwTmcMjqo" id="option6svejZyEwTmcMjqo">GHGPerTripView : Class</option>
+<option value="shape|622.0|232.0|80.0|40.0|Class_ea3mjZyEwTmcMmYi.html|Class_ea3mjZyEwTmcMmYi.html|.svejZyEwTmcMjq." id="option.svejZyEwTmcMjq.">TripInfoModel : Class</option>
+<option value="shape|432.0|132.0|110.0|40.0|Class_s_4WjZyEwTmcMmkv.html|Class_s_4WjZyEwTmcMmkv.html|HsvejZyEwTmcMjsA" id="optionHsvejZyEwTmcMjsA">tripInfoController : Class</option>
+<option value="shape|432.0|2.0|110.0|40.0|Class_u3kWjZyEwTmcMmmZ.html|Class_u3kWjZyEwTmcMmmZ.html|gcvejZyEwTmcMjsW" id="optiongcvejZyEwTmcMjsW">EmberController : Class</option>
+<option value="shape|132.0|232.0|130.0|40.0|Class_5jB_jZyEwTmcMkt9.html|Class_5jB_jZyEwTmcMkt9.html|5jB.jZyEwTmcMkt8" id="option5jB.jZyEwTmcMkt8">GHGPerTripLegVIew : Class</option>
+<option value="shape|282.0|232.0|110.0|40.0|Class__XR_jZyEwTmcMkwb.html|Class__XR_jZyEwTmcMkwb.html|.XR.jZyEwTmcMkwa" id="option.XR.jZyEwTmcMkwa">GroupGHGView : Class</option>
+<option value="shape|412.0|232.0|170.0|40.0|Class_5Pp_jZyEwTmcMkyn.html|Class_5Pp_jZyEwTmcMkyn.html|5Pp.jZyEwTmcMkym" id="option5Pp.jZyEwTmcMkym">GHGPerTransportMeanView : Class</option>
+</select>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td>
+				<img id = "diagram" src = "../images/Visualization.png" usemap="#diagram_map" class="Image" width="706.0" height="276.0"/>				<map name = "diagram_map">
+
+<area coords="412.0, 232.0, 582.0, 272.0" coords2="412.0, 232.0, 582.0, 272.0" shape="rect" alt="GHGPerTransportMeanView:Class" id="area5Pp.jZyEwTmcMkym" href="Class_5Pp_jZyEwTmcMkyn.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="282.0, 232.0, 392.0, 272.0" coords2="282.0, 232.0, 392.0, 272.0" shape="rect" alt="GroupGHGView:Class" id="area.XR.jZyEwTmcMkwa" href="Class__XR_jZyEwTmcMkwb.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="132.0, 232.0, 262.0, 272.0" coords2="132.0, 232.0, 262.0, 272.0" shape="rect" alt="GHGPerTripLegVIew:Class" id="area5jB.jZyEwTmcMkt8" href="Class_5jB_jZyEwTmcMkt9.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="432.0, 2.0, 542.0, 42.0" coords2="432.0, 2.0, 542.0, 42.0" shape="rect" alt="EmberController:Class" id="areagcvejZyEwTmcMjsW" href="Class_u3kWjZyEwTmcMmmZ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="432.0, 132.0, 542.0, 172.0" coords2="432.0, 132.0, 542.0, 172.0" shape="rect" alt="tripInfoController:Class" id="areaHsvejZyEwTmcMjsA" href="Class_s_4WjZyEwTmcMmkv.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="622.0, 232.0, 702.0, 272.0" coords2="622.0, 232.0, 702.0, 272.0" shape="rect" alt="TripInfoModel:Class" id="area.svejZyEwTmcMjq." href="Class_ea3mjZyEwTmcMmYi.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="2.0, 232.0, 112.0, 272.0" coords2="2.0, 232.0, 112.0, 272.0" shape="rect" alt="GHGPerTripView:Class" id="area6svejZyEwTmcMjqo" href="Class_4wLmjZyEwTmcMmRJ.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="602.0, 2.0, 692.0, 42.0" coords2="602.0, 2.0, 692.0, 42.0" shape="rect" alt="EmberObject:Class" id="areacsvejZyEwTmcMjqS" href="Class_p9DmjZyEwTmcMmN1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="212.0, 132.0, 302.0, 172.0" coords2="212.0, 132.0, 302.0, 172.0" shape="rect" alt="PaginatationView:Class" id="areaosvejZyEwTmcMjp8" href="Class_NlNmjZyEwTmcMmKi.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="202.0, 2.0, 292.0, 52.0" coords2="202.0, 2.0, 292.0, 52.0" shape="rect" alt="EmberView:Class" id="areavMvejZyEwTmcMjpm" href="Class_n9sGjZyEwTmcMmG1.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="235.0, 42.0, 235.0, 141.0, 249.0, 141.0, 249.0, 42.0" coords2="235.0, 42.0, 235.0, 141.0, 249.0, 141.0, 249.0, 42.0" shape="poly" alt=":Generalization" id="areaUcvejZyEwTmcMjss" href="Generalization_Z2HmjZyEwTmcMmWO.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="645.0, 32.0, 645.0, 241.0, 659.0, 241.0, 659.0, 32.0" coords2="645.0, 32.0, 645.0, 241.0, 659.0, 241.0, 659.0, 32.0" shape="poly" alt=":Generalization" id="areat8vejZyEwTmcMjs5" href="Generalization_aZwWjZyEwTmcMmkH.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="485.0, 32.0, 485.0, 141.0, 499.0, 141.0, 499.0, 32.0" coords2="485.0, 32.0, 485.0, 141.0, 499.0, 141.0, 499.0, 32.0" shape="poly" alt=":Generalization" id="areaUCvejZyEwTmcMjtU" href="Generalization_fr8WjZyEwTmcMmpr.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="215.0, 161.0, 100.0, 231.0, 108.0, 242.0, 223.0, 172.0, 215.0, 161.0" coords2="215.0, 161.0, 100.0, 231.0, 108.0, 242.0, 223.0, 172.0, 215.0, 161.0" shape="poly" alt=":Association" id="areacNV.jZyEwTmcMk2o" href="Association_cNV_jZyEwTmcMk2L.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="225.0, 162.0, 225.0, 241.0, 239.0, 241.0, 239.0, 162.0" coords2="225.0, 162.0, 225.0, 241.0, 239.0, 241.0, 239.0, 162.0" shape="poly" alt=":Association" id="areabC1.jZyEwTmcMk3K" href="Association_bC1_jZyEwTmcMk2t.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="275.0, 162.0, 275.0, 241.0, 289.0, 241.0, 289.0, 162.0" coords2="275.0, 162.0, 275.0, 241.0, 289.0, 241.0, 289.0, 162.0" shape="poly" alt=":Association" id="area_z1.jZyEwTmcMk3s" href="Association__z1_jZyEwTmcMk3P.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="297.0, 160.0, 291.0, 173.0, 416.0, 243.0, 422.0, 230.0, 297.0, 160.0" coords2="297.0, 160.0, 291.0, 173.0, 416.0, 243.0, 422.0, 230.0, 297.0, 160.0" shape="poly" alt=":Association" id="area6GN.jZyEwTmcMk4O" href="Association_6GN_jZyEwTmcMk3x.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="538.0, 161.0, 530.0, 172.0, 625.0, 242.0, 633.0, 231.0, 538.0, 161.0" coords2="538.0, 161.0, 530.0, 172.0, 625.0, 242.0, 633.0, 231.0, 538.0, 161.0" shape="poly" alt=":Association" id="area5Ub.jZyEwTmcMlOz" href="Association_ZUb_jZyEwTmcMlOW.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+<area coords="292.0, 145.0, 292.0, 159.0, 441.0, 159.0, 441.0, 145.0" coords2="292.0, 145.0, 292.0, 159.0, 441.0, 159.0, 441.0, 145.0" shape="poly" alt=":Association" id="area7jX.jZyEwTmcMlPV" href="Association_7jX_jZyEwTmcMlO4.html" onmouseover="hideReferenceIcon(),hideSubdiagramIcon(),hideTransitorIcon()"/>
+</map>			</td>
+		</tr>
+	</table>
+	<p>
+	</p>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="Category">
+				Model Elements			</td>
+		</tr>
+		<tr>
+			<td style="height: 5px">
+			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td colSpan="4" class="TableHeaderLine">
+			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine1">
+			</td>
+		</tr>
+		<tr class="TableHeader">
+			<td class="TableCellSpaceHolder10Px">
+			</td>
+			<td width="30%">
+<span class="TableHeaderText">Name</span>			</td>
+			<td class="TableCellSpaceHolder20Px">
+			</td>
+			<td>
+<span class="TableHeaderText">Documentation</span>			</td>
+		</tr>
+		<tr>
+			<td colSpan="4" class="TableHeaderLine2">
+			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_n9sGjZyEwTmcMmG1.html">EmberView : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_NlNmjZyEwTmcMmKi.html">PaginatationView : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_p9DmjZyEwTmcMmN1.html">EmberObject : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_4wLmjZyEwTmcMmRJ.html">GHGPerTripView : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_ea3mjZyEwTmcMmYi.html">TripInfoModel : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_s_4WjZyEwTmcMmkv.html">tripInfoController : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_u3kWjZyEwTmcMmmZ.html">EmberController : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_5jB_jZyEwTmcMkt9.html">GHGPerTripLegVIew : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow1">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class__XR_jZyEwTmcMkwb.html">GroupGHGView : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+		<tr class="TableRow2">
+			<td>
+			</td>
+			<td>
+				<span class="TableContent">
+					<div style="float: left; width: 18px !important;height: 18px !important;background-image:url(../images/icons/Class.png) !important; background-image:url(''); filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../images/icons/Class.png');">
+					</div>
+					&nbsp; <a target="_content_pane" class="ItemLink" href="Class_5Pp_jZyEwTmcMkyn.html">GHGPerTransportMeanView : Class</a>				</span>
+			</td>
+			<td>
+			</td>
+			<td>
+<span class="TableContent"></span>			</td>
+		</tr>
+	</table>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="TableCellSpaceHolder1PxTall">
+			</td>
+		</tr>
+		<tr>
+			<td class="TableFooter">
+			</td>
+		</tr>
+	</table>
+	<div style="height: 20px">
+	</div>
+	<table width="100%" cellpadding="0" border="0" cellspacing="0">
+		<tr>
+			<td class="FooterLine">
+			</td>
+		</tr>
+	</table>
+	<div class="HeaderText">
+		CarbonFootprints Documentation	</div>
+</body>
+</html>

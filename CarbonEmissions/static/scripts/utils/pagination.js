@@ -23,7 +23,7 @@ $(document).ready(function() {
 /*************************************
  * Models
  *************************************/
-/*Model representing the trip that are displyed to users on the trips.html page*/
+/*Model representing the trip that are displayed to users on the trips.html page*/
 App.TripInfoModel = Em.Object.extend({
 	name: null,
 	date: null,

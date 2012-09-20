@@ -1,0 +1,160 @@
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+.inline-to-block {
+	display: block;
+}
+
+.invisible {
+	display: none;
+}
+
+.visible {
+	display: block;
+}
+
+br.both {
+	clear: both;
+}
+
+#login-controls{
+	float: right;
+}
+
+#login-controls a{
+	cursor: pointer;
+}
+
+/*Styles for the pop up effect*/
+#backgroundPopup {
+	display: none;
+	position: fixed;
+	_position: absolute; /* hack for internet explorer 6*/
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background: #000000;
+	border: 1px solid #cecece;
+	z-index: 1;
+}
+
+.popupContact, #msg-container {
+	display: none;
+	position: fixed;
+	_position: absolute; /* hack for internet explorer 6*/
+	height: 0px;
+	width: 0px;
+	background: #FFFFFF;
+	border: 2px solid #cecece;
+	/*border-radius: 300px;*/
+	z-index: 2;
+	padding: 12px;
+	font-size: 13px;
+}
+
+.popupContact h1 {
+	text-align: left;
+	color: #6FA5FD;
+	font-size: 22px;
+	font-weight: 700;
+	border-bottom: 1px dotted #D3D3D3;
+	padding-bottom: 2px;
+	margin-bottom: 20px;
+}
+
+.map {
+	margin: 0 auto;
+	position: relative;
+	width: 400px;
+	height: 400px;
+}
+
+#redirection-alert {
+	display: none;
+}
+
+.inline {
+	display: inline !important;
+}
+
+/*infovis graph styling*/
+#infovis {
+	position: relative;
+	display: none;
+	width: 900px;
+	height: 700px;
+	margin: auto;
+	overflow: hidden;
+}
+
+#center-container {
+	width: 940px;
+	left: 200px;
+	color: #000;
+	z-index: 10;
+}
+
+#ajax-preloader {
+	position:absolute;
+}
+
+/*User trips page*/
+.paginatio-item{
+	float: left;
+}
+
+
+
+
+
+
+.form-btn{
+	margin-top: 20px;
+}
+
+/*report styles*/
+.stats ul,
+.tripInfo ul{
+	list-style-type: none;
+	color: blue;
+	font-weight: bold;
+}
+
+.stats ul li,
+.tripInfo ul li{
+
+}
+
+.stats ul li span,
+.tripInfo ul li span{
+	color: red;	
+}
+
+.date-range-picker{
+	overflow: hidden;
+	margin: 30px 0px 10px 0px;	
+}
+
+.date-range-picker label{
+	font-weight: bold;
+	color: red;	
+}
+
+
+
+.clear{
+	clear: both;
+}
+
+.tripInfo dt{
+	margin-top: 20px;
+	font-weight: bold;
+}
+
+hr{
+	border-top-color: #CC9900;
+}

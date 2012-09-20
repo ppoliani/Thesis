@@ -1,0 +1,13 @@
+
+{% extends 'shared/mobile_base.html' %}
+
+{% block title %}Mobile App{% endblock %}
+
+{% block additionalScripts %}
+{% load staticfiles %}
+<link href="{% static 'touch/resources/css/sencha-touch.css' %}" rel="stylesheet" type="text/css" />
+
+<script src="{% static 'touch/sencha-touch-all.js' %}" type="text/javascript"></script>
+<script src="{% static 'touch/mobile/main.js' %}" type="text/javascript"></script>
+<script src="{% static 'touch/mobile/app.js' %}" type="text/javascript"></script>
+{% endblock %}

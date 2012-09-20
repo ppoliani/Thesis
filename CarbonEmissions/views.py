@@ -20,11 +20,38 @@ from django.utils import simplejson
 from numpy.ma.core import logical_and
 from django.template.context import RequestContext
 
+from minidetector import detect_mobile
+from django.contrib.auth import authenticate, login
+
 #constants
 GOOGLE_MAPS_API_KEY = 'AIzaSyDY0dYuWgX47mvEyJoiRjky76pLBTZTlfQ'
 
+BASE_TEMPLATE = 'shared/base.html'
+MOBILE_BASE_TEMPLATE = 'shared/mobile_base.html'
+
+
+@detect_mobile
 def home(request):
-    return render_to_response('home.html', {'user': request.user}, context_instance=RequestContext(request))
+    if not request.mobile:
+        return render_to_response('home.html', {'user': request.user, 'base': BASE_TEMPLATE, 'mobileDevice': request.mobile})
+    else:
+        return render_to_response('home.html', {'user': request.user, 'base': MOBILE_BASE_TEMPLATE, 'mobileDevice': request.mobile})
+
+@csrf_exempt
+def mobileLogin(request):
+    usrName = request.POST['user']
+    password = request.POST['pass']
+    
+    user = authenticate(username=usrName, password=password)
+    
+    if user is not None:
+        login(request, user)
+        json = simplejson.dumps( {'type': 'success'} )
+        return HttpResponse(json, mimetype='application/json')
+    else:
+        json = simplejson.dumps( {'type': 'error', 'value': 'Wrong username or password!'} )
+        return HttpResponse(json, mimetype='application/json')
+        
 
 def bingMaps(request):
     return render_to_response('shared/partial/bingMaps.html')
@@ -60,6 +87,7 @@ def parseCarCsv(request):
                        
     
 @login_required
+@detect_mobile
 def createTrip(request):
     """view for persisting the data submitted by users when creating new trips"""
     
@@ -69,8 +97,11 @@ def createTrip(request):
             print 'Form is valid'
     else:
         form = TripForm()
-        
-    return render_to_response('createTrip.html', {'form': form, 'user': request.user}, context_instance=RequestContext(request))
+    
+    if not request.mobile:
+        return render_to_response('createTrip.html', {'form': form, 'user': request.user, 'base': BASE_TEMPLATE, 'mobileDevice': request.mobile}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('createTrip.html', {'form': form, 'user': request.user, 'base': MOBILE_BASE_TEMPLATE, 'mobileDevice': request.mobile}, context_instance=RequestContext(request))
 
 #returns the description from the general cars table
 def getGeneralCarDescription(request):
@@ -460,12 +491,17 @@ def computeTripLegsEmissions(request):
 
 #return the carbon footprint report template
 @login_required
+@detect_mobile
 def report(request):
     stats = {}
     stats['individual'] = getIndividualStats(User.get_profile(request.user))
     stats['group'] = getGroupStats(User.get_profile(request.user))
     
-    return render_to_response('report.html', {'stats': stats, 'user': request.user}, context_instance=RequestContext(request))
+    if not request.mobile:
+        return render_to_response('report.html', {'stats': stats, 'user': request.user, 'base': BASE_TEMPLATE, 'mobileDevice': request.mobile}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('report.html', {'stats': stats, 'user': request.user, 'base': MOBILE_BASE_TEMPLATE, 'mobileDevice': request.mobile}, context_instance=RequestContext(request)) 
+    
 
 #returns some individual stats concerning ghg emissions
 def getIndividualStats(userProfile):
@@ -754,15 +790,25 @@ def getProvNodeInfo(request):
 
 #returns the user trip page. (without any trips this is done asynchronously with AJAX) 
 @login_required
+@detect_mobile
 def getUserTrips(request):
     """
         returns all the trips that user has made along with information about each trip
     """
     userProfile = User.get_profile(request.user)
-
-    return render_to_response('trips.html', {'name': request.user.first_name, 
+    
+    if not request.mobile:
+        return render_to_response('trips.html', {'name': request.user.first_name, 
                                              'surname': request.user.last_name,
-                                             'user': request.user}, context_instance=RequestContext(request))
+                                             'user': request.user,
+                                             'base': BASE_TEMPLATE,
+                                             'mobileDevice': request.mobile}, context_instance=RequestContext(request))
+    else:
+        return render_to_response('trips.html', {'name': request.user.first_name, 
+                                             'surname': request.user.last_name,
+                                             'user': request.user,
+                                             'base': MOBILE_BASE_TEMPLATE,
+                                             'mobileDevice': request.mobile}, context_instance=RequestContext(request)) 
 
 #returns the trips made by user, where the transport mean was a specific car model
 def getTripsWithCarModel(request):
@@ -895,14 +941,20 @@ def _getUserTripInfo(userProfile, model, page):
     
 
 #return the edit trip page
+@detect_mobile
 def editTrip(request, tripId):
     """
         return the edit trip page
     """
     
+    if not request.mobile:
+        response = render_to_response('tripEdit.html', {'base': BASE_TEMPLATE})
+    else:
+        response = render_to_response('tripEdit.html', {'base': MOBILE_BASE_TEMPLATE})
+        
     #store the trip id in a cookie
-    response = render_to_response('tripEdit.html')
     response.set_cookie('tripToEdit', tripId)
+    
     
     return response
 
@@ -922,3 +974,7 @@ def getTrip(request):
     returnValues = {'trip': tripValues, 'tripLegs': tripLegValues} 
     
     return HttpResponse(json.dumps(returnValues, cls=DjangoJSONEncoder), mimetype="application/json")
+
+
+def mobile(request):
+    return render_to_response('mobile_test.html');

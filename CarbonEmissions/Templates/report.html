@@ -1,4 +1,4 @@
-{% extends 'shared/base.html' %}
+{% extends base %}
 
 {% block title %}Carbon Footprint Report{% endblock %}
 
@@ -27,6 +27,11 @@
     
     <script src="{% static "scripts/visualization/Jit/jit-yc.js" %}"></script>
     <script src="{% static "scripts/visualization/provGraphs.js" %}"></script>
+    
+    {% if mobileDevice %}
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.css" />
+        <script src="http://code.jquery.com/mobile/1.1.1/jquery.mobile-1.1.1.min.js"></script>
+    {% endif %}
 {% endblock %}
 
 {% block menu %}
@@ -66,6 +71,19 @@
     </ul>
 {% endblock %}
 {% block content %}
+
+{% if mobileDevice %}
+<div data-role="page" id="addTrip">
+    <div data-role="header" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="/add-trip" data-role="button" rel="external" data-icon="plus">Add Trips</a></li>
+                <li><a href="/trips" data-role="button"  rel="external" data-icon="search">View Trips</a></li>
+                <li><a href="#report" data-role="button" rel="external" data-icon="star" class="ui-btn-active ui-state-persist">View Report</a></li>   
+            </ul>
+        </div>
+    </div>
+{% endif %}
     <section id="chartContainer"></section>
     
      <script type="text/x-handlebars" data-template-name="ghg-per-trip-leg">
@@ -176,4 +194,7 @@
     </div>
     <div id="backgroundPopup"></div>
 
+{% if mobileDevice %}
+</div>
+{% endif %}
 {% endblock %}
